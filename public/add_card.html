@@ -152,8 +152,20 @@
           <option value="credit">Credit</option>
         </select>
 
-        <input type="text" id="expiryDate" placeholder="MM/YY" required>
-        <input type="password" id="cvv" placeholder="CVV" required>
+       <input 
+  type="text"
+  id="expiry"
+  placeholder="MM/YY"
+  maxlength="5"
+>
+        <input 
+  type="text"
+  id="cvv"
+  placeholder="CVV"
+  maxlength="3"
+  inputmode="numeric"
+  pattern="\d{3}"
+>
         <input type="password" id="cardPassword" placeholder="Card Password" required>
 
 <button type="submit">Save Card</button>
@@ -176,12 +188,20 @@ document.getElementById("cardForm").addEventListener("submit", async function(e)
   const cardName = document.getElementById("cardName").value;
   const accountNumber = document.getElementById("accountNumber").value;
   const cardType = document.getElementById("cardType").value;
-  const expiryDate = document.getElementById("expiryDate").value;
+  const expiryDate = document.getElementById("expiry").value;
   const cvv = document.getElementById("cvv").value;
   const cardPassword = document.getElementById("cardPassword").value;
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
+ 
 
+// تحقق MM/YY
+if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
+  messageDiv.style.display = "block";
+  messageDiv.textContent = "❌ ادخل تاريخ صحيح بصيغة MM/YY";
+  messageDiv.className = "message error";
+  return;
+}
   try {
 
     const response = await fetch("http://localhost:3000/add-card", {
@@ -226,7 +246,22 @@ document.getElementById("cardForm").addEventListener("submit", async function(e)
   }
 
 });
+const expiryInput = document.getElementById("expiry");
 
+if (expiryInput) {
+  expiryInput.addEventListener("input", function () {
+
+    // يشيل أي حاجة مش رقم
+    let value = this.value.replace(/\D/g, "");
+
+    // يحط / بعد أول رقمين
+    if (value.length >= 3) {
+      value = value.slice(0,2) + "/" + value.slice(2,4);
+    }
+
+    this.value = value;
+  });
+}
 </script>
 
 

@@ -158,7 +158,40 @@
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
 
+.buttons button {
+  flex: 1;           /* نفس العرض */
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Back */
+.backBtn {
+  background-color: #999;
+  color: white;
+}
+
+.backBtn:hover {
+  background-color: #777;
+}
+
+/* Next / Register */
+.nextBtn {
+  background-color: #007b5e;
+  color: white;
+}
+
+.nextBtn:hover {
+  background-color: #046b52;
+}
   </style>
 </head>
 
@@ -173,8 +206,8 @@
       <li><a href="home.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html" class="signup">Sign Up</a></li>
+     <li><a href="login.html" id="loginLink">Login</a></li>
+<li><a href="register.html" id="signupLink" class="signup">Sign Up</a></li>
     </ul>
   </div>
 
@@ -198,28 +231,48 @@
 
         <!-- Step 2 -->
         <div class="step" style="display:none">
-          <input type="text" id="nationalId" maxlength="14" pattern="\d{14}" required>
-          <button type="button" class="nextBtn">Next</button>
+         <input 
+  type="text"
+  id="nationalId"
+  placeholder="National id"
+  maxlength="14"
+  inputmode="numeric"
+  pattern="\d{14}"
+  required
+>
+          <div class="buttons">
+  <button type="button" class="backBtn">Back</button>
+  <button type="button" class="nextBtn">Next</button>
+</div>
         </div>
 
         <!-- Step 3 -->
         <div class="step" style="display:none">
           <input type="email" id="email" placeholder="Email" required>
           <input type="text" id="phonenumber" placeholder="Phone Number" required>
-          <button type="button" class="nextBtn">Next</button>
+          <div class="buttons">
+  <button type="button" class="backBtn">Back</button>
+  <button type="button" class="nextBtn">Next</button>
+</div>
         </div>
 
         <!-- Step 4 -->
         <div class="step" style="display:none">
           <input type="password" id="password" placeholder="Password" required>
           <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-          <button type="button" class="nextBtn">Next</button>
+          <div class="buttons">
+  <button type="button" class="backBtn">Back</button>
+  <button type="button" class="nextBtn">Next</button>
+</div>
         </div>
 
         <!-- Step 5 -->
         <div class="step" style="display:none">
           <input type="date" id="dob" required>
-          <button type="submit" class="btn">Register</button>
+          <div class="buttons">
+  <button type="button" class="backBtn">Back</button>
+  <button type="submit" class="btn">Register</button>
+</div>>
         </div>
 <button
   type="button"
@@ -276,23 +329,68 @@ steps.forEach((step, i) => {
   step.style.display = i === 0 ? "block" : "none";
 });
 
-document.querySelectorAll(".nextBtn").forEach((btn, i) => {
+function showStep(index) {
+  steps.forEach((step, i) => {
+    step.style.display = i === index ? "block" : "none";
+  });
+}
+
+/* ===== Next ===== */
+document.querySelectorAll(".nextBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const inputs = steps[i].querySelectorAll("input");
+
+    const inputs = steps[currentStep].querySelectorAll("input");
     let valid = true;
 
+    // 1️⃣ تحقق إن الحقول مش فاضية
     inputs.forEach(input => {
       if (!input.value.trim()) valid = false;
     });
 
     if (!valid) {
-      showError("⚠️ من فضلك املأ جميع الحقول قبل المتابعة");
+      showError("please fill in all blanks");
       return;
     }
 
-    steps[i].style.display = "none";
-    steps[i + 1].style.display = "block";
-    clearError();
+    // 2️⃣ تحقق National ID (Step 2)
+    if (currentStep === 1) {
+      const nationalId = document.getElementById("nationalId").value;
+
+      if (!/^\d{14}$/.test(nationalId)) {
+        showError("ID must be 14 digits");
+        return;
+      }
+    }
+
+    // 3️⃣ تحقق الباسورد (Step 4)
+    if (currentStep === 3) {
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        showError("password does not match");
+        return;
+      }
+    }
+
+    // 4️⃣ لو كله تمام نروح للخطوة اللي بعدها
+    if (currentStep < steps.length - 1) {
+      currentStep++;
+      showStep(currentStep);
+      clearError();
+    }
+
+  });
+});
+
+/* ===== Back ===== */
+document.querySelectorAll(".backBtn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+      clearError();
+    }
   });
 });
 function showMessage(text, type) {
@@ -347,7 +445,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
   /* ===== Validations ===== */
   if (password !== confirmPassword) {
-    showError("❌ كلمة المرور غير متطابقة");
+    showError("password does not match");
     return;
   }
 
@@ -376,7 +474,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     const data = await res.json();
 
     if (!res.ok) {
-      showError(data.message || "❌ فشل إنشاء الحساب");
+      showError(data.message || "error creat accont");
       return;
     }
 
@@ -393,7 +491,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 };
 
 localStorage.setItem("currentUser", JSON.stringify(userData));
-showSuccess("✅ Account created successfully");
+showSuccess(" Account created successfully");
 
 setTimeout(() => {
 
@@ -415,7 +513,7 @@ setTimeout(() => {
 
   } catch (err) {
     console.error(err);
-    showError("⚠️ فشل الاتصال بالسيرفر");
+    showError("server error");
   }
 });
 

@@ -335,9 +335,8 @@ header nav a:hover::after{width:100%}
   <h4>Confirm Transaction</h4>
 
   <div class="confirm-details"></div>
+<input type="password" id="finalPin" placeholder="Enter PIN">
 
-  <input type="password" id="finalPin" placeholder="Enter PIN">
->
   <div id="atmMessage" class="atm-message"></div>
 
   <button type="button" id="backBtn">Back</button>
@@ -438,16 +437,22 @@ step2.addEventListener("submit", async e => {
 );
 
     // Reset UI
-    step2.reset();
-    step2.classList.add("hidden");
-    step1.classList.add("hidden");
-    transactionType.value = "";
+   setTimeout(() => {
+  step2.reset();
+  step2.classList.add("hidden");
+  step1.classList.add("hidden");
+  transactionType.value = "";
+}, 6000);
 
   } catch (err) {
-    alert("server error");
+    showATMMessage("Server error, please try again", "error");
   }
 });
-
+document.getElementById("logoutBtn").addEventListener("click", function(e) {
+  e.preventDefault(); // يمنع اللينك الطبيعي
+  localStorage.removeItem("currentUser"); // يمسح بيانات المستخدم
+  window.location.href = "login.html"; // يروح لصفحة اللوجن
+});
 </script>
 
 </body>

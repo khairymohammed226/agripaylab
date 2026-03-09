@@ -224,7 +224,10 @@
   border: 1px solid #f5c6cb;
 }
 
+
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -262,7 +265,10 @@
     <div class="input-group">
       <img src="image/padlock.png" alt="Lock Icon" class="icon">
       <input type="password" id="password" placeholder="Password" required>
-      <span class="toggle" onclick="togglePassword()">👁️</span>
+      <span class="toggle" onclick="togglePassword()">
+  <i id="eyeIcon" class="fa-solid fa-eye"></i>
+</span>
+
     </div>
 
     <button type="submit" class="login-btn">Login</button>
@@ -278,6 +284,19 @@
 
 
 <script>
+function togglePassword() {
+  const passwordInput = document.getElementById("password");
+
+  if (!passwordInput) return;
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
   if (!form) return;
@@ -348,6 +367,23 @@ const userData = {
     }
   });
 });
+function togglePassword() {
+  const passwordInput = document.getElementById("password");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  if (!passwordInput) return;
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+  }
+}
+
 </script>
 
 

@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CA Bank Dashboard</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <style>
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body {
@@ -245,7 +250,35 @@ body {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+.select2-container {
+  width: 100% !important;
+  margin-bottom: 12px;
+}
 
+.select2-container--default .select2-selection--single {
+  height: 45px;
+  padding: 10px 12px;
+  border: 1.8px solid #b8dbcb;
+  border-radius: 8px;
+}
+
+.select2-selection__rendered {
+  line-height: 25px !important;
+}
+#goDashboardBtn{
+  width:100%;
+  padding:12px;
+  background:#0b6b4a;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#goDashboardBtn:hover{
+  background:#097043;
+}
 </style>
 </head>
 <body>
@@ -317,23 +350,53 @@ body {
     </a>
   </div>
 
-
-
     <h4>Send Money</h4>
 
-    <form id="step1">
-      <input type="text" placeholder="Wallet Number" required>
-      <input type="number" placeholder="Amount" required>
+
+
+<form id="step1">
+
+<select id="walletProvider" required>
+
+<option></option>
+
+<option value="vodafone" data-logo="https://www.clipartmax.com/png/small/151-1517832_pay-with-vodafone-cash-vodafone-mobile-money-logo.png">
+Vodafone Cash
+</option>
+
+<option value="orange" data-logo="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg">
+Orange Money
+</option>
+
+<option value="etisalat" data-logo="https://forasna-images.wuzzuf-data.net/uploads/logos/thumb_clogo_2024-11-20-11-55-34_79LXmvNsQXUtOpntnSlIawXX.jpg">
+Etisalat Cash
+</option>
+
+<option value="wepay" data-logo="https://play-lh.googleusercontent.com/6XZKvhiCf64MnUVMl6KqcWKq97dzql9OVD9ctaNnt1VTtJS3RE6Dsk6GCM7e_8nnOzE">
+WE Pay
+</option>
+
+</select>
+
+<input type="text" placeholder="Wallet Number" required>
+
+<input type="number" placeholder="Amount" required>
+
       <button type="submit">Next</button>
     </form>
 
-<form id="step2" class="step-2">
+
+<div id="walletMessage" class="atm-message"></div>
+
+<button id="goDashboardBtn" style="display:none; margin-top:10px;">
+Go to Dashboard
+</button><form id="step2" class="step-2">
   <input type="password" placeholder="Password" required>
   <h4>Confirm Transfer</h4>
   <div class="confirm-details"></div>
 
   <!-- 👇 حط الرسالة هنا -->
-  <div id="walletMessage" class="atm-message"></div>
+  
 
   <button type="button" id="backBtn">Back</button>
   <button type="submit">Submit</button>
@@ -422,9 +485,50 @@ function showWalletMessage(text, type) {
   const confirmDiv = step2.querySelector('.confirm-details');
   const backBtn = document.getElementById('backBtn');
 
-  step1.addEventListener('submit', function(e){
-    e.preventDefault();
+const walletSelect = document.getElementById("walletProvider");
+const walletNumberInput = step1.querySelector('input[placeholder="Wallet Number"]');
 
+function validateWalletNumber(){
+
+const provider = walletSelect.value;
+const number = walletNumberInput.value;
+
+if(number.length < 3) return true;
+
+const prefix = number.substring(0,3);
+
+const rules = {
+vodafone:"010",
+etisalat:"011",
+orange:"012",
+wepay:"015"
+};
+
+if(rules[provider] && prefix !== rules[provider]){
+
+showWalletMessage("Invalid number for selected wallet", "error");
+return false;
+
+}
+
+return true;
+
+}
+
+
+
+step1.addEventListener('submit', function(e){
+
+e.preventDefault();
+
+if(!validateWalletNumber()){
+return;
+}
+walletNumberInput.addEventListener("input", function(){
+
+validateWalletNumber();
+
+});
     const data = {};
     [...step1.elements].forEach(el => { 
       if(el.tagName === 'INPUT') data[el.placeholder] = el.value; 
@@ -446,14 +550,14 @@ function showWalletMessage(text, type) {
     step1.style.display = 'block';
   });
 
-  step2.addEventListener("submit", async function (e) {
+step2.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const walletNumber = step1.querySelector('input[placeholder="Wallet Number"]').value;
   const amount = step1.querySelector('input[placeholder="Amount"]').value;
   const password = step2.querySelector('input[type="password"]').value;
 
-  // 1️⃣ تحقق من باسورد الكارت
+  // 1️⃣ تحقق الباسورد
   const check = await fetch("http://localhost:3000/transfer/check-card-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -465,11 +569,11 @@ function showWalletMessage(text, type) {
 
   const checkResult = await check.json();
   if (!check.ok) {
-showWalletMessage(checkResult.message || "Password incorrect", "error");
+    showWalletMessage(checkResult.message || "Password incorrect", "error");
     return;
   }
 
-  // 2️⃣ تنفيذ تحويل المحفظة
+  // 2️⃣ تنفيذ التحويل
   const res = await fetch("http://localhost:3000/transfer/wallet-transfer", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -483,22 +587,55 @@ showWalletMessage(checkResult.message || "Password incorrect", "error");
   const data = await res.json();
 
   if (!res.ok) {
-   showWalletMessage(data.message || "Transfer failed", "error");
+    showWalletMessage(data.message || "Transfer failed", "error");
     return;
   }
 
-  // 3️⃣ تحديث الرصيد
+  // 3️⃣ نجاح العملية
   currentUser.balance = data.newBalance;
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-showWalletMessage("✅ Wallet transfer successful", "success");
+showWalletMessage("Wallet transfer successful", "success");
 
-  step2.reset();
-  step2.style.display = "none";
-  step1.style.display = "block";
-  step1.reset();
+document.getElementById("goDashboardBtn").style.display = "block";
+  // 👇 نستنى 5 ثواني بعد ما الرسالة تظهر
+  setTimeout(() => {
+    step2.reset();
+    step2.style.display = "none";
+    step1.style.display = "block";
+    step1.reset();
+  }, 5000);
 });
 
+$('#walletProvider').select2({
+
+placeholder: "Select Wallet",
+
+templateResult: formatWallet,
+
+templateSelection: formatWallet
+
+});
+
+function formatWallet(wallet){
+
+if (!wallet.id) {
+return wallet.text;
+}
+
+const logo = $(wallet.element).data('logo');
+
+return $(
+'<span style="display:flex;align-items:center;gap:10px;">' +
+'<img src="' + logo + '" style="width:26px;height:26px;object-fit:contain;">' +
+wallet.text +
+'</span>'
+);
+
+}
+document.getElementById("goDashboardBtn").addEventListener("click", function(){
+window.location.href = "dashboard.html";
+});
 
 </script>
 

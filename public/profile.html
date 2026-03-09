@@ -203,6 +203,28 @@ button:hover {
 .profile-row .value {
   color: #333;
 }
+.form-message {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.form-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
 
 
 </style>
@@ -316,6 +338,8 @@ button:hover {
   <input id="newPass" type="password" placeholder="New password">
   <input id="confirmPass" type="password" placeholder="Confirm password">
   <button id="savePassBtn">Save Password</button>
+ <button type="button" id="cancelBtn">Cancel</button>
+  <div id="profileMessage" class="form-message"></div>
 </div>
 
 
@@ -330,11 +354,24 @@ button:hover {
 
 
 <script>
+
+  function showProfileMessage(text, type) {
+  const msg = document.getElementById("profileMessage");
+
+  msg.textContent = text;
+  msg.className = "form-message " + type;
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    msg.style.display = "none";
+  }, 4000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!user) {
-    alert("❌ لازم تسجل دخول الأول");
+     showProfileMessage("Please login first", "error");
     window.location.href = "login.html";
     return;
   }
@@ -389,7 +426,7 @@ saveBtn.onclick = async () => {
   });
 
   if (!res.ok) {
-    alert("❌ فشل تحديث البيانات");
+    showProfileMessage("Failed to update data", "error");
     return;
   }
 
@@ -412,7 +449,7 @@ const newPass = document.getElementById("newPass").value;
 const confirm = document.getElementById("confirmPass").value;
 
   if (newPass !== confirm) {
-    alert("❌ الباسورد غير متطابق");
+   showProfileMessage("Passwords do not match", "error");
     return;
   }
 
@@ -423,14 +460,32 @@ const confirm = document.getElementById("confirmPass").value;
   });
 
   if (!res.ok) {
-    alert("❌ كلمة المرور القديمة غلط");
+    showProfileMessage("Old password is incorrect", "error");
+
     return;
   }
 
-  alert("✅ تم تغيير كلمة المرور");
+  showProfileMessage("Password changed successfully", "success");
   location.reload();
 };
+document.addEventListener("DOMContentLoaded", function() {
 
+  const cancelBtn = document.getElementById("cancelBtn");
+  const section = document.getElementById("changePasswordSection");
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", function() {
+
+      // يمسح الحقول
+      document.getElementById("newPassword").value = "";
+      document.getElementById("confirmPassword").value = "";
+
+      // يخفي الجزء
+      section.style.display = "none";
+    });
+  }
+
+});
 </script>
 
 

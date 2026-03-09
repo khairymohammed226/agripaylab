@@ -233,8 +233,61 @@
   color: #064a31;
   font-weight: 600;
 }
+.form-message {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
 
+.form-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
 
+.form-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.details-row .label {
+  font-weight: bold;
+  color: #0b5134; /* نفس أخضر الموقع */
+}
+
+.details-row .value {
+  color: #0b5134; /* نفس أخضر الموقع */
+  font-weight: 600;
+}
+.show-btn {
+  width: 130px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  background-color: #0b5134;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.show-btn:hover {
+  background-color: #09432b;
+}
+#toggleCard {
+  width: auto !important;
+  padding: 8px 18px;
+  display: inline-block;
+}
   </style>
 </head>
 
@@ -292,7 +345,8 @@
 
           <div class="cc-bottom">
             <div>
-              <strong>NAME</strong><br> <span id="liveName">MARWAN</span>
+              <strong>NAME</strong><br> 
+<span id="liveName"></span>
             </div>
             <div>
               <strong>EXP</strong><br> <span id="liveExp">12/29</span>
@@ -303,16 +357,16 @@
        <div class="payment-form">
   <h3 style="margin-bottom:15px; color:#064a31;">Card Details</h3>
 
-  <div class="profile-row">
-    <span class="label">Card Holder Name</span>
-    <span class="value" id="cardName">-</span>
-  </div>
+<div class="details-row">
+  <span class="label">Card Holder Name</span>
+  <span id="detailsName" class="value"></span>
+</div>
 
   <div class="profile-row">
     <span class="label">Card Number</span>
     <span class="value">
   <span id="cardNumber">-</span>
-  <button id="toggleCard" style="margin-left:10px;">👁</button>
+  <button id="toggleCard" class="show-btn">show num</button>
 </span>
 
   </div>
@@ -325,6 +379,7 @@
   <div class="profile-row">
     <span class="label">Card Type</span>
     <span class="value" id="cardType">-</span>
+    <div id="cardMessage" class="form-message"></div>
   </div>
 </div>
 
@@ -342,13 +397,31 @@
 document.addEventListener("DOMContentLoaded", async () => {
 const addCardBox = document.getElementById("addCardBox");
 
+function showCardMessage(text, type) {
+  const msg = document.getElementById("cardMessage");
+  if (!msg) return;
+
+  msg.textContent = text;
+  msg.className = "form-message " + type;
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    msg.style.display = "none";
+  }, 6000);
+}
+
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (!user || !user._id) {
-    alert(" log in first");
+if (!user || !user._id) {
+  showCardMessage("Please log in first", "error");
+
+  setTimeout(() => {
     window.location.href = "login.html";
-    return;
-  }
+  }, 1500);
+
+  return;
+}
+
 
   // عناصر الكارت الأخضر
   const liveName   = document.getElementById("liveName");
@@ -356,7 +429,7 @@ const addCardBox = document.getElementById("addCardBox");
   const liveExp    = document.getElementById("liveExp");
 
   // عناصر Card Details (زي البروفايل)
-const cardNameEl   = document.getElementById("cardName");
+  const cardNameEl = document.getElementById("detailsName");
 const cardNumberEl = document.getElementById("cardNumber");
 const expDateEl    = document.getElementById("cardExpiry");
 const cardTypeEl   = document.getElementById("cardType");
@@ -365,7 +438,7 @@ const cardTypeEl   = document.getElementById("cardType");
     const res = await fetch(`http://localhost:3000/card/${user._id}`);
     const data = await res.json();
 
-   if (!res.ok) {
+  if (!res.ok) {
   liveName.textContent = "No Card";
   liveNumber.textContent = "**** **** **** ****";
   liveExp.textContent = "--/--";
@@ -375,7 +448,9 @@ const cardTypeEl   = document.getElementById("cardType");
   expDateEl.textContent = "-";
   cardTypeEl.textContent = "-";
 
-  addCardBox.style.display = "block"; // 👈 يظهر الزرار
+  document.querySelector(".payment-form").style.display = "none";
+  addCardBox.style.display = "block";
+
   return;
 }
 
@@ -419,9 +494,18 @@ document.getElementById("toggleCard").addEventListener("click", function () {
 
   } catch (err) {
     console.error(err);
-    alert(" failed to load cart data");
+    showCardMessage("Failed to load card data", "error");
   }
 });
+
+const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (user) {
+    const fullName = (user.firstName + " " + user.lastName).toUpperCase();
+
+    document.getElementById("liveName").textContent = fullName;
+    document.getElementById("detailsName").textContent = fullName;
+  }
 </script>
 
 

@@ -12,8 +12,14 @@ const SALT_ROUNDS = 10;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI;
+const mongo = process.env.mongo;
 
+console.log("MONGO_URI =", mongo);
+
+mongoose
+  .connect(mongo)
+  .then(() => console.log("connected to MongoDB successfully"))
+  .catch((err) => console.error("error to connect to database", err));
 
 // Middlewares
 app.use(
@@ -24,15 +30,6 @@ app.use(
   })
 );
 app.use(express.json());
-
-// Connect to MongoDB
-mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("conncted to MongoDB succfully."))
-  .catch((err) => console.error("error to connect to data base ", err));
 
 // Schema
 const userSchema = new mongoose.Schema(

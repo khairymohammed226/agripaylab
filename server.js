@@ -1,4 +1,6 @@
 // server.js
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -9,6 +11,7 @@ import Transaction from "./models/Transaction.js";
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 const JWT_EXPIRES = "6h";
 const SALT_ROUNDS = 10;
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;

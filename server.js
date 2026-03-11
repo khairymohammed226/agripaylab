@@ -13,7 +13,8 @@ const SALT_ROUNDS = 10;
 const app = express();
 const PORT = process.env.PORT || 3000;
 const mongo = process.env.mongo;
-
+console.log("ENV:", process.env);
+console.log("mongo variable:", process.env.mongo);
 console.log("MONGO_URI =", mongo);
 
 mongoose

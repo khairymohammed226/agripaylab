@@ -15,8 +15,10 @@ const SALT_ROUNDS = 10;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-console.log("MONGO URI:", process.env.MONGO_URI);
-console.log("Mongo URI:", mongo);
+
+const mongo = process.env.MONGO_URI;
+
+console.log("MONGO URI:", mongo);
 
 mongoose
   .connect(mongo)

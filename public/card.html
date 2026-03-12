@@ -394,7 +394,6 @@
 </div>
 
 <script>
-  const API_URL = "https://online-banking-system-production-fb01.up.railway.app";
 document.addEventListener("DOMContentLoaded", async () => {
 const addCardBox = document.getElementById("addCardBox");
 
@@ -436,7 +435,7 @@ const expDateEl    = document.getElementById("cardExpiry");
 const cardTypeEl   = document.getElementById("cardType");
 
   try {
-    const res = await fetch(`${API_URL}/card/${user._id}`);
+   const res = await fetch(`/card/${user._id}`);
     const data = await res.json();
 
   if (!res.ok) {

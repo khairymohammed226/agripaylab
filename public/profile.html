@@ -354,7 +354,6 @@ button:hover {
 
 
 <script>
-const API_URL = "https://online-banking-system-production-fb01.up.railway.app";
   function showProfileMessage(text, type) {
   const msg = document.getElementById("profileMessage");
 
@@ -419,7 +418,7 @@ saveBtn.onclick = async () => {
   }
 });
 
-  const res = await fetch(`${API_URL}/user/${user._id}`, {
+ const res = await fetch(`/user/${user._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData)
@@ -453,7 +452,7 @@ const confirm = document.getElementById("confirmPass").value;
     return;
   }
 
-  const res = await fetch(`${API_URL}/change-password`, {
+ const res = await fetch(`/change-password`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: user._id, oldPass, newPass })

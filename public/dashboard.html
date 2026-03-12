@@ -592,7 +592,6 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
   </div>
 </div>
   <script>
-    const API_URL = "https://online-banking-system-production-fb01.up.railway.app";
     let currentAccountNumber = "";
     document.addEventListener("DOMContentLoaded", async () => {
     
@@ -615,7 +614,7 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
 
       try {
         // 2️⃣ نجيب أحدث بيانات المستخدم من السيرفر
-        const res = await fetch(`${API_URL}/user/${localUser._id}`)
+        const res = await fetch(`/user/${localUser._id}`)
         if (!res.ok) {
           throw new Error("User not found");
         }
@@ -634,7 +633,7 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
 
         // 5️⃣ نجيب رقم الحساب من الكارت
         try {
-          const cardRes = await fetch(`${API_URL}/card/${user._id}`)
+         const cardRes = await fetch(`/card/${user._id}`)
 
           if (cardRes.ok) {
             const cardData = await cardRes.json();
@@ -678,7 +677,7 @@ box-shadow:0 4px 10px rgba(0,0,0,.2);
       const user = JSON.parse(stored);
 
       try {
-        const res = await fetch(`${API_URL}/transactions/${user._id}`)
+const res = await fetch(`/transactions/${user._id}`)
         const transactions = await res.json();
 
         const list = document.getElementById("transactionsList");

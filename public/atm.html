@@ -350,7 +350,6 @@ header nav a:hover::after{width:100%}
 </div>
 
 <script>
-  const API_URL = "https://online-banking-system-production-fb01.up.railway.app";
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 function maskAccountNumber(acct){
   if(!acct) return "No Account";
@@ -412,7 +411,7 @@ step2.addEventListener("submit", async e => {
   const type = transactionType.value;
 
   try {
-    const res = await fetch(`${API_URL}/atm/transaction`, {
+   const res = await fetch(`/atm/transaction`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -20,10 +20,22 @@ const mongo = process.env.MONGO_URI;
 
 console.log("MONGO URI:", mongo);
 
-mongoose
-  .connect(mongo)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("Mongo error:", err));
+mongoose.connect(mongo, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+
+  console.log("MongoDB connected");
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+
+})
+.catch((err) => {
+  console.error("Mongo connection error:", err);
+});
 // Middlewares
 app.use(
   cors({
@@ -564,6 +576,3 @@ app.get("/health", (req, res) => {
   res.status(200).send("ok");
 });
 
-app.listen(PORT, () => {
-  console.log(`server running in  http://localhost:${PORT}`);
-});

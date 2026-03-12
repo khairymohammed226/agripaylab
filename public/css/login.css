@@ -233,8 +233,13 @@ align-items:center;
 
 .top-nav ul{
 flex-direction:row;
-gap:10px;
+gap:15px;
 flex-wrap:nowrap;
+overflow-x:auto;
+white-space:nowrap;
+}
+.top-nav{
+overflow-x:auto;
 }
 
 .top-nav ul li a{

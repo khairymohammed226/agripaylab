@@ -1,6 +1,8 @@
     // server.js
     import dotenv from "dotenv";
 dotenv.config();
+    import helmet from "helmet";
+    import rateLimit from "express-rate-limit";
     import express from "express";
     import mongoose from "mongoose";
     import cors from "cors";
@@ -12,29 +14,25 @@ dotenv.config();
     const JWT_EXPIRES = "6h";
     const SALT_ROUNDS = 10;
 
-
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requests, please try again later."
+});
     const app = express();
+    app.use(cors());
+  app.use(limiter);
+    app.use(express.json());
+    app.use(express.static("public"));
+    app.use(helmet());
+    app.disable("x-powered-by");
+
 
 const mongo = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/onlineBankingDB";
     console.log("MongoDB connecting...");
-        mongoose.connect(mongo)
-    .then(() => {
-
-      console.log("MongoDB connected");
-
-      app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-      });
-
-    })
-    .catch((err) => {
-      console.error("Mongo connection error:", err);
-    });
+     
     // Middlewares
-  app.use(cors());
-
-    app.use(express.json());
-    app.use(express.static("public"));
+  
     // Schema
     const userSchema = new mongoose.Schema(
       {
@@ -47,6 +45,8 @@ const mongo = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/onlineBankingD
         password: { type: String, required: true },
         dob: { type: Date, required: true },
         balance: { type: Number, default: 10000 },
+        loginAttempts: { type: Number, default: 0 },
+        lockUntil: { type: Date }
       },
       { timestamps: true }
     );
@@ -228,19 +228,45 @@ const mongo = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/onlineBankingD
             .status(401)
             .json({ message: "error username or password" });
         }
+        // 🔐 لو الحساب مقفول
+        if (user.lockUntil && user.lockUntil > Date.now()) {
+         return res.status(403).json({
+          message: "Account locked. Try again after 1 hour."
+  });
+}
 
-        // 3️⃣ قارن الباسورد
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-          return res
-            .status(401)
-            .json({ message: "error username or password" });
-        }
+       const match = await bcrypt.compare(password, user.password);
+
+if (!match) {
+
+  user.loginAttempts += 1; // 🔢 نزود العداد
+
+if (user.loginAttempts >= 4) {
+  user.lockUntil = Date.now() + 60 * 60 * 1000;
+
+  await user.save();
+
+  return res.status(403).json({
+    message: "Account locked due to multiple failed attempts. Try again after 1 hour."
+  });
+}
+
+  await user.save();
+
+  return res.status(401).json({
+    message: "Invalid username or password"
+  });
+}
 
         // 4️⃣ إنشاء JWT
         const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+          
           expiresIn: JWT_EXPIRES,
         });
+        // ✅ reset بعد نجاح login
+          user.loginAttempts = 0;
+           user.lockUntil = undefined;
+            await user.save();
 
         // 5️⃣ رجّع بيانات آمنة
         const { password: _p, __v, ...userSafe } = user.toObject();
@@ -564,3 +590,23 @@ const mongo = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/onlineBankingD
       res.status(200).send("ok");
     });
 
+app.use((req, res, next) => {
+  if (req.headers["x-forwarded-proto"] !== "https") {
+    return res.redirect("https://" + req.headers.host + req.url);
+  }
+  next();
+}); 
+
+mongoose.connect(mongo)
+    .then(() => {
+
+      console.log("MongoDB connected");
+
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+
+    })
+    .catch((err) => {
+      console.error("Mongo connection error:", err);
+    });

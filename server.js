@@ -20,6 +20,9 @@ const limiter = rateLimit({
   max: 100,
   message: "Too many requests, please try again later."
 });
+const atmRoutes = require("./routes/atm");
+
+app.use("/atm", atmRoutes);
     const app = express();
     app.set('trust proxy', 1);
     app.use(cors());

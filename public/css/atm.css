@@ -1,0 +1,321 @@
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  background:url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+/* CARD */
+.card{
+  width:1100px;
+  max-width:100%;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(20px);
+  border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+  overflow:hidden;
+  animation:fadeIn 1s ease;
+}
+
+/* HEADER */
+header{
+  background:rgba(234,248,240,.6);
+  padding:16px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  animation:slideDown .8s ease;
+}
+
+header img{height:55px}
+
+header nav a{
+  text-decoration:none;
+  color:#064a31;
+  font-weight:600;
+  margin-left:18px;
+  position:relative;
+}
+
+header nav a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:0;
+  height:2px;
+  background:#0b6b4a;
+  transition:.3s;
+}
+
+header nav a:hover::after{width:100%}
+
+/* BODY */
+.main-container{
+  display:flex;
+  animation:fadeUp 1s ease;
+}
+
+/* SIDEBAR */
+.sidebar-wrapper{
+  width:200px;
+  background:rgba(247,251,249,.6);
+  border-right:2px solid rgba(213,233,219,.7);
+  padding:20px 15px;
+}
+
+.sidebar-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  margin-bottom:14px;
+  font-weight:600;
+  color:#0b6b4a;
+  border-radius:8px;
+  transition:.3s;
+  text-decoration:none;
+}
+
+.sidebar-box img{width:22px}
+
+.sidebar-box:hover{
+  background:rgba(223,242,230,.7);
+  transform:translateX(5px);
+}
+
+.sidebar-box.active{
+  background:rgba(11,107,74,.12);
+  box-shadow:0 0 10px rgba(11,107,74,.3);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+.dashboard-content{
+  flex:1;
+  padding:25px;
+}
+
+/* ACCOUNT BOX */
+.account-box{
+  background:rgba(255,255,255,.85);
+  border:1px solid #cfe7d6;
+  border-radius:10px;
+  padding:18px;
+  margin-bottom:20px;
+  transition:.3s;
+}
+
+.account-box:hover{
+  transform:scale(1.02);
+  box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+/* SEND BOX */
+.send-box{
+  background:rgba(255,255,255,.85);
+  border:2px solid #cfe7d6;
+  border-radius:20px;
+  padding:25px;
+}
+
+/* ICON BAR */
+.transfer-icons{
+  display:flex;
+  justify-content:space-around;
+  margin-bottom:20px;
+}
+
+.icon{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:12px 20px;
+  border-radius:12px;
+  transition:.3s;
+  text-decoration:none;
+}
+
+.icon img{
+  width:45px;
+  transition:.3s;
+}
+
+.icon:hover img{transform:scale(1.1)}
+
+.icon span{
+  font-weight:600;
+  color:#064a31;
+}
+
+/* INPUTS */
+.send-box input,
+.send-box select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1.5px solid #b8dbcb;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.send-box input:focus,
+.send-box select:focus{
+  outline:none;
+  border-color:#0b6b4a;
+  box-shadow:0 0 6px rgba(11,107,74,.3);
+}
+
+/* BUTTONS */
+.send-box button{
+  width:100%;
+  padding:12px;
+  background:#0b6b4a;
+  color:#fff;
+  font-weight:700;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.send-box button:hover{
+  background:#097043;
+  transform:scale(1.03);
+}
+
+.hidden{display:none}
+
+/* ANIMATIONS */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:none}
+}
+.atm-message {
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.atm-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.atm-message.hide {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+/* Success */
+.atm-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Error */
+.atm-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+
+
+
+
+
+
+
+
+/* 🔥 تأثير blur + scale */
+.slide-next .step:first-child {
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+
+.slide-next .step:last-child {
+  opacity: 1;
+  transform: scale(1);
+}
+.face-box,
+.otp-box {
+  background: rgba(240, 255, 248, 0.7);
+  border: 1px solid #cce3d9;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.face-box:hover,
+.otp-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.face-box i {
+  font-size: 40px;
+  color: #0b6b4a;
+  margin-bottom: 10px;
+}
+
+
+
+.back-btn:hover {
+  background: #bbb;
+}
+.send-box input:focus {
+  transform: scale(1.01);
+}
+.step:last-child {
+  opacity: 0.8;
+}
+
+.slide-next .step:last-child {
+  animation: fadeSlide 0.5s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.otp-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #0b6b4a, #0f8a5f);
+}
+
+.otp-btn:hover {
+  background: #097043;
+  transform: scale(1.03);
+}

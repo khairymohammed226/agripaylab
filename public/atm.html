@@ -7,254 +7,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+    <link rel="stylesheet" href="css/atm.css">
 
-body{
-  font-family:'Segoe UI',Tahoma,sans-serif;
-  background:url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
-/* CARD */
-.card{
-  width:1100px;
-  max-width:100%;
-  background:rgba(255,255,255,.25);
-  backdrop-filter:blur(20px);
-  border-radius:12px;
-  box-shadow:0 8px 25px rgba(0,0,0,.15);
-  overflow:hidden;
-  animation:fadeIn 1s ease;
-}
-
-/* HEADER */
-header{
-  background:rgba(234,248,240,.6);
-  padding:16px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  animation:slideDown .8s ease;
-}
-
-header img{height:55px}
-
-header nav a{
-  text-decoration:none;
-  color:#064a31;
-  font-weight:600;
-  margin-left:18px;
-  position:relative;
-}
-
-header nav a::after{
-  content:'';
-  position:absolute;
-  bottom:-4px;
-  left:0;
-  width:0;
-  height:2px;
-  background:#0b6b4a;
-  transition:.3s;
-}
-
-header nav a:hover::after{width:100%}
-
-/* BODY */
-.main-container{
-  display:flex;
-  animation:fadeUp 1s ease;
-}
-
-/* SIDEBAR */
-.sidebar-wrapper{
-  width:200px;
-  background:rgba(247,251,249,.6);
-  border-right:2px solid rgba(213,233,219,.7);
-  padding:20px 15px;
-}
-
-.sidebar-box{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;
-  margin-bottom:14px;
-  font-weight:600;
-  color:#0b6b4a;
-  border-radius:8px;
-  transition:.3s;
-  text-decoration:none;
-}
-
-.sidebar-box img{width:22px}
-
-.sidebar-box:hover{
-  background:rgba(223,242,230,.7);
-  transform:translateX(5px);
-}
-
-.sidebar-box.active{
-  background:rgba(11,107,74,.12);
-  box-shadow:0 0 10px rgba(11,107,74,.3);
-  transform:translateX(5px);
-}
-
-/* MAIN */
-.dashboard-content{
-  flex:1;
-  padding:25px;
-}
-
-/* ACCOUNT BOX */
-.account-box{
-  background:rgba(255,255,255,.85);
-  border:1px solid #cfe7d6;
-  border-radius:10px;
-  padding:18px;
-  margin-bottom:20px;
-  transition:.3s;
-}
-
-.account-box:hover{
-  transform:scale(1.02);
-  box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
-
-/* SEND BOX */
-.send-box{
-  background:rgba(255,255,255,.85);
-  border:2px solid #cfe7d6;
-  border-radius:20px;
-  padding:25px;
-}
-
-/* ICON BAR */
-.transfer-icons{
-  display:flex;
-  justify-content:space-around;
-  margin-bottom:20px;
-}
-
-.icon{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  padding:12px 20px;
-  border-radius:12px;
-  transition:.3s;
-  text-decoration:none;
-}
-
-.icon img{
-  width:45px;
-  transition:.3s;
-}
-
-.icon:hover img{transform:scale(1.1)}
-
-.icon span{
-  font-weight:600;
-  color:#064a31;
-}
-
-/* INPUTS */
-.send-box input,
-.send-box select{
-  width:100%;
-  padding:10px;
-  margin-bottom:12px;
-  border:1.8px solid #b8dbcb;
-  border-radius:8px;
-  font-size:15px;
-}
-
-.send-box input:focus,
-.send-box select:focus{
-  outline:none;
-  border-color:#0b6b4a;
-  box-shadow:0 0 6px rgba(11,107,74,.3);
-}
-
-/* BUTTONS */
-.send-box button{
-  width:100%;
-  padding:12px;
-  background:#0b6b4a;
-  color:#fff;
-  font-weight:700;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.send-box button:hover{
-  background:#097043;
-  transform:scale(1.03);
-}
-
-.hidden{display:none}
-
-/* ANIMATIONS */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:none}
-}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:none}
-}
-
-@keyframes slideDown{
-  from{opacity:0;transform:translateY(-20px)}
-  to{opacity:1;transform:none}
-}
-.atm-message {
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.atm-message.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.atm-message.hide {
-  opacity: 0;
-  transform: translateY(-5px);
-}
-
-/* Success */
-.atm-message.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-/* Error */
-.atm-message.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-
-
-</style>
 </head>
 
 <body>
@@ -324,136 +78,35 @@ header nav a:hover::after{width:100%}
         <option value="withdrawal">Withdrawal</option>
         <option value="deposit">Deposit</option>
       </select>
+  <div id="withdrawalSection" style="display: none;">
 
-      <form id="step1" class="hidden">
-        <input type="text" id="cardNumber" placeholder="ATM Card Number" required>
-        <input type="number" id="amount" placeholder="Amount" required>
-        <button type="submit">Next</button>
-      </form>
+  <h3>Withdrawal Details</h3>
 
-<form id="step2" class="hidden">
-  <h4>Confirm Transaction</h4>
+  <!-- ATM Code -->
+  <div class="form-group">
+    <label>ATM Code</label>
+    <input type="text" id="atmCode" placeholder="e.g. ATM-1023">
+  </div>
 
-  <div class="confirm-details"></div>
-<input type="password" id="finalPin" placeholder="Enter PIN">
+  <!-- PIN -->
+  <div class="form-group">
+    <label>PIN</label>
+    <input type="password" id="pin" placeholder="Enter PIN">
+  </div>
 
+  <!-- Amount -->
+  <div class="form-group">
+    <label>Amount</label>
+    <input type="number" id="amount" placeholder="Enter Amount">
+  </div>
+
+  <!-- 🔐 Generate OTP -->
+  <button id="generateOtp" class="otp-btn">Generate OTP</button>
+
+  <!-- رسالة -->
   <div id="atmMessage" class="atm-message"></div>
 
-  <button type="button" id="backBtn">Back</button>
-  <button type="submit">Submit</button>
-</form>
-
-
-    </div>
-  </div>
 </div>
-</div>
-
-<script>
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-function maskAccountNumber(acct){
-  if(!acct) return "No Account";
-  const s=String(acct); 
-  return "*".repeat(s.length-4)+s.slice(-4);
-}
-if(currentUser){
-  userNameDisplay.textContent=currentUser.fullname;
-  accountNumberDisplay.textContent=maskAccountNumber(currentUser.accountNumber);
-}
-
-const transactionType=document.getElementById("transactionType");
-const step1=document.getElementById("step1");
-const step2=document.getElementById("step2");
-const confirmBox=document.querySelector(".confirm-details");
-const backBtn=document.getElementById("backBtn");
-function showATMMessage(text, type) {
-  const msg = document.getElementById("atmMessage");
-
-  msg.textContent = text;
-  msg.className = "atm-message " + type + " show";
-
-  setTimeout(() => {
-    msg.classList.remove("show");
-    msg.classList.add("hide");
-
-    // نستنى مدة الـ transition بس
-    setTimeout(() => {
-      msg.className = "atm-message";
-    }, 600);
-
-  }, 6000);
-}
-
-
-
-transactionType.addEventListener("change",()=>{
-  step1.classList.toggle("hidden",transactionType.value==="");
-  step2.classList.add("hidden");
-});
-
-step1.addEventListener("submit",e=>{
-  e.preventDefault();
-  confirmBox.innerHTML=`<p>${transactionType.value}</p>`;
-  step1.classList.add("hidden");
-  step2.classList.remove("hidden");
-});
-
-backBtn.onclick=()=>{
-  step2.classList.add("hidden");
-  step1.classList.remove("hidden");
-};
-step2.addEventListener("submit", async e => {
-  e.preventDefault();
-
-  const cardNumber = document.getElementById("cardNumber").value;
-  const amount = document.getElementById("amount").value;
-  const pin = document.getElementById("finalPin").value;
-  const type = transactionType.value;
-
-  try {
-   const res = await fetch(`/atm/transaction`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        cardNumber,
-        cardPassword: pin,
-        amount,
-        type
-      })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-    showATMMessage(data.message || "Error", "error");
-      return;
-    }
-
-  showATMMessage(
-  `${data.message} | Your balance: ${data.newBalance} EGP`,
-  "success"
-);
-
-    // Reset UI
-   setTimeout(() => {
-  step2.reset();
-  step2.classList.add("hidden");
-  step1.classList.add("hidden");
-  transactionType.value = "";
-}, 6000);
-
-  } catch (err) {
-    showATMMessage("Server error, please try again", "error");
-  }
-});
-document.getElementById("logoutBtn").addEventListener("click", function(e) {
-  e.preventDefault(); // يمنع اللينك الطبيعي
-  localStorage.removeItem("currentUser"); // يمسح بيانات المستخدم
-  window.location.href = "login.html"; // يروح لصفحة اللوجن
-});
-</script>
-
+<script src="js/atm.js"></script>
 </body>
 </html>

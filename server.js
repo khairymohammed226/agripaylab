@@ -11,6 +11,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const atmRoutes = require("./routes/trans");
 const Transaction = require("./models/Transaction");
+const Card = require("./models/card");
     const app = express();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -24,7 +25,7 @@ const limiter = rateLimit({
     const SALT_ROUNDS = 10;
 
 
-const Card = require("./models/card");
+
 
 
     app.use(limiter);

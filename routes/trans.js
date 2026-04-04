@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const Card = require("../models/Card");
+const Card = require("../models/card");
 const bcrypt = require("bcrypt");
 const Otp = require("../models/Otp");
 

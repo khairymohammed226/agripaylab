@@ -12,6 +12,9 @@ const jwt = require("jsonwebtoken");
 const atmRoutes = require("./routes/trans");
 const Transaction = require("./models/Transaction");
 const Card = require("./models/card");
+const Contact = require("./models/contact");
+
+const User = require("./models/User");
     const app = express();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -55,37 +58,8 @@ console.log("DB HOST:", mongoose.connection.host);
      
     // Middlewares
   
-    // Schema
-    const userSchema = new mongoose.Schema(
-      {
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
-        nationalId: { type: String, required: true },
-        username: { type: String, required: true, unique: true },
-        email: { type: String, required: true, unique: true },
-        phone: { type: String, required: true },
-        password: { type: String, required: true },
-        dob: { type: Date, required: true },
-        balance: { type: Number, default: 10000 },
-        loginAttempts: { type: Number, default: 0 },
-        lockUntil: { type: Date }
-      },
-      { timestamps: true }
-    );
-
-    const User = mongoose.model("User", userSchema);
-
-        const contactSchema = new mongoose.Schema(
-      {
-        name: { type: String, required: true },
-        phone: { type: String, required: true },
-        email: { type: String, required: true },
-        message: { type: String, required: true },
-      },
-      { timestamps: true }
-    );
-
-    const Contact = mongoose.model("Contact", contactSchema);
+    
+      
 
     // Helpers
     function validateEmail(email) {

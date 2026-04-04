@@ -27,7 +27,7 @@ const limiter = rateLimit({
     app.use(express.static("public"));
     app.use(helmet());
     app.disable("x-powered-by");
-  
+    
 mongoose.set("strictQuery", true);
 console.log("ENV TEST:", process.env.MONGO);
 

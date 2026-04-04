@@ -1,7 +1,87 @@
-document.addEventListener("DOMContentLoaded", () => {
 
   // 🟢 المستخدم الحالي
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let timerInterval;
+document.addEventListener("DOMContentLoaded", () => {
+if (!currentUser) {
+  alert("Please login first");
+  window.location.href = "login.html";
+  return;
+}
+
+function startOtpTimer(durationInSeconds) {
+  let timeLeft = durationInSeconds;
+
+  const timerElement = document.getElementById("otpTimer");
+
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerElement.textContent = `Valid for: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+      timerElement.textContent = "OTP expired ❌";
+        resendBtn.classList.remove("hidden"); // 👈 هنا
+
+timerElement.style.color = "#e74c3c"; // أحمر
+timerElement.style.background = "rgba(231, 76, 60, 0.1)";
+
+      
+    }
+  }, 1000);
+}
+  const atmCodeInput = document.getElementById("atmCode");
+  const pinInput = document.getElementById("pin");
+  const amountInput = document.getElementById("amount");
+const resendBtn = document.getElementById("resendOtp");
+
+if (resendBtn) {
+  resendBtn.addEventListener("click", async () => {
+
+    resendBtn.classList.add("hidden");
+
+    try {
+      const res = await fetch("/atm/generate-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+         atmCode: atmCodeInput.value.trim(),
+         pin: pinInput.value.trim(),
+         amount: amountInput.value.trim(),
+          userId: currentUser._id
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showATMMessage(data.message, "error");
+        return;
+      }
+
+      showATMMessage(`New OTP: ${data.otp}`, "success");
+
+      // 🔁 يبدأ timer من جديد
+      startOtpTimer(300);
+
+    } catch {
+      showATMMessage("Server error", "error");
+    }
+  });
+}
+
+
+
+
+
 
   function maskAccountNumber(acct) {
     if (!acct) return "No Account";
@@ -21,9 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const transactionType = document.getElementById("transactionType");
   const withdrawalSection = document.getElementById("withdrawalSection");
 
-  const atmCodeInput = document.getElementById("atmCode");
-  const pinInput = document.getElementById("pin");
-  const amountInput = document.getElementById("amount");
+
 
   const generateBtn = document.getElementById("generateOtp");
 
@@ -98,7 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 🟢 عرض OTP
         showATMMessage(`Your OTP: ${data.otp}`, "success");
-
+          startOtpTimer(300);
+         resendBtn.classList.add("hidden"); // 👈 هنا
       } catch (err) {
         console.error(err);
         showATMMessage("Server error", "error");

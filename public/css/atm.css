@@ -319,3 +319,35 @@ header nav a:hover::after{width:100%}
   background: #097043;
   transform: scale(1.03);
 }
+#otpTimer {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2ecc71; /* أخضر */
+  background: rgba(46, 204, 113, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
+#resendOtp {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+#resendOtp:hover {
+  background: #2980b9;
+}
+
+#resendOtp:active {
+  transform: scale(0.95);
+}
+.hidden {
+  display: none;
+}

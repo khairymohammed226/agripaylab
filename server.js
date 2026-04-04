@@ -1,7 +1,7 @@
     // server.js
   
-    import dotenv from "dotenv";
-dotenv.config();
+    const dotenv = require("dotenv");
+dotenv.config();;
     import helmet from "helmet";
     import rateLimit from "express-rate-limit";
     import express from "express";

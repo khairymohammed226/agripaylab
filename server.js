@@ -24,7 +24,7 @@ const limiter = rateLimit({
     const SALT_ROUNDS = 10;
 
 
-
+const Card = require("./models/card");
 
 
     app.use(limiter);
@@ -74,57 +74,7 @@ console.log("DB HOST:", mongoose.connection.host);
 
     const User = mongoose.model("User", userSchema);
 
-    const cardSchema = new mongoose.Schema(
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          required: true,
-        },
-
-        cardName: {
-          type: String,
-          required: true,
-        },
-
-        accountNumber: {
-          type: String,
-          required: true,
-          validate: {
-            validator: function (v) {
-              return /^[0-9]{16}$/.test(v);
-            },
-            message: "Card number must be exactly 16 digits",
-          },
-        },
-
-        cardType: {
-          type: String,
-          enum: ["debit", "credit"],
-          required: true,
-        },
-
-        expiryDate: {
-          type: String,
-          required: true,
-        },
-
-        cvv: {
-          type: String,
-          required: true,
-        },
-
-        cardPassword: {
-          type: String,
-          required: true,
-        },
-      },
-      { timestamps: true }
-    );
-
-    const Card = mongoose.model("Card", cardSchema);
-
-    const contactSchema = new mongoose.Schema(
+        const contactSchema = new mongoose.Schema(
       {
         name: { type: String, required: true },
         phone: { type: String, required: true },

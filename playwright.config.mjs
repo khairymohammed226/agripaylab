@@ -16,7 +16,7 @@ export default defineConfig({
 
   globalSetup: "./tests/global.setup.mjs",
 
-webServer: process.env.CI
+ webServer: process.env.CI
   ? undefined
   : {
       command: "npm start",

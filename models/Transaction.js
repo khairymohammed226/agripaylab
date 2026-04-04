@@ -40,4 +40,4 @@ enum: ["withdrawal", "deposit", "bank", "wallet"],
   }
 );
 
-module.exports = mongoose.models.Transaction || mongoose.model("Transaction", TransactionSchema);
+module.exports = mongoose.model("Transaction", TransactionSchema);

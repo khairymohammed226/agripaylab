@@ -40,4 +40,4 @@ expiresAt: {
 
 }, { timestamps: true });
 
-module.exports = mongoose.models.Otp || mongoose.model("Otp", otpSchema);
+module.exports = mongoose.model("Otp", otpSchema);

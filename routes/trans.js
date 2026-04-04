@@ -1,57 +1,61 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const Card = require("../models/Card");
 const bcrypt = require("bcrypt");
-const Otp = require("../models/Otp"); // مهم المسار
+const Otp = require("../models/Otp");
 
 router.post("/generate-otp", async (req, res) => {
   try {
+    const { atmCode, pin, amount, userId } = req.body;
 
-        const { atmCode, pin, amount, userId } = req.body;
-
-if (!atmCode || !pin || !amount || !userId) {
+    if (!atmCode || !pin || !amount || !userId) {
       return res.status(400).json({ message: "Missing data" });
-      
     }
-    // 🟢 تحويل amount لرقم
-const amountNumber = Number(amount);
 
-// ❌ حماية
-if (amountNumber <= 0) {
-  return res.status(400).json({ message: "Invalid amount ❌" });
-}
+    const amountNumber = Number(amount);
+
+    if (amountNumber <= 0) {
+      return res.status(400).json({ message: "Invalid amount ❌" });
+    }
+
     // 🟢 نجيب المستخدم
-const user = await User.findById(userId);
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found ❌" });
+    }
 
-if (!user) {
-  return res.status(404).json({ message: "User not found" });
-}
+    // 🟢 نجيب الكارد
+    const card = await Card.findOne({ userId });
+    if (!card) {
+      return res.status(404).json({ message: "Card not found ❌" });
+    }
 
-// 🔐 التحقق من الـ PIN
-const isPinCorrect = await bcrypt.compare(pin, user.pin);
+    // 🔐 تحقق من PIN
+    const isPinCorrect = await bcrypt.compare(pin, card.cardPassword);
+    if (!isPinCorrect) {
+      return res.status(400).json({ message: "Incorrect PIN ❌" });
+    }
 
-if (!isPinCorrect) {
-  return res.status(400).json({ message: "Incorrect PIN ❌" });
-}
+    // 💰 التحقق من الرصيد
+    if (amountNumber > user.balance) {
+      return res.status(400).json({ message: "Insufficient balance 💸" });
+    }
 
-// 💰 التحقق من الرصيد
-if (amountNumber > user.balance) {
-  return res.status(400).json({ message: "Insufficient balance 💸" });
-}
-// 🔒 منع OTP مكرر
-const existingOtp = await Otp.findOne({
-  userId,
-    atmCode,
-  used: false,
-  expiresAt: { $gt: new Date() }
-});
+    // 🔒 منع OTP مكرر
+    const existingOtp = await Otp.findOne({
+      userId,
+      atmCode,
+      used: false,
+      expiresAt: { $gt: new Date() }
+    });
 
-if (existingOtp) {
-  return res.status(400).json({ message: "OTP already active ⏳" });
-}
+    if (existingOtp) {
+      return res.status(400).json({ message: "OTP already active ⏳" });
+    }
 
+    // 🔢 إنشاء OTP
     const otp = Math.floor(100000 + Math.random() * 900000);
-
     const otpHash = await bcrypt.hash(otp.toString(), 10);
 
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);

@@ -6,7 +6,19 @@ const errorBox = document.getElementById("errorBox");
 /* ===== Steps Logic ===== */
 const steps = document.querySelectorAll(".step");
 let currentStep = 0;
+function checkPasswordStrength(password) {
+  let score = 0;
 
+  if (password.length >= 8) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
+  if (/[@$!%*?&]/.test(password)) score++;
+
+  if (score <= 2) return "weak";
+  if (score === 3 || score === 4) return "medium";
+  return "strong";
+}
 steps.forEach((step, i) => {
   step.style.display = i === 0 ? "block" : "none";
 });
@@ -71,10 +83,13 @@ if (currentStep === 3) {
     return;
   }
 
-  // if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-  //   showError("Weak password");
-  //   return;
-  // }
+  // ✅ أضف ده
+  const strength = checkPasswordStrength(password);
+
+  if (strength === "weak") {
+    showError("Password is too weak ❌");
+    return;
+  }
 }
 
 // STEP 5 (Age)
@@ -116,6 +131,59 @@ document.querySelectorAll(".backBtn").forEach((btn) => {
       clearError();
     }
   });
+});
+// 👁️ show / hide password
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+
+togglePassword.addEventListener("click", () => {
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    togglePassword.textContent = "🙈";
+  } else {
+    passwordInput.type = "password";
+    togglePassword.textContent = "👁️";
+  }
+});
+
+// 👁️ confirm password
+const toggleConfirm = document.getElementById("toggleConfirm");
+const confirmInput = document.getElementById("confirmPassword");
+
+toggleConfirm.addEventListener("click", () => {
+  if (confirmInput.type === "password") {
+    confirmInput.type = "text";
+    toggleConfirm.textContent = "🙈";
+  } else {
+    confirmInput.type = "password";
+    toggleConfirm.textContent = "👁️";
+  }
+});
+document.getElementById("password").addEventListener("input", function () {
+  const password = this.value;
+  const strength = checkPasswordStrength(password);
+  const bar = document.getElementById("strengthBar");
+
+  if (password.length === 0) {
+    bar.style.width = "0%";
+    return;
+  }
+
+  if (strength === "weak") {
+    showMessage("Weak password ❌", "error");
+    bar.style.width = "33%";
+    bar.style.background = "red";
+  } 
+  else if (strength === "medium") {
+    showMessage("Medium password ⚠️", "success");
+    bar.style.width = "66%";
+    bar.style.background = "orange";
+  } 
+  else {
+    showMessage("Strong password ✅", "success");
+    bar.style.width = "100%";
+    bar.style.background = "green";
+  }
 });
 function showMessage(text, type) {
   const messageDiv = document.getElementById("registerMessage");
@@ -170,7 +238,12 @@ if (password !== confirmPassword) {
   showError("password does not match");
   return;
 }
+const strength = checkPasswordStrength(password);
 
+if (strength === "weak") {
+  showError("Password is too weak ❌");
+  return;
+}
 // 2️⃣ الباسورد القوي
 // if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
 //   showError("Password must be strong (uppercase, lowercase, number, symbol, min 8)");

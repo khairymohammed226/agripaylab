@@ -72,9 +72,17 @@
 
         <!-- Step 4 -->
         <div class="step" style="display:none">
-          <input type="password" id="password" placeholder="Password" required>
-          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-          <div class="buttons">
+          <div class="password-container">
+  <input type="password" id="password" placeholder="Password" required>
+  <span id="togglePassword">👁️</span>
+</div>
+        <div class="password-container">
+  <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+  <span id="toggleConfirm">👁️</span>
+</div>
+            <div class="password-strength">
+  <div id="strengthBar"></div>
+</div>
   <button type="button" class="backBtn">Back</button>
   <button type="button" class="nextBtn">Next</button>
 </div>

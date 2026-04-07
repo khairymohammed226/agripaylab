@@ -13,6 +13,7 @@ const atmRoutes = require("./routes/trans");
 const Transaction = require("./models/Transaction");
 const Card = require("./models/card");
 const Contact = require("./models/contact");
+const { sendWelcomeEmail } = require("./utils/mailer");
 
 const User = require("./models/User");
     const app = express();
@@ -21,6 +22,7 @@ const limiter = rateLimit({
   max: 100,
   message: "Too many requests, please try again later."
 });
+
 
     const PORT = process.env.PORT || 3000;
     const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
@@ -140,8 +142,11 @@ console.log("DB HOST:", mongoose.connection.host);
         });
 
         const savedUser = await newUser.save();
-
-        const { password: _p, __v, ...userSafe } = savedUser.toObject();
+try {
+  await sendWelcomeEmail(savedUser.email, savedUser.firstName);
+} catch (err) {
+  console.log("Email failed:", err.message);
+}        const { password: _p, __v, ...userSafe } = savedUser.toObject();
 
         return res.status(201).json({
           message: "login successfully ",
@@ -191,7 +196,9 @@ if (user.loginAttempts >= 4) {
   user.lockUntil = Date.now() + 60 * 60 * 1000;
 
   await user.save();
+const { sendWelcomeEmail } = require("../utils/mailer");
 
+await sendWelcomeEmail(user.email, user.firstName);
   return res.status(403).json({
     message: "Account locked due to multiple failed attempts. Try again after 1 hour."
   });

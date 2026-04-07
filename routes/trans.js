@@ -4,6 +4,7 @@ const User = require("../models/User");
 const Card = require("../models/card");
 const bcrypt = require("bcrypt");
 const Otp = require("../models/Otp");
+const { sendOtpEmail } = require("../utils/mailer");
 
 router.post("/generate-otp", async (req, res) => {
   try {
@@ -68,8 +69,9 @@ router.post("/generate-otp", async (req, res) => {
       expiresAt
     });
 
-    res.json({ otp });
+await sendOtpEmail(user.email, otp);
 
+res.json({ message: "OTP sent to your email 📧" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

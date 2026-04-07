@@ -70,7 +70,7 @@ generateBtn.disabled = true;
         return;
       }
 
-      showATMMessage(`New OTP: ${data.otp}`, "success");
+      showATMMessage("New OTP sent to your email 📧", "success");
 timerElement.style.color = "#2ecc71";
 timerElement.style.background = "rgba(46, 204, 113, 0.1)";
       // 🔁 يبدأ timer من جديد
@@ -184,7 +184,7 @@ function showATMMessage(text, type) {
         }
 
         // 🟢 عرض OTP
-        showATMMessage(`Your OTP: ${data.otp}`, "success");
+        showATMMessage("OTP sent to your email 📧", "success");
 
 otpActive = true;              // 👈 مهم
 generateBtn.disabled = true;   // 👈 مهم

@@ -15,6 +15,10 @@ const Card = require("./models/card");
 const Contact = require("./models/contact");
 const { sendWelcomeEmail } = require("./utils/mailer");
 
+
+  sendWelcomeEmail("your_real_email@gmail.com", "Test User")
+  .then(() => console.log("EMAIL SENT ✅"))
+  .catch(err => console.log("EMAIL ERROR ❌", err));
 const User = require("./models/User");
     const app = express();
 const limiter = rateLimit({

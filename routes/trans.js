@@ -4,14 +4,14 @@ const User = require("../models/User");
 const Card = require("../models/card");
 const bcrypt = require("bcrypt");
 const Otp = require("../models/Otp");
-const { sendOtpEmail } = require("../utils/mailer");
 
 router.post("/generate-otp", async (req, res) => {
   try {
     const { atmCode, pin, amount, userId } = req.body;
 
+    // ✅ تحقق من البيانات
     if (!atmCode || !pin || !amount || !userId) {
-      return res.status(400).json({ message: "Missing data" });
+      return res.status(400).json({ message: "Missing data ❌" });
     }
 
     const amountNumber = Number(amount);
@@ -69,12 +69,14 @@ router.post("/generate-otp", async (req, res) => {
       expiresAt
     });
 
-await sendOtpEmail(user.email, otp);
+    // ❗ دلوقتي مش بنبعت ايميل OTP عشان متكسرش الدنيا
+    // await sendOtpEmail(user.email, otp);
 
-res.json({ message: "OTP sent to your email 📧" });
+    res.json({ message: "OTP created successfully ✅" });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error ❌" });
   }
 });
 

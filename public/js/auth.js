@@ -66,15 +66,21 @@ if (currentStep === 3) {
   const password = document.getElementById("password").value;
   const confirm = document.getElementById("confirmPassword").value;
 
+  if (!password || !confirm) {
+    showError("Fill password fields");
+    return;
+  }
+
   if (password !== confirm) {
     showError("password does not match");
     return;
   }
 
-  // if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-  //   showError("Weak password");
-  //   return;
-  // }
+  // ✅ هنا بقى الباسورد القوي
+  if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
+    showError("Weak password  (Use uppercase, lowercase, number & symbol)");
+    return;
+  }
 }
 
 // STEP 5 (Age)

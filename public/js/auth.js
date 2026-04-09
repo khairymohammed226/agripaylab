@@ -201,11 +201,11 @@ if (password !== confirmPassword) {
   return;
 }
 
-// 2️⃣ الباسورد القوي
-// if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-//   showError("Password must be strong (uppercase, lowercase, number, symbol, min 8)");
-//   return;
-// }
+ 
+ if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
+   showError("Password must be strong (uppercase, lowercase, number, symbol, min 8)");
+  return;
+}
 
 // 3️⃣ الإيميل
 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -342,18 +342,22 @@ const submitBtn = document.querySelector('button[type="submit"]');
 submitBtn.disabled = true;
 submitBtn.textContent = "Processing...";
 submitBtn.disabled = false;
-submitBtn.textContent = "Register";
 document.addEventListener("input", (e) => {
   if (e.target.id === "password") {
 
-    const passwordInput = e.target;
+    const value = e.target.value;
     const suggestionBox = document.getElementById("passwordSuggestion");
 
     if (!suggestionBox) return;
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
+    // ❌ لو فاضي → امسح كل حاجة
+    if (value.length === 0) {
+      suggestionBox.innerHTML = "";
+      return;
+    }
 
     function generateStrongPassword() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
       let pass = "";
       for (let i = 0; i < 12; i++) {
         pass += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -365,7 +369,8 @@ document.addEventListener("input", (e) => {
       return pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass);
     }
 
-    if (isWeakPassword(passwordInput.value)) {
+    // ✅ يظهر بس لو ضعيف
+    if (isWeakPassword(value)) {
       const strongPass = generateStrongPassword();
 
       suggestionBox.innerHTML = `

@@ -319,4 +319,37 @@ submitBtn.disabled = true;
 submitBtn.textContent = "Processing...";
 submitBtn.disabled = false;
 submitBtn.textContent = "Register";
+document.addEventListener("input", (e) => {
+  if (e.target.id === "password") {
 
+    const passwordInput = e.target;
+    const suggestionBox = document.getElementById("passwordSuggestion");
+
+    if (!suggestionBox) return;
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
+
+    function generateStrongPassword() {
+      let pass = "";
+      for (let i = 0; i < 12; i++) {
+        pass += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return pass;
+    }
+
+    function isWeakPassword(pass) {
+      return pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass);
+    }
+
+    if (isWeakPassword(passwordInput.value)) {
+      const strongPass = generateStrongPassword();
+
+      suggestionBox.innerHTML = `
+        ⚠️ Weak password <br>
+        💡 Suggested: <b>${strongPass}</b>
+      `;
+    } else {
+      suggestionBox.innerHTML = "✅ Strong password";
+    }
+  }
+});

@@ -345,13 +345,13 @@ submitBtn.disabled = false;
 document.addEventListener("input", (e) => {
   if (e.target.id === "password") {
 
-    const value = e.target.value;
+    const value = e.target.value.trim();
     const suggestionBox = document.getElementById("passwordSuggestion");
 
     if (!suggestionBox) return;
 
-    // ❌ لو فاضي → امسح كل حاجة
-    if (value.length === 0) {
+    // ❌ لو فاضي → مفيش حاجة
+    if (value === "") {
       suggestionBox.innerHTML = "";
       return;
     }
@@ -369,7 +369,6 @@ document.addEventListener("input", (e) => {
       return pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass);
     }
 
-    // ✅ يظهر بس لو ضعيف
     if (isWeakPassword(value)) {
       const strongPass = generateStrongPassword();
 

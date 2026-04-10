@@ -125,10 +125,14 @@ app.post("/register", async (req, res) => {
       });
     }
 
-    // ✅ 5. Check if user exists 🔥
-    const existUser = await User.findOne({
-     $or: [{ username: username }, { email: email }]
-    });
+  const existUser = await User.findOne({
+  $or: [
+    { username: username.trim() },
+    { email: email.trim().toLowerCase() }
+  ]
+});
+
+console.log("existUser:", existUser); // 👈 حطه هنا
 
     if (existUser) {
       return res.status(409).json({

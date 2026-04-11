@@ -233,7 +233,7 @@ if (age < 21) {
 
 try {
 
-  const res = await fetch(`/auth/register`, {
+  const res = await fetch(`/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

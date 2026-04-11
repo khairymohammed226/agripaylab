@@ -163,7 +163,10 @@ console.log("existUser:", existUser); // 👈 حطه هنا
     await sendWelcomeEmail(email, username);
 
     // ✅ 10. Response
-    res.json({ message: "User registered successfully" });
+    res.json({
+  message: "User registered successfully",
+  user: newUser
+});
 
   } catch (err) {
     console.log(err);

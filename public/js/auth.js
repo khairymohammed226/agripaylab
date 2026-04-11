@@ -77,10 +77,10 @@ if (currentStep === 3) {
   }
 
   // 🔥 ده أهم سطر
-  if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-    showError("Weak password (use uppercase + number + 8 chars)");
-    return;
-  }
+if (password.length < 8 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
+  showError("Password must contain letters and numbers (min 8 chars)");
+  return;
+}
 }
 
 // STEP 5 (Age)
@@ -345,10 +345,9 @@ if (value === "") {
       }
       return pass;
     }
-
-    function isWeakPassword(pass) {
-      return pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass);
-    }
+function isWeakPassword(pass) {
+  return pass.length < 8 || !/[a-zA-Z]/.test(pass) || !/\d/.test(pass);
+}
 
   if (value.length < 8) { 
       const strongPass = generateStrongPassword();

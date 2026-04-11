@@ -188,7 +188,12 @@ showATMMessage("Your OTP is: " + data.otp, "success");
 otpActive = true;              // 👈 مهم
 generateBtn.disabled = true;   // 👈 مهم
 
-
+localStorage.setItem("atmSession", JSON.stringify({
+  otp: data.otp,
+  amount: amount,
+  atmCode: atmCode,
+  createdAt: Date.now()
+}));
 resendBtn.classList.add("hidden");
           startOtpTimer(300);
          
@@ -210,3 +215,7 @@ resendBtn.classList.add("hidden");
   }
 
 });
+
+document.getElementById("goToAtmBtn").onclick = () => {
+  window.location.href = "atm-simulator.html";
+};

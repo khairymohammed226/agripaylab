@@ -184,8 +184,8 @@ if (password !== confirmPassword) {
 }
 
  
- if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-   showError("Password must be strong (uppercase, lowercase, number, symbol, min 8)");
+if (password.length < 8 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
+  showError("Password must contain letters and numbers (min 8 chars)");
   return;
 }
 
@@ -350,7 +350,7 @@ if (value === "") {
       return pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass);
     }
 
-    if (isWeakPassword(value)) {
+  if (value.length < 8) { 
       const strongPass = generateStrongPassword();
       suggestionBox.style.display = "block";
        suggestionBox.innerHTML = `

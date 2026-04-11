@@ -34,7 +34,7 @@ const limiter = rateLimit({
 
 
 
-    app.use(limiter);
+
     app.set('trust proxy', 1);
     app.use(cors());
     app.use(express.json());
@@ -59,7 +59,17 @@ mongoose.connect(process.env.MONGO, {
 });   
     // Middlewares
   
-    
+    app.use("/login", rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 5,
+  message: "Too many login attempts"
+}));
+
+app.use("/register", rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 5,
+  message: "Too many register attempts"
+}));
       
 
     // Helpers

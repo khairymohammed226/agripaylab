@@ -4,8 +4,14 @@ const User = require("../models/User");
 const Card = require("../models/card");
 const bcrypt = require("bcrypt");
 const Otp = require("../models/Otp");
+const rateLimit = require("express-rate-limit");
 
-router.post("/generate-otp", async (req, res) => {
+const otpLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // دقيقة
+  max: 3, // 3 مرات بس
+  message: "Too many OTP requests, try again later"
+});
+router.post("/generate-otp", otpLimiter, async (req, res) => {
   try {
     const { atmCode, pin, amount, userId } = req.body;
 

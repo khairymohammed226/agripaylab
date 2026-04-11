@@ -20,13 +20,14 @@ router.post("/generate-otp", async (req, res) => {
 
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
-    await Otp.create({
-      userId,
-      otpHash,
-      amount,
-      atmCode,
-      expiresAt
-    });
+ await Otp.create({
+  userId,
+  otpHash,
+  amount,
+  atmCode,
+  expiresAt,
+  used: false // 🔥 ضيف دي
+});
 
     res.json({ otp });
 
@@ -96,7 +97,7 @@ router.post("/withdraw", async (req, res) => {
   return res.status(400).json({ message: "Amount must match OTP ❌" });
 }
 
-    if (amount > user.balance) {
+    if (amountNumber > user.balance){
       return res.status(400).json({ message: "Insufficient balance ❌" });
     }
 

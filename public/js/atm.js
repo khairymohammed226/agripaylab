@@ -58,7 +58,7 @@ generateBtn.disabled = true;
         body: JSON.stringify({
          atmCode: atmCodeInput.value.trim(),
          pin: pinInput.value.trim(),
-         amount: amountInput.value.trim(),
+         amount: Number(amountInput.value),
           userId: currentUser._id
         })
       });

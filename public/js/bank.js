@@ -2,39 +2,11 @@
 /* ======================================================
    عرض بيانات المستخدم من localStorage
 ====================================================== */
-const accountInput = document.getElementById("benefAccount");
-const nameInput = document.getElementById("benefName");
 const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
  if (!currentUser || !currentUser._id) {
   showBankMessage("Please log in first", "error");
   window.location.href = "login.html";
 }
-accountInput.addEventListener("input", async () => {
-
-  const value = accountInput.value.replace(/\s|-/g, "");
-
-  if (value.length !== 16) {
-    nameInput.value = "";
-    return;
-  }
-
-  try {
-    const res = await fetch(`/account/${value}`);
-    const data = await res.json();
-
-    if (!res.ok) {
-      nameInput.value = "";
-      return;
-    }
-
-    nameInput.value = data.name;
-
-  } catch (err) {
-    console.error(err);
-    nameInput.value = "";
-  }
-
-});
 function showBankMessage(text, type) {
   const msg = document.getElementById("bankMessage");
 

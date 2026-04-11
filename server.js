@@ -42,35 +42,7 @@ const limiter = rateLimit({
     app.use(helmet());
     app.disable("x-powered-by");
      app.use("/atm", atmRoutes);
-       app.get("/account/:number", async (req, res) => {
-  try {
-    const cleanAccount = req.params.number.replace(/\s|-/g, "");
 
-    if (!/^\d{16}$/.test(cleanAccount)) {
-      return res.status(400).json({ message: "Invalid account format" });
-    }
-
-    const card = await Card.findOne({ accountNumber: cleanAccount });
-
-    if (!card) {
-      return res.status(404).json({ message: "Account not found" });
-    }
-
-    const user = await User.findById(card.userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.json({
-      name: user.firstName + " " + user.lastName
-    });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 mongoose.set("strictQuery", true);
 console.log("ENV TEST:", process.env.MONGO);
 
@@ -87,17 +59,7 @@ mongoose.connect(process.env.MONGO, {
 });   
     // Middlewares
   
-    app.use("/login", rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 5,
-  message: "Too many login attempts"
-}));
-
-app.use("/register", rateLimit({
-  windowMs: 5 * 60 * 1000,
-  max: 5,
-  message: "Too many register attempts"
-}));
+    
       
 
     // Helpers
@@ -478,8 +440,7 @@ if (user.loginAttempts >= 4) {
         if (!/^[0-9]{16}$/.test(accountNumber)) {
           return res.status(400).json({ message: "Card number must be exactly 16 digits" });
         }
-           
- 
+
         const hashedCardPassword = await bcrypt.hash(cardPassword, SALT_ROUNDS);
 
         const newCard = new Card({
@@ -589,7 +550,6 @@ if (user.loginAttempts >= 4) {
         res.status(500).json({ message: " server error" });
       }
     });
-    
 
 
     app.get("/", (req, res) => {

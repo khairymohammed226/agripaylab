@@ -168,24 +168,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   const phone = document.getElementById("phonenumber").value.trim();
   const form = document.getElementById("registerForm");
 
-form.addEventListener("submit", (e) => {
 
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-
-  // 1️⃣ تأكيد الباسورد
-  if (password !== confirmPassword) {
-    e.preventDefault();
-    showError("password does not match");
-    return;
-  }
-
-  // 2️⃣ القوة
-   if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
-    e.preventDefault();
-    showError("Password must be strong");
-    return;
-  }
 
 });
 

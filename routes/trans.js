@@ -1,5 +1,87 @@
-const Transaction = require("../models/Transaction");
+const express = require("express");
+const router = express.Router();
 
+const User = require("../models/User");
+const Card = require("../models/card");
+const bcrypt = require("bcrypt");
+const Otp = require("../models/Otp");
+const Transaction = require("../models/Transaction");
+const rateLimit = require("express-rate-limit");
+
+// 🔒 limiter
+const otpLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 3,
+  message: "Too many OTP requests, try again later"
+});
+
+// 🔢 generate OTP
+router.post("/generate-otp", otpLimiter, async (req, res) => {
+  try {
+    const { atmCode, pin, amount, userId } = req.body;
+
+    if (!atmCode || !pin || !amount || !userId) {
+      return res.status(400).json({ message: "Missing data ❌" });
+    }
+
+    const amountNumber = Number(amount);
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found ❌" });
+    }
+
+    const card = await Card.findOne({ userId });
+    if (!card) {
+      return res.status(404).json({ message: "Card not found ❌" });
+    }
+
+    const isPinCorrect = await bcrypt.compare(pin, card.cardPassword);
+    if (!isPinCorrect) {
+      return res.status(400).json({ message: "Incorrect PIN ❌" });
+    }
+
+    if (amountNumber > user.balance) {
+      return res.status(400).json({ message: "Insufficient balance 💸" });
+    }
+
+    const existingOtp = await Otp.findOne({
+      userId,
+      atmCode,
+      used: false,
+      expiresAt: { $gt: new Date() }
+    });
+
+    if (existingOtp) {
+      return res.status(400).json({ message: "OTP already active ⏳" });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    const otpHash = await bcrypt.hash(otp.toString(), 10);
+
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    await Otp.create({
+      userId,
+      otpHash,
+      amount: amountNumber,
+      atmCode,
+      expiresAt,
+      used: false
+    });
+
+    res.json({
+      message: "OTP created successfully ✅",
+      otp
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error ❌" });
+  }
+});
+
+// 💸 withdraw
 router.post("/withdraw", async (req, res) => {
   try {
     const { userId, otp, atmCode, pin, amount } = req.body;
@@ -10,7 +92,6 @@ router.post("/withdraw", async (req, res) => {
 
     const amountNumber = Number(amount);
 
-    // 🟢 OTP
     const otpDoc = await Otp.findOne({
       userId,
       atmCode,
@@ -27,7 +108,6 @@ router.post("/withdraw", async (req, res) => {
       return res.status(400).json({ message: "Invalid OTP ❌" });
     }
 
-    // 🟢 Card
     const card = await Card.findOne({ userId });
     if (!card) {
       return res.status(404).json({ message: "Card not found ❌" });
@@ -38,13 +118,11 @@ router.post("/withdraw", async (req, res) => {
       return res.status(400).json({ message: "Incorrect PIN ❌" });
     }
 
-    // 🟢 User
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found ❌" });
     }
 
-    // 💸 checks
     if (amountNumber > otpDoc.amount) {
       return res.status(400).json({ message: "Amount exceeds limit ❌" });
     }
@@ -53,11 +131,9 @@ router.post("/withdraw", async (req, res) => {
       return res.status(400).json({ message: "Insufficient balance ❌" });
     }
 
-    // 💰 withdraw
     user.balance -= amountNumber;
     await user.save();
 
-    // 🧾 transaction
     await Transaction.create({
       userId,
       amount: amountNumber,
@@ -66,7 +142,6 @@ router.post("/withdraw", async (req, res) => {
       direction: "out"
     });
 
-    // 🔒 mark OTP used
     otpDoc.used = true;
     await otpDoc.save();
 
@@ -80,3 +155,5 @@ router.post("/withdraw", async (req, res) => {
     res.status(500).json({ message: "Server error ❌" });
   }
 });
+
+module.exports = router;

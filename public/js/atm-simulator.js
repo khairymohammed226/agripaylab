@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       showMessage("Processing...", "success");
 
-      const res = await fetch("/atm/withdraw", {
+      const res = await fetch("https://bankingnew-production.up.railway.app/atm/withdraw", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

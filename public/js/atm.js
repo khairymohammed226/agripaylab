@@ -50,7 +50,7 @@ generateBtn.disabled = true;
     
 
     try {
-      const res = await fetch("/atm/generate-otp", {
+      const res = await fetch("https://bankingnew-production.up.railway.app/atm/generate-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

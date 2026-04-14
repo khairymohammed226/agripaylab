@@ -1,204 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bank Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Home</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:"Poppins",sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
 
-    body{
-      background:#f5f5f5;
-    }
+body{
+  background:#f5f5f5;
+}
 
-    /* NAVBAR */
-    .top-nav{
-      width:90%;
-      margin:20px auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:15px 40px;
-      background:white;
-      border-radius:15px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    }
+/* NAVBAR */
+.top-nav{
+  width:90%;
+  margin:20px auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-    .logo img{
-      width:70px;
-    }
+.logo img{
+  width:70px;
+}
 
-    .top-nav ul{
-      display:flex;
-      gap:30px;
-      list-style:none;
-    }
+.top-nav ul{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
 
-    .top-nav a{
-      text-decoration:none;
-      color:#083c24;
-      font-weight:bold;
-    }
+.top-nav a{
+  text-decoration:none;
+  color:#083c24;
+  font-weight:bold;
+}
 
-    .signup{
-      border:2px solid #083c24;
-      padding:5px 10px;
-      border-radius:8px;
-    }
+.signup{
+  border:2px solid #083c24;
+  padding:5px 10px;
+  border-radius:8px;
+}
 
-    /* MAIN LAYOUT */
-    .home{
-      display:flex;
-      width:90%;
-      margin:20px auto;
-      gap:20px;
-      height:80vh;
-    }
+/* MAIN LAYOUT */
+.home{
+  display:flex;
+  width:90%;
+  margin:20px auto;
+  gap:20px;
+  height:80vh;
+}
 
-    /* LEFT */
-    .hero{
-      flex:1;
-      background:url("image/banki-online-4.jpg") no-repeat center/cover;
-      border-radius:20px;
-      position:relative;
-      color:white;
-    }
+/* LEFT (Hero) */
+.hero{
+  flex:1;
+  background:url("image/banki-online-4.jpg") no-repeat center/cover;
+  border-radius:20px;
+  position:relative;
+  color:white;
+}
 
-    .hero-content{
-      position:absolute;
-      bottom:40px;
-      left:40px;
-    }
+.hero-content{
+  position:absolute;
+  bottom:40px;
+  left:40px;
+}
 
-    .hero h1{
-      font-size:35px;
-      margin-bottom:10px;
-    }
+.hero h1{
+  font-size:35px;
+  margin-bottom:10px;
+}
 
-    .hero p{
-      font-size:18px;
-    }
+.hero p{
+  font-size:18px;
+}
 
-    .hero button{
-      margin-top:15px;
-      padding:10px 20px;
-      border:none;
-      border-radius:8px;
-      background:white;
-      color:#2f8a64;
-      cursor:pointer;
-    }
+.hero button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:white;
+  color:#2f8a64;
+  cursor:pointer;
+}
 
-    /* RIGHT */
-    .services{
-      flex:1;
-      background:white;
-      border-radius:20px;
-      padding:30px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    }
+/* RIGHT (Services) */
+.services{
+  flex:1;
+  background:white;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-    .services h2{
-      margin-bottom:20px;
-      color:#083c24;
-    }
+.services h2{
+  margin-bottom:20px;
+  color:#083c24;
+}
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-    }
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
 
-    .card{
-      background:#f5f5f5;
-      padding:25px;
-      border-radius:12px;
-      cursor:pointer;
-      transition:0.3s;
-    }
+.card{
+  background:#f5f5f5;
+  padding:25px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.3s;
+}
 
-    .card:hover{
-      background:#2f8a64;
-      color:white;
-      transform:translateY(-5px);
-    }
+.card:hover{
+  background:#2f8a64;
+  color:white;
+  transform:translateY(-5px);
+}
 
-    /* RESPONSIVE */
-    @media(max-width:768px){
-      .home{
-        flex-direction:column;
-        height:auto;
-      }
-    }
-
-  </style>
+/* MOBILE */
+@media(max-width:768px){
+  .home{
+    flex-direction:column;
+    height:auto;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <div class="top-nav">
-    <div class="logo">
-      <img src="image/Picsart_25-10-01_17-11-01-636.png">
-    </div>
-
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Login</a></li>
-      <li><a href="#" class="signup">Sign Up</a></li>
-    </ul>
+<!-- NAVBAR -->
+<div class="top-nav">
+  <div class="logo">
+    <img src="image/Picsart_25-10-01_17-11-01-636.png">
   </div>
 
-  <!-- HOME -->
-  <div class="home">
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html" class="signup">Sign Up</a></li>
+  </ul>
+</div>
 
-    <!-- LEFT -->
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Enjoy new services now</h1>
-        <p>banki Mobile</p>
-        <button>Know More</button>
-      </div>
+<!-- HOME -->
+<div class="home">
+
+  <!-- LEFT -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Enjoy new services now</h1>
+      <p>banki Mobile</p>
+      <button>Know More</button>
     </div>
-
-    <!-- RIGHT -->
-    <div class="services">
-      <h2>Check your products</h2>
-
-      <div class="cards">
-
-        <div class="card">
-          <h3>Accounts</h3>
-          <p>View your account</p>
-        </div>
-
-        <div class="card">
-          <h3>Save & Invest</h3>
-          <p>Grow your money</p>
-        </div>
-
-        <div class="card">
-          <h3>Finance</h3>
-          <p>Get a loan</p>
-        </div>
-
-        <div class="card">
-          <h3>Buy a Car</h3>
-          <p>Car services</p>
-        </div>
-
-      </div>
-    </div>
-
   </div>
+
+  <!-- RIGHT -->
+  <div class="services">
+    <h2>Check your products</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Accounts</h3>
+        <p>View your account</p>
+      </div>
+
+      <div class="card">
+        <h3>Save & Invest</h3>
+        <p>Grow your money</p>
+      </div>
+
+      <div class="card">
+        <h3>Finance</h3>
+        <p>Get a loan</p>
+      </div>
+
+      <div class="card">
+        <h3>Buy a Car</h3>
+        <p>Car services</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>

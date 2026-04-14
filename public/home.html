@@ -2,420 +2,203 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Credit Agricole - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Home</title>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-    
-body {
-  background: url(image/banki-online-4.jpg) no-repeat center center fixed;
-  background-size: cover;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  animation: fadeIn 1s ease-in;
-}
-
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-    /* Top Navigation Bar */
-    .top-nav {
-      width: 90%;
-      background-color: rgba(213, 232, 212, 0.4);
-      margin: 20px auto 0;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Poppins",sans-serif;
     }
 
-    .top-nav .logo img {
-      height: 50px;
-      width: auto;
+    body{
+      background:#f5f5f5;
     }
 
-    .top-nav ul {
-      list-style: none;
-      display: flex;
-      gap: 45px;
+    /* NAVBAR */
+    .top-nav{
+      width:90%;
+      margin:20px auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 40px;
+      background:white;
+      border-radius:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
     }
 
-    .top-nav ul li {
-      cursor: pointer;
-      font-weight: 700;
-      transition: 0.3s;
-      color: #083c24;
-      font-size: 17px;
-      letter-spacing: 1px;
+    .logo img{
+      width:70px;
     }
 
-    .top-nav ul li:hover {
-      color: #2f8a64;
-      transform: scale(1.05);
+    .top-nav ul{
+      display:flex;
+      gap:30px;
+      list-style:none;
     }
 
-
-    /* Page Layout */
-    .page-content {
-      display: flex;
-      flex: 1;
-      width: 90%;
-      margin: 30px auto;
-      gap: 25px;
+    .top-nav a{
+      text-decoration:none;
+      color:#083c24;
+      font-weight:bold;
     }
 
-    /* Sidebar */
-/* 🔹 Sidebar Navigation Links Color */
-
-.main {
-  flex: 1;
-  padding: 60px 40px;
-  background-color: rgba(255, 255, 255, 0.65);
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  color: #083c24;
-  max-width: 900px; /* ✅ علشان ما يتمدش بعرض الشاشة */
-  margin: 60px auto; /* ✅ دا اللي بيخليه في النص */
-}
-
-    
-
-    .main h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-      font-weight: 700;
+    .signup{
+      border:2px solid #083c24;
+      padding:5px 10px;
+      border-radius:8px;
     }
 
-    .main p {
-      font-size: 16px;
-      color: #333;
-      max-width: 600px;
-      margin: 0 auto 40px;
+    /* MAIN LAYOUT */
+    .home{
+      display:flex;
+      width:90%;
+      margin:20px auto;
+      gap:20px;
+      height:80vh;
     }
 
-    /* ✅ About Section (Moved Up) */
-    .about-section {
-      background: rgba(249, 249, 249, 0.85);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 900px;
-      margin: 40px auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      backdrop-filter: blur(5px);
+    /* LEFT */
+    .hero{
+      flex:1;
+      background:url("image/banki-online-4.jpg") no-repeat center/cover;
+      border-radius:20px;
+      position:relative;
+      color:white;
     }
 
-    .about-section h2 {
-      color: #2f8a64;
-      font-size: 28px;
-      margin-bottom: 20px;
+    .hero-content{
+      position:absolute;
+      bottom:40px;
+      left:40px;
     }
 
-    .about-section p {
-      color: #333;
-      line-height: 1.8;
-      font-size: 16px;
-      margin-bottom: 18px;
+    .hero h1{
+      font-size:35px;
+      margin-bottom:10px;
     }
 
-    /* ✅ Feature Boxes */
- .features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
-  justify-items: center;
-  margin-top: 40px;
-}
-
-    .feature-box {
-      background-color: rgba(47, 138, 100, 0.8);
-      color: white;
-      padding: 25px 15px;
-      border-radius: 15px;
-      width: 100%;
-      max-width: 260px;
-      height: 200px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      overflow: hidden;
+    .hero p{
+      font-size:18px;
     }
 
-    .icon-container img {
-      width: 60px;
-      height: 60px;
-      transition: opacity 0.3s ease;
+    .hero button{
+      margin-top:15px;
+      padding:10px 20px;
+      border:none;
+      border-radius:8px;
+      background:white;
+      color:#2f8a64;
+      cursor:pointer;
     }
 
-    .feature-text {
-      position: absolute;
-      opacity: 0;
-      text-align: center;
-      padding: 0 10px;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      transform: translateY(15px);
+    /* RIGHT */
+    .services{
+      flex:1;
+      background:white;
+      border-radius:20px;
+      padding:30px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
     }
 
-    .feature-text h3 {
-      margin-bottom: 8px;
-      font-size: 20px;
+    .services h2{
+      margin-bottom:20px;
+      color:#083c24;
     }
 
-    .feature-text p {
-      font-size: 14px;
-      color: #f0f0f0;
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
     }
 
-    .feature-box:hover .icon-container img {
-      opacity: 0;
+    .card{
+      background:#f5f5f5;
+      padding:25px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:0.3s;
     }
 
-    .feature-box:hover .feature-text {
-      opacity: 1;
-      transform: translateY(0);
+    .card:hover{
+      background:#2f8a64;
+      color:white;
+      transform:translateY(-5px);
     }
 
-    .feature-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    @media (max-width: 768px) {
-      .features {
-        grid-template-columns: 1fr;
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .home{
+        flex-direction:column;
+        height:auto;
       }
     }
-        .logo img {
-  width: 80px; /* أو المقاس اللي يناسبك */
-  transition: transform 0.5s ease, filter 0.5s ease;
-  cursor: pointer;
-}
 
-/* لما تقف على اللوجو */
-.logo img:hover {
-  transform: rotate(10deg) scale(1.1);
-  filter: brightness(1.2);
-}
-    /* ======== 🔚 Navbar Links Fix (keep black color) ======== */
-
-.top-nav ul li a {
-  color: black !important; /* يخلي اللون أسود دايمًا */
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.3s ease;
-}
-
-.top-nav ul li a:hover {
-  transform: scale(1.1);
-  color: #2f8a64 !important; /* حتى في hover يفضل أسود */
-}
-
-/* زر sign up */
-.signup {
-  background-color: transparent;
-  color: black !important;
-  border: 2px solid black;
-  padding: 6px 12px;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.signup:hover {
-  background-color: black;
-  color: white !important;
-}
-/* ===============================
-   MOBILE RESPONSIVE - HOME PAGE
-================================*/
-@media (max-width:768px){
-
-/* navbar */
-.top-nav{
-padding:10px 15px;
-flex-direction:row;
-}
-
-.top-nav ul{
-gap:12px;
-flex-wrap:nowrap;
-overflow-x:auto;
-}
-
-/* logo smaller */
-.logo img{
-width:60px;
-}
-
-/* main content */
-.main{
-padding:30px 20px;
-margin:120px auto 40px;
-width:95%;
-}
-
-/* title */
-.main h1{
-font-size:24px;
-}
-
-/* paragraph */
-.main p{
-font-size:14px;
-}
-
-/* about section */
-.about-section{
-padding:25px 20px;
-margin:20px auto;
-width:95%;
-}
-
-.about-section h2{
-font-size:22px;
-}
-
-/* feature boxes */
-.features{
-grid-template-columns:1fr;
-gap:15px;
-}
-
-.feature-box{
-max-width:100%;
-height:180px;
-}
-
-}
   </style>
 </head>
+
 <body>
-  <!-- Top Navbar -->
+
+  <!-- NAVBAR -->
   <div class="top-nav">
     <div class="logo">
-      <a href="home.html"> 
-             <img src= "image/Picsart_25-10-01_17-11-01-636.png" alt="CA Logo">
-      </a>
+      <img src="image/Picsart_25-10-01_17-11-01-636.png">
     </div>
+
     <ul>
-     <li><a href="home.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="register.html" class="signup">Sign Up</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#" class="signup">Sign Up</a></li>
     </ul>
   </div>
 
+  <!-- HOME -->
+  <div class="home">
 
-    <!-- Main Section -->
-    <div class="main">
-
-      <!-- ✅ About Section Placed Here -->
-      <section class="about-section">
-        <h2>Welcome to Our Online Banking System</h2>
-        <p>This website makes it easy for you to manage your account anytime and anywhere.
-          You can check your balance, view your account details, transfer money,
-          and manage your bank cards with just a few clicks.</p>
-
-        <p>Our platform provides a secure and user-friendly experience designed to make
-          your online banking fast and reliable. With advanced encryption and real-time
-          updates, you can confidently handle your financial activities anytime.</p>
-
-        <p>Easily send and receive money between accounts, pay your bills online, and keep
-          track of every transaction in one place. Your financial management has never
-          been easier or more organized.</p>
-
-        <p>You can also manage your debit and credit cards directly from your account.
-          Activate or deactivate your card, set spending limits, and review card activity instantly.</p>
-
-        <p>Our system is optimized for all devices — whether you’re on your computer,
-          tablet, or phone, you’ll get the same smooth experience with full functionality.</p>
-
-        <p>We prioritize your safety. All your data is protected using the latest cybersecurity
-          measures, ensuring your information remains private and secure.</p>
-      </section>
-
-      <!-- ✅ Feature Boxes Below -->
-      <div class="features">
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/cyber-security.png" alt="security">
-          </div>
-          <div class="feature-text">
-            <h3>Security</h3>
-            <p>Send money instantly and securely to any account.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/planet-earth.png" alt="Mobility">
-          </div>
-          <div class="feature-text">
-            <h3>Mobility</h3>
-            <p>Check your balance and transaction history anytime.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/debit-card.png" alt="Cards">
-          </div>
-          <div class="feature-text">
-            <h3>Manage Cards</h3>
-            <p>Block or activate cards anytime safely and easily.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/mobile-access.png" alt="Mobile Access">
-          </div>
-          <div class="feature-text">
-            <h3>Mobile Access</h3>
-            <p>Access your account securely from any device.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/atm-machine.png" alt="ATM">
-          </div>
-          <div class="feature-text">
-            <h3>ATM</h3>
-            <p>Withdraw or deposit money with ease and safety.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="" alt="Support">
-          </div>
-          <div class="feature-text">
-            <h3>Support</h3>
-            <p>Get 24/7 customer service support anytime you need.</p>
-          </div>
-        </div>
+    <!-- LEFT -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Enjoy new services now</h1>
+        <p>banki Mobile</p>
+        <button>Know More</button>
       </div>
     </div>
+
+    <!-- RIGHT -->
+    <div class="services">
+      <h2>Check your products</h2>
+
+      <div class="cards">
+
+        <div class="card">
+          <h3>Accounts</h3>
+          <p>View your account</p>
+        </div>
+
+        <div class="card">
+          <h3>Save & Invest</h3>
+          <p>Grow your money</p>
+        </div>
+
+        <div class="card">
+          <h3>Finance</h3>
+          <p>Get a loan</p>
+        </div>
+
+        <div class="card">
+          <h3>Buy a Car</h3>
+          <p>Car services</p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
+
 </body>
 </html>
-<script>
-

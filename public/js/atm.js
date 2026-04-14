@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 if (!currentUser) {
   alert("Please login first");
-  window.location.href = "login.html";
+  window.location.href = "atm.html#return";
   return;
 }
 let otpActive = false;
@@ -16,7 +16,29 @@ function startOtpTimer(durationInSeconds) {
 
   clearInterval(timerInterval);
   
+const session = JSON.parse(localStorage.getItem("atmSession"));
 
+if (session) {
+  document.getElementById("amount").value = session.amount;
+
+  const now = Date.now();
+  const diff = now - session.createdAt;
+
+  const remainingTime = 300 - Math.floor(diff / 1000);
+
+  if (remainingTime > 0) {
+    console.log("Returning with existing OTP");
+
+    otpActive = true;
+    generateBtn.disabled = true;
+
+    showATMMessage("Your OTP is: " + session.otp, "success");
+
+    startOtpTimer(remainingTime); // 👈 بدل 300
+  } else {
+    localStorage.removeItem("atmSession");
+  }
+}
   timerInterval = setInterval(() => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;

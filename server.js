@@ -13,7 +13,7 @@ const atmRoutes = require("./routes/trans");
 const Transaction = require("./models/Transaction");
 const Card = require("./models/card");
 const Contact = require("./models/contact");
-const { sendWelcomeEmail } = require("./utils/mailer");
+const { sendWelcomeEmail } = require("./utils/email");
 
 
 
@@ -158,21 +158,10 @@ console.log("existUser:", existUser); // 👈 حطه هنا
 
     // ✅ 8. Save
     await newUser.save();
-await newUser.save();
 
-res.json({
-  message: "User registered successfully",
-  user: newUser
-});
-
-// بعد الرد
 sendWelcomeEmail(email, username);
-    // ✅ 9. Send email
-       sendWelcomeEmail(email, username);
-    // ✅ 10. Response
-    res.json({
-  message: "User registered successfully",
-  user: newUser
+res.status(201).json({
+  message: "User registered successfully"
 });
 
   } catch (err) {

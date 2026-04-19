@@ -58,11 +58,11 @@
 
 .form-container {
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 45px 55px;   /* زودنا padding بسيط */
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 50px;
   border-radius: 20px;
-  width: 460px;         /* كان 420 */
-  min-height: 480px;
-    /* ارتفاع ثابت للرسائل */
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -197,3 +197,109 @@ button:disabled {
   margin-top: 5px;
   display: block;
 } 
+body {
+  padding: 20px;
+}
+
+.top-nav,
+.form-container {
+  width: 100%;
+  max-width: px;
+  margin: auto;
+}
+
+.top-nav {
+  margin-bottom: 40px; /* زوّد الرقم لحد ما يعجبك */
+}
+
+.form-container {
+  margin-top: -px;
+}
+/* الصفحة كلها */
+.page-wrapper {
+  padding: 20px;
+}
+
+/* الناف + الفورم نفس العرض */
+.top-nav,
+.form-container {
+  width: 100%;
+  max-width: 11000px; /* رقم واحد للاتنين */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* مسافة بين الناف والفورم */
+.top-nav {
+  margin-bottom: 25px;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.top-nav {
+  width: 85%;
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 15px 0px;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+.top-nav ul li a {
+  transition: 0.3s;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.top-nav ul li a:hover {
+  background: #0b5134;
+  color: white;
+  transform: scale(1.05);
+}
+button {
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.top-nav ul li a {
+  white-space: nowrap;
+}
+.top-nav {
+  padding: 10px 30px 10px 15px;
+
+    gap:12 px;
+}
+.top-nav {
+  width: 85%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px 30px 10px 20px;
+  box-sizing: border-box;
+}
+
+.top-nav ul {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}
+.form-container {
+  width: 100%;          /* 👈 مهم جدًا */
+  max-width: 1000px;    /* 👈 كبره براحتك */
+  margin: 40px auto;
+  padding: 50px;
+  box-sizing: border-box;
+}
+.step input {
+  transition: all 0.3s ease;
+}
+
+/* لما تعمل focus (تقف في الخانة) */
+.step input:focus {
+  transform: translateY(-10px); /* 👈 يطلع لفوق */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #0b5134;
+  outline: none;
+}

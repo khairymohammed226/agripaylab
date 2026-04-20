@@ -9,21 +9,25 @@
     }
 
     /* ===== Navbar ===== */
-    .top-nav {
-      background-color: rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 60px;
-      position: fixed;
-      top: 20px;
-      left: 3%;
-      border-radius: 12px;
-      width: 84%;
-      z-index: 1000;
-    }
+.top-nav {
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 60px;
+
+  position: fixed;
+  top: 20px;
+
+  width: 90%;              /* 👈 خلي العرض ثابت */
+  left: 50%;               /* 👈 في النص */
+  transform: translateX(-50%); /* 👈 ترجّعها نص عرضها */
+
+  border-radius: 12px;
+  z-index: 1000;
+}
 
     .top-nav .logo img {
       height: 55px;

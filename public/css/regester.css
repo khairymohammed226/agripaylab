@@ -238,12 +238,21 @@ body {
   padding: 0;
 }
 @media (max-width: 768px) {
-  .top-nav {
-    width: 95%;
-    padding: 10px 15px;
-    flex-direction: column;
+  .top-nav ul {
+    display: flex;
     gap: 10px;
+    margin: 0;
+    flex-wrap: nowrap; /* 👈 يمنع النزول تحت */
   }
+
+  .top-nav ul li a {
+    font-size: 12px; /* 👈 تصغير بسيط */
+  }
+
+  .top-nav .logo img {
+    height: 35px;
+  }
+}
 
   .top-nav ul {
     gap: 15px;
@@ -255,7 +264,7 @@ body {
   .top-nav .logo img {
     height: 40px;
   }
-}
+
 .top-nav ul li a {
   transition: 0.3s;
   padding: 5px 10px;

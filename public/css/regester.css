@@ -237,13 +237,24 @@ body {
   margin: 0;
   padding: 0;
 }
-.top-nav {
-  width: 85%;
-  max-width: 850px;
-  margin: 20px auto;
-  padding: 15px 0px;
-  box-sizing: border-box;
-  border-radius: 15px;
+@media (max-width: 768px) {
+  .top-nav {
+    width: 95%;
+    padding: 10px 15px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .top-nav ul {
+    gap: 15px;
+    margin: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .top-nav .logo img {
+    height: 40px;
+  }
 }
 .top-nav ul li a {
   transition: 0.3s;
@@ -285,12 +296,16 @@ button:hover {
   gap: 30px;
   margin-left: auto;
 }
-.form-container {
-  width: 100%;          /* 👈 مهم جدًا */
-  max-width: 1000px;    /* 👈 كبره براحتك */
-  margin: 40px auto;
-  padding: 50px;
-  box-sizing: border-box;
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 95%;
+    padding: 25px;
+    border-radius: 15px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
 }
 .step input {
   transition: all 0.3s ease;

@@ -578,9 +578,6 @@ if (user.loginAttempts >= 4) {
 
 const path = require("path");
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "home.html"));
-});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

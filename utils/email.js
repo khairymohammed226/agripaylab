@@ -2,19 +2,35 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-async function sendWelcomeEmail(to, name) {
+async function sendOtpEmail(to, otp) {
   try {
     const data = await resend.emails.send({
-     from: "no-reply@agripay.online", // مؤقت
+      from: "Agripay Bank <no-reply@agripay.online>",
       to: to,
-      subject: "Welcome 🎉",
-      html: `<h2>Welcome ${name}</h2><p>Your account created successfully ✅</p>`
+      subject: "Your Verification Code 🔐",
+      html: `
+        <h2>Verify Your Email</h2>
+
+        <p>Your OTP code is:</p>
+
+        <h1 style="letter-spacing:6px; color:#0b6b4a;">
+          ${otp}
+        </h1>
+
+        <p>This code expires in 10 minutes ⏱</p>
+
+        <br>
+
+        <p>If you didn’t request this, ignore this email.</p>
+
+        <p>— Agripay Bank 💚</p>
+      `
     });
 
-    console.log("✅ Email sent:", data);
+    console.log("✅ OTP sent:", data);
   } catch (error) {
     console.log("❌ Email error:", error);
   }
 }
 
-module.exports = { sendWelcomeEmail };
+module.exports = { sendOtpEmail };

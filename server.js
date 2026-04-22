@@ -13,7 +13,7 @@ const atmRoutes = require("./routes/trans");
 const Transaction = require("./models/Transaction");
 const Card = require("./models/card");
 const Contact = require("./models/contact");
-const { sendWelcomeEmail } = require("./utils/email");
+const { sendOtpEmail } = require("./utils/email");
 
 
 
@@ -173,13 +173,20 @@ console.log("existUser:", existUser); // 👈 حطه هنا
     // ✅ 8. Save
  
 // Save
+const otp = Math.floor(100000 + Math.random() * 900000);
+
+newUser.emailOtp = otp.toString();
+newUser.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
 await newUser.save();
 
-await sendWelcomeEmail(newUser.email, newUser.firstName);
+// 🔥 ابعت OTP
+await sendOtpEmail(newUser.email, otp);
 
+// 🔥 رد واحد بس
 res.status(201).json({
-  message: "User registered successfully",
-  user: newUser
+  message: "OTP sent to email",
+  userId: newUser._id
 });
 
 // بعد الرد
@@ -189,6 +196,37 @@ res.status(201).json({
 
   } catch (err) {
     console.log(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.post("/verify-email", async (req, res) => {
+  try {
+    const { userId, otp } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.emailOtp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    if (user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: "OTP expired" });
+    }
+
+    user.isVerified = true;
+    user.emailOtp = null;
+    user.otpExpires = null;
+
+    await user.save();
+
+    res.json({ message: "Verified successfully" });
+
+  } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -206,6 +244,11 @@ res.status(201).json({
 
         // 2️⃣ دور على المستخدم بالـ username
         const user = await User.findOne({ username });
+        if (!user.isVerified) {
+  return res.status(403).json({
+    message: "Please verify your email first"
+  });
+}
         if (!user) {
           return res
             .status(401)

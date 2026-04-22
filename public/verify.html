@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Email</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0b6b4a, #0f8c63);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.6s ease;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #0b6b4a;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #0b6b4a;
+    box-shadow: 0 0 5px rgba(11,107,74,0.5);
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #0b6b4a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #097043;
+    transform: scale(1.03);
+  }
+
+  #message {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Email Verification</h2>
+
+<input type="text" id="otp" placeholder="Enter OTP" maxlength="6" inputmode="numeric">
+  <button id="verifyBtn">Verify</button>
+
+  <p id="message"></p>
+</div>
+
+<script>
+    if (!localStorage.getItem("verifyUserId")) {
+  window.location.href = "register.html";
+}
+document.getElementById("verifyBtn").addEventListener("click", async () => {
+
+  const otp = document.getElementById("otp").value.trim();
+  const userId = localStorage.getItem("verifyUserId");
+
+  const msg = document.getElementById("message");
+
+  if (!otp) {
+    msg.textContent = "Please enter OTP";
+    msg.style.color = "red";
+    return;
+  }
+const btn = document.getElementById("verifyBtn");
+
+btn.disabled = true;
+btn.textContent = "Verifying...";
+  try {
+    const res = await fetch("/verify-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId, otp })
+    });
+
+    const data = await res.json();
+
+  if (!res.ok) {
+  msg.textContent = data.message;
+  msg.style.color = "red";
+
+  // ✅ رجّع الزرار
+  btn.disabled = false;
+  btn.textContent = "Verify";
+
+  return;
+}
+
+    msg.textContent = "Verified successfully ✅";
+    msg.style.color = "green";
+
+    // بعد النجاح → يروح login
+    setTimeout(() => {
+  localStorage.setItem("verifiedUserId", userId);
+
+// 🧹 امسح القديم
+localStorage.removeItem("verifyUserId");
+
+window.location.href = "add-card.html";
+    }, 1500);
+
+  } 
+catch (err) {
+  msg.textContent = "Server error";
+  msg.style.color = "red";
+
+  // ✅ رجّع الزرار
+  btn.disabled = false;
+  btn.textContent = "Verify";
+}
+
+});
+</script>
+
+</body>
+</html>

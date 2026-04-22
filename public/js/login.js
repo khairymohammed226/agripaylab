@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 }
 
+
+
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -65,7 +68,7 @@ const userData = {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("currentUser", JSON.stringify(userData));
-
+localStorage.setItem("isLoggedIn", "true");
      showLoginMessage("Login successful", "success");
       window.location.href = "dashboard.html";
 
@@ -90,7 +93,6 @@ function togglePassword() {
     eyeIcon.classList.add("fa-eye");
   }
 }
-
 
 
 

@@ -251,9 +251,7 @@ try {
     showError(data.message || "error creating account");
     return;
   }
-
-
-   const userData = {
+  const userData = {
   _id: data.user._id,
   firstName: data.user.firstName,
   lastName: data.user.lastName,
@@ -261,11 +259,15 @@ try {
   email: data.user.email,
   phone: data.user.phone,
   nationalId: data.user.nationalId,
-  dob: data.user.dob,        // ✅ السطر المهم
+  dob: data.user.dob,
   balance: data.user.balance ?? 0
 };
 
 localStorage.setItem("currentUser", JSON.stringify(userData));
+localStorage.setItem("verifyUserId", data.userId);
+window.location.href = "verify.html";
+
+
 showSuccess(" Account created successfully");
 
 setTimeout(() => {

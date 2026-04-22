@@ -30,7 +30,6 @@
 
         // 3️⃣ نحدّث localStorage بآخر بيانات
         localStorage.setItem("currentUser", JSON.stringify(user));
-
         // 4️⃣ نعرض الاسم والرصيد
         document.getElementById("fullname").textContent =
           `${user.firstName} ${user.lastName}`;

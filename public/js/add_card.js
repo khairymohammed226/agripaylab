@@ -1,7 +1,11 @@
 
 document.getElementById("cardForm").addEventListener("submit", async function(e) {
   e.preventDefault();
+const userId = localStorage.getItem("verifiedUserId");
 
+if (!userId) {
+  window.location.href = "login.html";
+}
   const messageDiv = document.getElementById("cardMessage");
 
   const cardName = document.getElementById("cardName").value;
@@ -11,7 +15,7 @@ document.getElementById("cardForm").addEventListener("submit", async function(e)
   const cvv = document.getElementById("cvv").value;
   const cardPassword = document.getElementById("cardPassword").value;
 
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+  
  
 
 // تحقق MM/YY
@@ -29,7 +33,7 @@ if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        userId: user._id,
+        userId: userId,
         cardName,
         accountNumber,
         cardType,
@@ -49,7 +53,8 @@ if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
 
       // بعد ثانيتين يروح للدashboard
       setTimeout(() => {
-        window.location.href = "dashboard.html";
+        localStorage.setItem("isLoggedIn", "true");
+window.location.href = "dashboard.html";
       }, 3000);
 
     } else {

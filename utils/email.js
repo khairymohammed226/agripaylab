@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 async function sendWelcomeEmail(to, name) {
   try {
     const data = await resend.emails.send({
-      from: "onboarding@resend.dev", // مؤقت
+     from: "no-reply@agripay.online", // مؤقت
       to: to,
       subject: "Welcome 🎉",
       html: `<h2>Welcome ${name}</h2><p>Your account created successfully ✅</p>`

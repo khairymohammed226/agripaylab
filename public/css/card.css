@@ -280,3 +280,82 @@
   padding: 8px 18px;
   display: inline-block;
 }
+/* ========================================================= */
+/* إضافات الموبايل (Responsive) لصفحة الكروت */
+/* ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  /* تظبيط الحاوية الأساسية */
+  .card-container {
+    width: 100%;
+  }
+
+  /* تظبيط الهيدر والروابط */
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .nav a {
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  /* تحويل التصميم لعمودي بدل أفقي */
+  .body {
+    flex-direction: column;
+  }
+
+  /* تظبيط القائمة الجانبية لتكون شريط علوي قابل للتمرير */
+  .sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 2px solid rgba(213,233,219,0.7);
+    padding: 10px;
+    white-space: nowrap;
+  }
+
+  /* لاحظ إن الكلاس هنا اسمه item مش side-item زي الصفحات التانية */
+  .sidebar .item {
+    margin-bottom: 0;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .main-content {
+    padding: 15px 10px;
+    width: 100%;
+  }
+
+  /* تظبيط مقاس كارت الفيزا نفسه عشان ميخرجش بره الشاشة */
+  .cc-box {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    aspect-ratio: 1.586; /* نسبة أبعاد كارت الفيزا الحقيقي */
+  }
+
+  /* تظبيط تفاصيل الكارت */
+  .payment-form {
+    padding: 15px 10px;
+  }
+
+  .profile-row, .details-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

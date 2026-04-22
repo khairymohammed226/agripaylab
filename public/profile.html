@@ -94,8 +94,8 @@ body {
 }
 
 .sidebar .item a {
-  text-decoration: none;   /* يشيل الخط */
-  color: inherit;          /* يخلي اللون نفس النص */
+  text-decoration: none; 
+  color: inherit;         
   display: flex;
   align-items: center;
   gap: 10px;
@@ -225,9 +225,6 @@ button:hover {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) لصفحة البروفايل */
-/* ========================================================= */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -238,7 +235,6 @@ button:hover {
     border-radius: 10px;
   }
 
-  /* تظبيط الهيدر والروابط */
   .header {
     flex-direction: column;
     gap: 12px;
@@ -257,12 +253,10 @@ button:hover {
     font-size: 14px;
   }
 
-  /* تحويل اللي أوت لعمودي */
   .body {
     flex-direction: column;
   }
 
-  /* تظبيط السايد بار ليكون شريط علوي قابل للسحب */
   .sidebar {
     width: 100%;
     display: flex;
@@ -279,7 +273,7 @@ button:hover {
     flex-shrink: 0;
   }
 
-  /* تظبيط المحتوى وصفوف البيانات */
+  
   .main-content {
     padding: 15px 10px;
     width: 100%;
@@ -291,7 +285,7 @@ button:hover {
     gap: 8px;
   }
 
-  /* تظبيط حقول الإدخال والزراير في البروفايل */
+  
   .profile-row input.edit-input,
   #passwordBox input {
     width: 100%;

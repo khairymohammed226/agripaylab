@@ -115,9 +115,9 @@ body {
 .sidebar .item.active { background: rgba(11,107,74,0.12); box-shadow:0 0 10px rgba(11,107,74,0.25);}
 
 .sidebar a {
-  text-decoration: none;       /* يشيل الخط */
-  color: #0b6b4a;              /* يحافظ على نفس اللون */
-  display: flex;               /* يحافظ على تنسيق الصورة + النص */
+  text-decoration: none;     
+  color: #0b6b4a;           
+  display: flex;               
   align-items: center;
   gap: 10px;
 }
@@ -128,8 +128,8 @@ body {
   padding: 25px;
   animation: fadeUp 1.4s ease;
   display: flex;
-  flex-direction: column;   /* ← ده اللي بيرجعهم فوق بعض */
-  gap: 20px;                /* اختياري لتنسيق المسافة */
+  flex-direction: column;   
+  gap: 20px;                
 }
 
 
@@ -441,9 +441,7 @@ body {
 
 .hidden { display: none; }
 
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) لصفحة المحفظة */
-/* ========================================================= */
+
 @media(max-width:768px){
   body { padding: 10px; }
   

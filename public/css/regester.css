@@ -21,9 +21,9 @@
   position: fixed;
   top: 20px;
 
-  width: 90%;              /* 👈 خلي العرض ثابت */
-  left: 50%;               /* 👈 في النص */
-  transform: translateX(-50%); /* 👈 ترجّعها نص عرضها */
+  width: 90%;              
+  left: 50%;              
+  transform: translateX(-50%);
 
   border-radius: 12px;
   z-index: 1000;
@@ -89,7 +89,7 @@
   margin-bottom: 20px;
   border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.15); /* 👈 شفافية */
+  background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
 
   backdrop-filter: blur(8px);
@@ -178,7 +178,7 @@
 }
 
 .buttons button {
-  flex: 1;           /* نفس العرض */
+  flex: 1;           
   padding: 12px;
   border-radius: 8px;
   border: none;
@@ -228,27 +228,26 @@ body {
 }
 
 .top-nav {
-  margin-bottom: 40px; /* زوّد الرقم لحد ما يعجبك */
+  margin-bottom: 40px; 
 }
 
 .form-container {
   margin-top: -px;
 }
-/* الصفحة كلها */
+
 .page-wrapper {
   padding: 20px;
 }
 
-/* الناف + الفورم نفس العرض */
+
 .top-nav,
 .form-container {
   width: 100%;
-  max-width: 11000px; /* رقم واحد للاتنين */
+  max-width: 11000px; 
   margin-left: auto;
   margin-right: auto;
 }
 
-/* مسافة بين الناف والفورم */
 .top-nav {
   margin-bottom: 25px;
 }
@@ -261,11 +260,11 @@ body {
     display: flex;
     gap: 10px;
     margin: 0;
-    flex-wrap: nowrap; /* 👈 يمنع النزول تحت */
+    flex-wrap: nowrap; 
   }
 
   .top-nav ul li a {
-    font-size: 12px; /* 👈 تصغير بسيط */
+    font-size: 12px; 
   }
 
   .top-nav .logo img {
@@ -330,7 +329,7 @@ button:hover {
     padding: 25px;
     border-radius: 15px;
 
-    margin-top: 250px; /* 👈 ده المهم */
+    margin-top: 250px;
   }
 }
 

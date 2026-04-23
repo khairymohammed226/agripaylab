@@ -8,9 +8,9 @@
   <title>Bank Dashboard</title>
   <script>
   // 🔒 حماية الصفحة
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
-  }
+if (sessionStorage.getItem("isLoggedIn") !== "true") {
+  window.location.href = "login.html";
+}
 </script>
 
   
@@ -48,6 +48,7 @@
 <a href="#" id="logoutBtn">
     <img src="image/logout.png" class="icon">LOG OUT
 </a>
+
         </div>
       </div>
 
@@ -146,5 +147,23 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/dashboard.js"></script>
+  
+
+
+  <!-- باقي الصفحة -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<script>
+document.getElementById("logoutBtn").addEventListener("click", function(e) {
+  e.preventDefault();
+  sessionStorage.removeItem("isLoggedIn");
+  window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>

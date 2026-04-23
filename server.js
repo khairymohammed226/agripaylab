@@ -14,6 +14,7 @@ const Transaction = require("./models/Transaction");
 const Card = require("./models/card");
 const Contact = require("./models/contact");
 const { sendOtpEmail } = require("./utils/email");
+const { sendWelcomeEmail } = require("./utils/email");
 
 
 
@@ -218,14 +219,16 @@ app.post("/verify-email", async (req, res) => {
       return res.status(400).json({ message: "OTP expired" });
     }
 
-    user.isVerified = true;
-    user.emailOtp = null;
-    user.otpExpires = null;
+   user.isVerified = true;
+user.emailOtp = null;
+user.otpExpires = null;
 
-    await user.save();
+await user.save();
 
-    res.json({ message: "Verified successfully" });
+// ✅ ابعت رسالة ترحيب هنا
+await sendWelcomeEmail(user.email, user.username);
 
+res.json({ message: "Verified successfully" }); 
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

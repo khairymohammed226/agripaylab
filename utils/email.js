@@ -33,4 +33,34 @@ async function sendOtpEmail(to, otp) {
   }
 }
 
+
 module.exports = { sendOtpEmail };
+
+async function sendWelcomeEmail(to, username) {
+  try {
+    await resend.emails.send({
+      from: "Agripay Bank <no-reply@agripay.online>",
+      to: to,
+      subject: "Welcome to Agripay 🎉",
+      html: `
+        <h2>Welcome ${username} 👋</h2>
+
+        <p>Your email has been verified successfully ✅</p>
+
+        <p>We are happy to have you with us at <b>Agripay Bank</b>.</p>
+
+        <p>You can now start using all our services.</p>
+
+        <br>
+
+        <p>— Agripay Team 💚</p>
+      `
+    });
+
+    console.log("✅ Welcome email sent");
+  } catch (error) {
+    console.log("❌ Welcome email error:", error);
+  }
+}
+
+module.exports = { sendOtpEmail, sendWelcomeEmail };

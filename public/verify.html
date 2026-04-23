@@ -135,14 +135,23 @@ btn.textContent = "Verifying...";
 
     // بعد النجاح → يروح login
 setTimeout(() => {
+
+  // ✅ ده كان موجود
   localStorage.setItem("verifiedUserId", userId);
 
-  // 🔥 الحل هنا
+  // 🔥 ده الحل
+  localStorage.setItem("currentUser", JSON.stringify({
+    _id: userId
+  }));
+
+  // 🔥 مهم علشان الداش يفتح
   localStorage.setItem("isLoggedIn", "true");
 
+  // تنظيف القديم
   localStorage.removeItem("verifyUserId");
 
   window.location.href = "add_card.html";
+
 }, 1500);
 
   } 

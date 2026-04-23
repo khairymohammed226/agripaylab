@@ -21,7 +21,13 @@
 
       try {
         // 2️⃣ نجيب أحدث بيانات المستخدم من السيرفر
-        const res = await fetch(`/user/${localUser._id}`)
+        if (!localUser._id) {
+  alert("Invalid user ID");
+  window.location.href = "login.html";
+  return;
+}
+
+const res = await fetch(`/user/${localUser._id}`);
         if (!res.ok) {
           throw new Error("User not found");
         }

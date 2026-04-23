@@ -134,14 +134,16 @@ btn.textContent = "Verifying...";
     msg.style.color = "green";
 
     // بعد النجاح → يروح login
-    setTimeout(() => {
+setTimeout(() => {
   localStorage.setItem("verifiedUserId", userId);
 
-// 🧹 امسح القديم
-localStorage.removeItem("verifyUserId");
+  // 🔥 الحل هنا
+  localStorage.setItem("isLoggedIn", "true");
 
-window.location.href = "add_card.html";
-    }, 1500);
+  localStorage.removeItem("verifyUserId");
+
+  window.location.href = "add_card.html";
+}, 1500);
 
   } 
 catch (err) {

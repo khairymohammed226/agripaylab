@@ -2,9 +2,11 @@
 document.getElementById("cardForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 const userId = localStorage.getItem("verifiedUserId");
+console.log("Using verifiedUserId:", userId);
 
 if (!userId) {
-  window.location.href = "login.html";
+  console.log("No verified user, waiting...");
+  return;
 }
   const messageDiv = document.getElementById("cardMessage");
 

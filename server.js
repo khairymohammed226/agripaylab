@@ -243,17 +243,21 @@ app.post("/verify-email", async (req, res) => {
         }
 
         // 2️⃣ دور على المستخدم بالـ username
-        const user = await User.findOne({ username });
-        if (!user.isVerified) {
+const user = await User.findOne({ username });
+
+// 1️⃣ نتأكد إنه موجود
+if (!user) {
+  return res.status(401).json({
+    message: "Invalid username or password"
+  });
+}
+
+// 2️⃣ نتأكد إنه verified
+if (!user.isVerified) {
   return res.status(403).json({
     message: "Please verify your email first"
   });
 }
-        if (!user) {
-          return res
-            .status(401)
-            .json({ message: "error username or password" });
-        }
         // 🔐 لو الحساب مقفول
         if (user.lockUntil && user.lockUntil > Date.now()) {
          return res.status(403).json({

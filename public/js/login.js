@@ -68,7 +68,7 @@ const userData = {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("currentUser", JSON.stringify(userData));
-localStorage.setItem("isLoggedIn", "true");
+sessionStorage.setItem("isLoggedIn", "true");
      showLoginMessage("Login successful", "success");
       window.location.href = "dashboard.html";
 

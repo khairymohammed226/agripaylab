@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="image/logo.png">
   <title>💳 Add Card - Crédit Agricole</title>
 <script>
-if (!sessionStorage.getItem("currentUser")) {
+if (sessionStorage.getItem("isLoggedIn") !== "true") {
   window.location.href = "login.html";
 }
 </script>

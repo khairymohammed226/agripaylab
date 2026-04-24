@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="image/logo.png">
 <link rel="apple-touch-icon" href="image/logo.png">
 <script>
-  if (localStorage.getItem("isLoggedIn") !== "true") {
+  if (sessionStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "login.html";
   }
 </script>

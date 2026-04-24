@@ -283,3 +283,54 @@ body {
   background: #1e7e34;
   color: #fff;
 }
+/* ========================================================= */
+/* إضافات الموبايل (Responsive) لصفحة ATM Simulator */
+/* ========================================================= */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+
+  .card { width: 100%; }
+
+  /* تظبيط الهيدر والروابط */
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .nav a { margin-left: 0; font-size: 14px; }
+
+  .body { flex-direction: column; }
+
+  /* تظبيط القائمة الجانبية لتكون شريط علوي قابل للتمرير (أفقي) */
+  .sidebar {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 2px solid rgba(213,233,219,0.7);
+    padding: 10px;
+    white-space: nowrap;
+  }
+
+  .sidebar .item {
+    margin-bottom: 0 !important;
+    margin-right: 15px;
+    flex-shrink: 0; /* بيمنع الزراير تصغر أو تنزل تحت بعض */
+  }
+
+  .main { padding: 15px 10px; width: 100%; }
+
+  .send-box {
+    padding: 20px;
+  }
+}

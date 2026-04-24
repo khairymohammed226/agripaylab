@@ -76,7 +76,7 @@ if (currentStep === 3) {
     return;
   }
 
-  // 🔥 ده أهم سطر
+ 
 if (password.length < 8 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
   showError("Password must contain letters and numbers (min 8 chars)");
   return;
@@ -322,13 +322,13 @@ if (passwordInput) {
 
     const value = passwordInput.value.trim();
 
-    // لو فاضي → امسح
+    
 if (value === "") {
   suggestionBox.style.display = "none";
   return;
 }
     function generateStrongPassword() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
       let pass = "";
       for (let i = 0; i < 12; i++) {
         pass += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -344,7 +344,7 @@ function isWeakPassword(pass) {
       suggestionBox.style.display = "block";
        suggestionBox.innerHTML = `
   ⚠️ Weak password <br>
-  💡 Suggested: <b>${strongPass}</b>
+ 💡 Suggested: <b id="suggestedPass">${strongPass}</b>
 `      ;
     } else {
       suggestionBox.style.display = "block";
@@ -352,3 +352,45 @@ suggestionBox.innerHTML = "✅ Strong password";
     }
   });
 }
+suggestionBox.addEventListener("click", (e) => {
+  if (e.target.id === "suggestedPass") {
+    passwordInput.value = e.target.textContent;
+  }
+});
+// password
+document.addEventListener("DOMContentLoaded", () => {
+  const password = document.getElementById("password");
+  const confirm = document.getElementById("confirmPassword");
+
+  function addToggle(input) {
+
+    // يمنع التكرار
+    if (input.parentElement.querySelector(".toggle-icon")) return;
+
+    const icon = document.createElement("span");
+    icon.classList.add("toggle-icon");
+    icon.textContent = "👁";
+
+    icon.style.position = "absolute";
+    icon.style.right = "15px";
+    icon.style.top = "50%";
+    icon.style.transform = "translateY(-50%)";
+    icon.style.cursor = "pointer";
+
+    input.parentElement.style.position = "relative";
+    input.parentElement.appendChild(icon);
+
+    icon.addEventListener("click", () => {
+      if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🙈";
+      } else {
+        input.type = "password";
+        icon.textContent = "👁";
+      }
+    });
+  }
+
+  addToggle(password);
+  addToggle(confirm);
+});

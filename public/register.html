@@ -87,23 +87,37 @@
 <!-- Step 4 -->
 <div class="step" style="display:none">
 
-  <input 
-    type="password" 
-    id="password" 
-    class="form-control mb-3" 
-    placeholder="Password" 
+<div style="position: relative;">
+  <input
+    type="password"
+    id="password"
+    class="form-control mb-3"
+    placeholder="Password"
     required
   >
+
+  <span id="togglePassword"
+        style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+    
+  </span>
+</div>
 
   <div id="passwordSuggestion" class="text-success mb-2"></div>
 
-  <input 
-    type="password" 
-    id="confirmPassword" 
-    class="form-control mb-3" 
-    placeholder="Confirm Password" 
+<div style="position: relative;">
+  <input
+    type="password"
+    id="confirmPassword"
+    class="form-control mb-3"
+    placeholder="Confirm Password"
     required
   >
+
+  <span id="toggleConfirm"
+        style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+    
+  </span>
+</div>
 
   <div class="buttons">
     <button type="button" class="backBtn btn btn-secondary">
@@ -160,7 +174,7 @@
 
         <div class="checkbox">
           <input type="checkbox" required>
-          I agree to the <a href="#">Terms & Conditions</a>
+          
         </div>
 
         <div class="login">

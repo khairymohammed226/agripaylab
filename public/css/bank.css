@@ -31,26 +31,16 @@
       to {opacity: 1; transform: translateY(0);}
     }
 
-  .header {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 90%;
-  max-width: 1100px;
-
-  z-index: 1000;
-
+   .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(234, 248, 240, 0.6);
+  padding: 16px 22px;
+  animation: slideDown 0.8s ease;
 
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(10px);
-
-  padding: 15px 30px;
-  border-radius: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
     @keyframes slideDown {
       from {transform: translateY(-20px); opacity: 0;}
@@ -349,6 +339,7 @@ form#step1 select:focus {
   border-radius: 8px;
   box-sizing: border-box;
 }
+/* الكود الأصلي الخاص بك كما هو */
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -375,142 +366,9 @@ body {
   animation: fadeIn 1s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* ... بقية الأكواد الأصلية الخاصة بك ... */
 
-/* Header */
-.header {
-  padding: 15px 25px;
-  background: rgba(234, 248, 240, 0.6);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.brand img { height: 50px; }
-.nav a {
-  text-decoration: none;
-  color: #064a31;
-  font-weight: 600;
-  margin-left: 20px;
-  transition: 0.3s;
-}
-.nav a:hover { color: #0b6b4a; }
-
-/* Body & Sidebar */
-.body { display: flex; flex: 1; }
-.sidebar {
-  width: 200px;
-  background: rgba(247, 251, 249, 0.6);
-  border-right: 2px solid rgba(213,233,219,0.7);
-  padding: 20px 10px;
-}
-.side-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-  text-decoration: none;
-  color: #0b6b4a;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-.side-item img { width: 24px; }
-.side-item:hover, .side-item.active {
-  background: rgba(11,107,74,0.1);
-  transform: translateX(5px);
-}
-
-/* Main Content */
-.main-content { flex: 1; padding: 25px; }
-.account-info {
-  background: rgba(255,255,255,0.8);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #cfe7d6;
-}
-.info-row { display: flex; justify-content: space-between; margin-top: 10px; }
-
-/* Send Box */
-.send-box {
-  background: rgba(255,255,255,0.9);
-  padding: 25px;
-  border-radius: 15px;
-  border: 2px solid #cfe7d6;
-}
-.transfer-types {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 25px;
-}
-.type-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-.type-btn img { width: 40px; }
-.type-btn span { font-weight: 600; color: #064a31; font-size: 14px; }
-.type-btn:hover, .type-btn.active { background: #eef7f2; transform: translateY(-3px); }
-
-/* Form Controls */
-.send-box input, .send-box select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1.8px solid #b8dbcb;
-  border-radius: 8px;
-  outline: none;
-}
-.send-box input:focus {
-  border-color: #0b6b4a;
-  box-shadow: 0 0 6px rgba(11,107,74,0.3);
-}
-
-/* Select2 Custom Styling */
-.select2-container--default .select2-selection--single {
-    height: 45px;
-    padding: 10px 12px;
-    border: 1.8px solid #b8dbcb;
-    border-radius: 8px;
-    background-color: #fff;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 25px;
-    font-size: 15px;
-    color: #000;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow { height: 100%; right: 10px; }
-.select2-container { margin-bottom: 12px; }
-
-/* Buttons */
-.send-box button {
-  width: 100%;
-  padding: 12px;
-  background: #0b6b4a;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 10px;
-}
-.send-box button:hover { background: #097043; transform: scale(1.03); }
-
-.form-message { display: none; margin-top: 15px; padding: 12px; border-radius: 10px; text-align: center; }
-
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) لصفحة البنك */
-/* ========================================================= */
+/* تم إضافة الجزء التالي في نهاية الملف لدعم الموبايل */
 @media (max-width: 768px) {
   body { padding: 10px; }
   

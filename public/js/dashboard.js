@@ -3,33 +3,29 @@
     document.addEventListener("DOMContentLoaded", async () => {
     
       // 1️⃣ نجيب بيانات المستخدم من localStorage
- const stored = sessionStorage.getItem("currentUser");
+      const stored = sessionStorage.getItem("currentUser");
 
-console.log("SESSION:", stored);
-
-if (!stored) {
-  alert("You are not logged in");
-  return; // ❌ متعملش redirect دلوقتي
-}
-  let user;
-      const localUser = JSON.parse(stored);
-       console.log("USER:", localUser);
-
-      try {
-        // 2️⃣ نجيب أحدث بيانات المستخدم من السيرفر
-       if (!localUser._id) {
-  alert("User ID missing");
+      if (!stored) {
+  alert("Session expired, login again");
   return;
 }
 
-const res = await fetch(`/user/${localUser._id}`);
+      const localUser = JSON.parse(stored);
 
+    
+
+      try {
+        // 2️⃣ نجيب أحدث بيانات المستخدم من السيرفر
+  if (!localUser._id) {
+  console.log("Invalid user ID");
+  return;
+}
+const res = await fetch(`/user/${localUser._id}`);
         if (!res.ok) {
   console.log("User fetch failed");
-  return; // ❌ متكسرش الصفحة
+  return;
 }
-
-        user = await res.json();
+        const user = await res.json();
 
         // 3️⃣ نحدّث localStorage بآخر بيانات
         sessionStorage.setItem("currentUser", JSON.stringify(user));
@@ -68,7 +64,7 @@ const res = await fetch(`/user/${localUser._id}`);
 
       } catch (err) {
         console.error(err);
-        console.log("Fetch error:", err);
+        alert("error to loade data");
       }
   
   
@@ -76,6 +72,8 @@ const res = await fetch(`/user/${localUser._id}`);
   
 
     
+
+      const user = JSON.parse(stored);
 
       try {
 const res = await fetch(`/transactions/${user._id}`)
@@ -88,12 +86,12 @@ const res = await fetch(`/transactions/${user._id}`)
           box.className = "transaction-box";
 let title = "";
 let details = "";
- let amountSign = "";
+
 if (t.source === "ATM") {
 
   title = "ATM Transaction";
   details = `Type: ${t.type}`;
- amountSign = "-";
+  let amountSign = "";
 
 }
 
@@ -115,7 +113,8 @@ else if (t.direction === "in") {
   From: ${t.senderName}<br>
   Bank: ${t.source}
   `;
-amountSign = "+";
+  amountSign = "  ";
+
 }
 
 else {
@@ -185,7 +184,7 @@ overlay.classList.add("active");
 
       } catch (err) {
         console.error(err);
-        console.error("error loading");
+        alert("error loading");
       }
     
 
@@ -264,4 +263,4 @@ alert("Receipt copied to clipboard");
 
 });
   
-  });
+});

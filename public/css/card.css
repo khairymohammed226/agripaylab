@@ -459,20 +459,6 @@ body {
     padding: 20px;
   }
 }
-.sidebar { 
-    width: 100%; 
-    display: flex !important; 
-    flex-direction: row !important; /* السطر ده هو اللي بيجبرهم يبقوا أفقي */
-    justify-content: flex-start;
-    overflow-x: auto; /* عشان يسمح بالسحب يمين وشمال */
-    border-right: none; 
-    border-bottom: 2px solid rgba(213,233,219,0.7); 
-    padding: 10px;
-    white-space: nowrap;
-  }
+
   
-  .side-item {
-    margin-bottom: 0 !important;
-    margin-right: 15px;
-    flex-shrink: 0; /* السطر ده بيمنع الزراير تصغر أو تنزل تحت بعض */
-  }
+  

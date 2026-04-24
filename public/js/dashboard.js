@@ -3,28 +3,31 @@
     document.addEventListener("DOMContentLoaded", async () => {
     
       // 1️⃣ نجيب بيانات المستخدم من localStorage
-      const stored = sessionStorage.getItem("currentUser");
+ const stored = sessionStorage.getItem("currentUser");
 
-      if (!stored) {
-     window.location.href = "login.html";
-return;
-      }
+console.log("SESSION:", stored);
 
+if (!stored) {
+  alert("You are not logged in");
+  return; // ❌ متعملش redirect دلوقتي
+}
+  let user;
       const localUser = JSON.parse(stored);
-
-    let user;
+       console.log("USER:", localUser);
 
       try {
         // 2️⃣ نجيب أحدث بيانات المستخدم من السيرفر
-        if (!localUser._id) {
-  window.location.href = "login.html";
-return;
+       if (!localUser._id) {
+  alert("User ID missing");
+  return;
 }
 
 const res = await fetch(`/user/${localUser._id}`);
+
         if (!res.ok) {
-          throw new Error("User not found");
-        }
+  console.log("User fetch failed");
+  return; // ❌ متكسرش الصفحة
+}
 
         user = await res.json();
 
@@ -65,7 +68,7 @@ const res = await fetch(`/user/${localUser._id}`);
 
       } catch (err) {
         console.error(err);
-        alert("error to loade data");
+        console.log("Fetch error:", err);
       }
   
   

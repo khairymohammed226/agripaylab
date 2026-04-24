@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    nationalId: { type: String, required: true },
+    nationalId: { type: String, required: true,  unique: true},
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     loginAttempts: { type: Number, default: 0 },
     lockUntil: { type: Date },
 
-    // 🔥 الجديد
+   
     isVerified: { type: Boolean, default: false },
     emailOtp: { type: String },
     otpExpires: { type: Date }

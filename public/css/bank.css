@@ -366,9 +366,7 @@ body {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* ... بقية الأكواد الأصلية الخاصة بك ... */
 
-/* تم إضافة الجزء التالي في نهاية الملف لدعم الموبايل */
 @media (max-width: 768px) {
   body { padding: 10px; }
   

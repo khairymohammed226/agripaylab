@@ -358,4 +358,104 @@
     align-items: flex-start;
     gap: 5px;
   }
+}* {margin: 0; padding: 0; box-sizing: border-box;}
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 25px;
+}
+
+.card-container {
+  width: 900px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 1s ease;
+}
+
+/* ... الأكواد الأصلية للـ header والـ main ... */
+
+/* تحديث استايل السايدبار ليطابق صفحة البنك */
+.sidebar {
+  width: 200px;
+  background: rgba(247, 251, 249, 0.6);
+  border-right: 2px solid rgba(213,233,219,0.7);
+  padding: 20px 10px;
+}
+
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #0b6b4a;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.side-item img { width: 24px; }
+
+.side-item:hover, .side-item.active {
+  background: rgba(11,107,74,0.1);
+  transform: translateX(5px);
+}
+
+/* ... بقية الأكواد الأصلية للكروت والأنيميشن ... */
+
+/* إضافات الموبايل (نفس استايل صفحة البنك) */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  
+  .card-container { width: 100%; }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+  }
+  
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .nav a { margin-left: 0; font-size: 14px; }
+
+  .body { flex-direction: column; }
+  
+  .sidebar { 
+    width: 100%; 
+    display: flex; 
+    overflow-x: auto;
+    border-right: none; 
+    border-bottom: 2px solid rgba(213,233,219,0.7); 
+    padding: 10px;
+    white-space: nowrap;
+  }
+  
+  .side-item {
+    margin-bottom: 0;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .main { padding: 15px 10px; width: 100%; }
+
+  .credit-card {
+    width: 100%;
+    padding: 20px;
+  }
 }

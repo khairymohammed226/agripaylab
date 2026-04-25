@@ -176,8 +176,7 @@
       <input type="text" maxlength="1">
     </div>
 
-    <button class="verify-btn">Verify</button>
-
+<button id="verifyBtn" class="verify-btn">Verify</button>
     <div class="timer">Resend available in <span id="countdown">30</span>s</div>
 
     <p class="resend">
@@ -191,25 +190,41 @@
 </div>
 
 <script>
-if (!sessionStorage.getItem("verifyUserId") && !localStorage.getItem("verifyUserId")) {
-  window.location.href = "register.html";
-}
+const otpInputs = document.querySelectorAll(".otp-box input");
+
+otpInputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    if (input.value.length === 1 && index < otpInputs.length - 1) {
+      otpInputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && input.value === "" && index > 0) {
+      otpInputs[index - 1].focus();
+    }
+  });
+});
+
 document.getElementById("verifyBtn").addEventListener("click", async () => {
 
-  const otp = document.getElementById("otp").value.trim();
-  const userId = localStorage.getItem("verifyUserId");
+  const inputs = document.querySelectorAll(".otp-box input");
+  const otp = Array.from(inputs).map(input => input.value).join("");
 
+  const userId = localStorage.getItem("verifyUserId");
   const msg = document.getElementById("message");
 
-  if (!otp) {
-    msg.textContent = "Please enter OTP";
+  if (otp.length < 6) {
+    msg.textContent = "Please enter full code";
     msg.style.color = "red";
     return;
   }
-const btn = document.getElementById("verifyBtn");
 
-btn.disabled = true;
-btn.textContent = "Verifying...";
+  const btn = document.getElementById("verifyBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Verifying...";
+
   try {
     const res = await fetch("/verify-email", {
       method: "POST",
@@ -221,44 +236,29 @@ btn.textContent = "Verifying...";
 
     const data = await res.json();
 
-  if (!res.ok) {
-  msg.textContent = data.message;
-  msg.style.color = "red";
+    if (!res.ok) {
+      msg.textContent = data.message;
+      msg.style.color = "red";
 
-  btn.disabled = false;
-  btn.textContent = "Verify";
-
-  return;
-}
+      btn.disabled = false;
+      btn.textContent = "Verify";
+      return;
+    }
 
     msg.textContent = "Verified successfully ✅";
     msg.style.color = "green";
 
-setTimeout(() => {
+    setTimeout(() => {
+      window.location.href = "add_card.html";
+    }, 1500);
 
-sessionStorage.setItem("verifiedUserId", userId);
+  } catch (err) {
+    msg.textContent = "Server error";
+    msg.style.color = "red";
 
-sessionStorage.setItem("currentUser", JSON.stringify({
-  _id: userId
-}));
-
-
-  sessionStorage.setItem("isLoggedIn", "true");
-
-  localStorage.removeItem("verifyUserId");
-
-  window.location.href = "add_card.html";
-
-}, 1500);
-
-  } 
-catch (err) {
-  msg.textContent = "Server error";
-  msg.style.color = "red";
-
-  btn.disabled = false;
-  btn.textContent = "Verify";
-}
+    btn.disabled = false;
+    btn.textContent = "Verify";
+  }
 
 });
 </script>

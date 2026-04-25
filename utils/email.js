@@ -8,23 +8,68 @@ async function sendOtpEmail(to, otp) {
       from: "Agripay Bank <no-reply@agripay.site>",
       to: to,
       subject: "Your Verification Code 🔐",
-      html: `
-        <h2>Verify Your Email</h2>
+    html: `
+<div style="background:#f4f6f8; padding:40px 0; font-family:Arial,sans-serif;">
+  
+  <div style="
+    max-width:520px;
+    margin:0 auto;
+    background:#ffffff;
+    padding:35px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  ">
 
-        <p>Your OTP code is:</p>
+    <h2 style="color:#0b6b4a; margin-bottom:10px;">
+      Email Verification 🔐
+    </h2>
 
-        <h1 style="letter-spacing:6px; color:#0b6b4a;">
-          ${otp}
-        </h1>
+    <p style="color:#333; font-size:15px;">
+      Use the verification code below to complete your request.
+    </p>
 
-        <p>This code expires in 10 minutes ⏱</p>
+    <div style="
+      text-align:center;
+      margin:30px 0;
+      padding:20px;
+      background:#f1f7f5;
+      border-radius:12px;
+    ">
+      <span style="
+        font-size:32px;
+        letter-spacing:8px;
+        font-weight:bold;
+        color:#0b6b4a;
+      ">
+        ${otp}
+      </span>
+    </div>
 
-        <br>
+    <p style="color:#555; font-size:14px;">
+      This code will expire in <b>10 minutes</b>. Please do not share this code with anyone.
+    </p>
 
-        <p>If you didn’t request this, ignore this email.</p>
+    <div style="
+      margin-top:20px;
+      padding:12px;
+      background:#fff4f4;
+      border-radius:8px;
+      font-size:13px;
+      color:#a94442;
+    ">
+      ⚠️ For your security, Agripay will never ask you for this code.
+    </div>
 
-        <p>— Agripay Bank 💚</p>
-      `
+    <hr style="border:none; border-top:1px solid #eee; margin:25px 0;">
+
+    <p style="font-size:13px; color:#888;">
+      — Agripay Bank 💚<br>
+      Secure Banking. Trusted Experience.
+    </p>
+
+  </div>
+</div>
+`
     });
 
     console.log("✅ OTP sent:", data);
@@ -42,19 +87,77 @@ async function sendWelcomeEmail(to, username) {
       from: "Agripay Bank <no-reply@agripay.site>",
       to: to,
       subject: `Welcome ${username} 👋 Your email has been verified successfully ✅`,
-    html: `
-  <h2 style="color:#0b6b4a;">Welcome ${username} 👋</h2>
+   html: `
+<div style="background:#f4f6f8; padding:40px 0; font-family:Arial,sans-serif;">
+  
+  <div style="
+    max-width:520px;
+    margin:0 auto;
+    background:#ffffff;
+    padding:35px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  ">
 
-  <p>Your email has been verified successfully ✅</p>
+    <h2 style="color:#0b6b4a; margin-bottom:15px;">
+      Welcome ${username} 👋
+    </h2>
 
-  <p>We are happy to have you with us at <b>Agripay Bank</b>.</p>
+    <p style="color:#333; font-size:15px; line-height:1.6;">
+      We're excited to have you join <b>Agripay Bank</b>.
+      Your email has been successfully verified, and your account is now fully active.
+    </p>
 
-  <p>You can now start using all our services.</p>
+    <p style="color:#333; font-size:15px; line-height:1.6;">
+      With Agripay, you can securely manage your finances, perform fast transactions,
+      and access modern banking features designed to make your life easier.
+    </p>
 
-  <br>
+    <p style="color:#333; font-size:15px; line-height:1.6;">
+      Whether you're checking your balance, sending money, or using ATM services,
+      everything is built to be simple, safe, and reliable.
+    </p>
 
-  <p style="color:#888;">— Agripay Team 💚</p>
-`
+    <div style="
+      background:#f1f7f5;
+      padding:15px;
+      border-radius:10px;
+      margin:20px 0;
+      font-size:14px;
+      color:#333;
+    ">
+      🔒 Your security is our priority. Never share your login details or OTP with anyone.
+    </div>
+
+    <div style="text-align:center; margin:30px 0;">
+      <a href="https://agripay.site" style="
+        display:inline-block;
+        background:#0b6b4a;
+        color:white;
+        padding:14px 24px;
+        border-radius:10px;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:15px;
+      ">
+        Go to Your Dashboard
+      </a>
+    </div>
+
+    <p style="color:#555; font-size:14px;">
+      If you have any questions or need help, feel free to contact our support team anytime.
+    </p>
+
+    <hr style="border:none; border-top:1px solid #eee; margin:25px 0;">
+
+    <p style="font-size:13px; color:#888;">
+      — Agripay Team 💚<br>
+      Smart Banking. Simple Experience.
+    </p>
+
+  </div>
+</div>
+` 
     });
 
     console.log("✅ Welcome email sent");

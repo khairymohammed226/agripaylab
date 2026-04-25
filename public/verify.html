@@ -97,7 +97,7 @@ if (!sessionStorage.getItem("verifyUserId") && !localStorage.getItem("verifyUser
 document.getElementById("verifyBtn").addEventListener("click", async () => {
 
   const otp = document.getElementById("otp").value.trim();
-  const userId = localStorage.getItem("verifyUserId");
+  const userId = sessionStorage.getItem("verifyUserId");
 
   const msg = document.getElementById("message");
 
@@ -111,7 +111,7 @@ const btn = document.getElementById("verifyBtn");
 btn.disabled = true;
 btn.textContent = "Verifying...";
   try {
-    const res = await fetch("/verify-email", {
+    const res = await fetch("https://agripay.site/verify-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

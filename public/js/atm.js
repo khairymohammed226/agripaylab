@@ -158,15 +158,42 @@ function showATMMessage(text, type) {
     }, 600);
   }, 4000);
 }
+function showDepositMessage(text, type) {
+  const msg = document.getElementById("depositMessage");
+  if (!msg) return;
+
+  msg.textContent = text;
+  msg.className = "atm-message " + type + " show";
+
+  if (type === "success") return;
+
+  setTimeout(() => {
+    msg.classList.remove("show");
+    msg.classList.add("hide");
+
+    setTimeout(() => {
+      msg.className = "atm-message";
+    }, 600);
+  }, 4000);
+}
   // 🟢 إظهار / إخفاء withdrawal
   if (transactionType && withdrawalSection) {
-    transactionType.addEventListener("change", () => {
-      if (transactionType.value === "withdrawal") {
-        withdrawalSection.style.display = "block";
-      } else {
-        withdrawalSection.style.display = "none";
-      }
-    });
+     const depositSection = document.getElementById("depositSection");
+
+transactionType.addEventListener("change", () => {
+
+  withdrawalSection.style.display = "none";
+  depositSection.style.display = "none";
+
+  if (transactionType.value === "withdrawal") {
+    withdrawalSection.style.display = "block";
+  }
+
+  if (transactionType.value === "deposit") {
+    depositSection.style.display = "block";
+  }
+
+});
   }
 
   // 🟢 Generate OTP
@@ -211,6 +238,7 @@ function showATMMessage(text, type) {
           return;
         }
 
+
         // 🟢 عرض OTP
 showATMMessage("Your OTP is: " + data.otp, "success");
 otpActive = true;              // 👈 مهم
@@ -231,7 +259,53 @@ resendBtn.classList.add("hidden");
       }
     });
   }
+// 🟢 Deposit OTP
+const depositBtn = document.getElementById("generateDepositOtp");
+const depositAmountInput = document.getElementById("depositAmount");
 
+if (depositBtn) {
+  depositBtn.addEventListener("click", async () => {
+
+    const amount = depositAmountInput.value.trim();
+
+    if (!amount || amount <= 0) {
+      showDepositMessage("Enter valid amount", "error");
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://agripay.site/atm/generate-deposit-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount,
+          userId: currentUser._id
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showATMMessage(data.message, "error");
+        return;
+      }
+
+      showDepositMessage("Deposit OTP: " + data.otp, "success");
+
+      sessionStorage.setItem("depositSession", JSON.stringify({
+        otp: data.otp,
+        amount: amount,
+        createdAt: Date.now()
+      }));
+
+    } catch {
+      showATMMessage("Server error", "error");
+    }
+
+  });
+}
   // 🟢 Logout
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {

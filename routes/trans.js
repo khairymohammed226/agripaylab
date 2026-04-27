@@ -88,6 +88,65 @@ router.post("/generate-otp", otpLimiter, async (req, res) => {
   }
 });
 
+// 💰 Generate Deposit OTP (بدون كارت)
+router.post("/generate-deposit-otp", async (req, res) => {
+  try {
+    const { userId, amount } = req.body;
+
+    if (!userId || !amount) {
+      return res.status(400).json({ message: "Missing data ❌" });
+    }
+
+    const amountNumber = Number(amount);
+
+    if (amountNumber <= 0) {
+      return res.status(400).json({ message: "Invalid amount ❌" });
+    }
+
+    // 🟢 user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found ❌" });
+    }
+
+    // 🔒 check existing OTP
+    const existingOtp = await Otp.findOne({
+      userId,
+      type: "deposit",
+      used: false,
+      expiresAt: { $gt: new Date() }
+    });
+
+    if (existingOtp) {
+      return res.status(400).json({ message: "OTP already active ⏳" });
+    }
+
+    // 🔢 generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    const otpHash = await bcrypt.hash(otp.toString(), 10);
+
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    await Otp.create({
+      userId,
+      otpHash,
+      amount: amountNumber,
+      type: "deposit", // 🔥 مهم جدًا
+      used: false,
+      expiresAt
+    });
+
+    res.json({
+      message: "Deposit OTP created ✅",
+      otp
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error ❌" });
+  }
+});
+
 
 // 💸 Withdraw
 router.post("/withdraw", async (req, res) => {

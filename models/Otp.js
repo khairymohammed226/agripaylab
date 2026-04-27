@@ -16,10 +16,15 @@ const otpSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  type: {
+  type: String,
+  enum: ["withdrawal", "deposit"],
+  default: "withdrawal"
+},
 
   atmCode: {
     type: String,
-    required: true
+    required: false
   },
 
 expiresAt: {

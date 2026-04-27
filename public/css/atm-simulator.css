@@ -334,3 +334,29 @@ body {
     padding: 20px;
   }
 }
+
+
+#depositInfo {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(223, 242, 230, 0.6);
+  border-radius: 12px;
+  border: 1px solid #cfe7d6;
+}
+
+#depositInfo h4 {
+  color: #0b6b4a;
+  margin-bottom: 5px;
+}
+
+#depositInfo p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+#amountBox {
+  font-size: 22px;
+  font-weight: bold;
+  color: #064a31;
+  margin-bottom: 10px;
+}

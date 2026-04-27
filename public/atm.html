@@ -112,6 +112,23 @@ if (sessionStorage.getItem("isLoggedIn") !== "true") {
 <button id="goToAtmBtn">Go to ATM 🏧</button>
 </div>
 
+<div id="depositSection" style="display: none;">
+
+  <h3>Deposit Details</h3>
+
+  <div class="form-group">
+    <label>Amount</label>
+    <input type="number" id="depositAmount" placeholder="Enter Amount">
+  </div>
+
+  <button id="generateDepositOtp" class="otp-btn">
+    Generate Deposit OTP
+  </button>
+
+  <div id="depositMessage" class="atm-message"></div>
+
+</div>
+
 <script src="js/atm.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

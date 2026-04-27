@@ -26,7 +26,6 @@
       to {opacity: 1; transform: translateY(0);}
     }
 
-    /* Fade Transition */
     .fade {
       opacity: 1;
       transition: opacity 0.6s ease;
@@ -76,7 +75,7 @@
   border-radius: 8px;
   font-weight: 600;
   color: #0b6b4a;
-  text-decoration: none;   /* يشيل الخط */
+  text-decoration: none;   
   transition: 0.3s;
 }
   .sidebar .item:hover {
@@ -175,7 +174,6 @@
   background: #0d8560;
   transform: scale(1.03);
 }
-/* ===== Card Details (Display like Profile) ===== */
 .profile-row {
   display: flex;
   justify-content: space-between;
@@ -255,11 +253,11 @@
 
 .details-row .label {
   font-weight: bold;
-  color: #0b5134; /* نفس أخضر الموقع */
+  color: #0b5134; 
 }
 
 .details-row .value {
-  color: #0b5134; /* نفس أخضر الموقع */
+  color: #0b5134;
   font-weight: 600;
 }
 .show-btn {
@@ -280,20 +278,16 @@
   padding: 8px 18px;
   display: inline-block;
 }
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) لصفحة الكروت */
-/* ========================================================= */
+
 @media (max-width: 768px) {
   body {
     padding: 10px;
   }
 
-  /* تظبيط الحاوية الأساسية */
   .card-container {
     width: 100%;
   }
 
-  /* تظبيط الهيدر والروابط */
   .header {
     flex-direction: column;
     gap: 12px;
@@ -312,12 +306,10 @@
     font-size: 14px;
   }
 
-  /* تحويل التصميم لعمودي بدل أفقي */
   .body {
     flex-direction: column;
   }
 
-  /* تظبيط القائمة الجانبية لتكون شريط علوي قابل للتمرير */
   .sidebar {
     width: 100%;
     display: flex;
@@ -328,7 +320,6 @@
     white-space: nowrap;
   }
 
-  /* لاحظ إن الكلاس هنا اسمه item مش side-item زي الصفحات التانية */
   .sidebar .item {
     margin-bottom: 0;
     margin-right: 15px;
@@ -340,15 +331,13 @@
     width: 100%;
   }
 
-  /* تظبيط مقاس كارت الفيزا نفسه عشان ميخرجش بره الشاشة */
   .cc-box {
     width: 100%;
     height: auto;
     padding: 20px;
-    aspect-ratio: 1.586; /* نسبة أبعاد كارت الفيزا الحقيقي */
+    aspect-ratio: 1.586; 
   }
 
-  /* تظبيط تفاصيل الكارت */
   .payment-form {
     padding: 15px 10px;
   }
@@ -381,9 +370,8 @@ body {
   animation: fadeIn 1s ease;
 }
 
-/* ... الأكواد الأصلية للـ header والـ main ... */
 
-/* تحديث استايل السايدبار ليطابق صفحة البنك */
+
 .sidebar {
   width: 200px;
   background: rgba(247, 251, 249, 0.6);
@@ -411,9 +399,6 @@ body {
   transform: translateX(5px);
 }
 
-/* ... بقية الأكواد الأصلية للكروت والأنيميشن ... */
-
-/* إضافات الموبايل (نفس استايل صفحة البنك) */
 @media (max-width: 768px) {
   body { padding: 10px; }
   

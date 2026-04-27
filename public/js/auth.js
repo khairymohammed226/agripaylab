@@ -256,11 +256,10 @@ try {
 
 showSuccess("Account created successfully 🎉 Redirecting...");
 document.querySelector('button[type="submit"]').disabled = true;
-setTimeout(() => {
-  sessionStorage.setItem("verifyUserId", data.userId);
-  window.location.href = "verify.html";
-}, 800);
-setTimeout(() => {
+localStorage.setItem("verifyUserId", data.userId);
+localStorage.setItem("userEmail", email);
+
+window.location.href = "verify.html";
 
   document.querySelector('button[type="submit"]').style.display = "none";
 
@@ -273,8 +272,7 @@ setTimeout(() => {
 
   document.getElementById("addCardBtn").style.display = "block";
   document.getElementById("skipCardBtn").style.display = "block";
-
-}, 800); // تأخير بسيط
+ // تأخير بسيط
 
 
 

@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const fullName = (user.firstName && user.lastName)
   ? `${user.firstName} ${user.lastName}`.toUpperCase()
   : "USER";;
+  liveName.textContent = fullName;
+cardNameEl.textContent = fullName;
 
   // =========================
   // 📢 MESSAGE

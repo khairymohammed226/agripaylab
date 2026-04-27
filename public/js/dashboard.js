@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 💸 GET TRANSACTIONS
   // =========================
   try {
-    const res = await fetch(`https://agripay.site/transactions/${userData._id}`)
+    const res = await fetch("https://agripay.site/transactions/${userData._id}")
 
     if (!res.ok) throw new Error("Transactions failed");
 

@@ -539,7 +539,9 @@ if (user.loginAttempts >= 4) {
         const { userId } = req.params;
 
         const card = await Card.findOne({ userId });
-        if (!card) return res.status(404).json({ message: "no user for this card" });
+        if (!card) {
+  return res.status(200).json({ card: null });
+}
 
         const { cvv, cardPassword, __v, ...cardSafe } = card.toObject();
         res.json({ card: cardSafe });

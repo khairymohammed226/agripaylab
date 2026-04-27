@@ -293,7 +293,7 @@ if (depositBtn) {
       }
 
       showDepositMessage("Deposit OTP: " + data.otp, "success");
-
+document.getElementById("goToDepositAtmBtn").style.display = "block";
       sessionStorage.setItem("depositSession", JSON.stringify({
         otp: data.otp,
         amount: amount,
@@ -321,3 +321,11 @@ if (depositBtn) {
 document.getElementById("goToAtmBtn").onclick = () => {
   window.location.href = "atm-simulator.html";
 };
+
+const goToDepositAtmBtn = document.getElementById("goToDepositAtmBtn");
+
+if (goToDepositAtmBtn) {
+  goToDepositAtmBtn.onclick = () => {
+    window.location.href = "atm-deposit.html";
+  };
+}

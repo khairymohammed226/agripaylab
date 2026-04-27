@@ -52,7 +52,7 @@ if (cvv.length !== 3) {
   messageDiv.className = "message error";
   return;
 }
-    const response = await fetch(`"https://agripay.site/add-card`,{
+    const response = await fetch("https://agripay.site/add-card",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -248,15 +248,13 @@ if (age < 21) {
 
 try {
 
-const API = "https://banking-api.onrender.com"; // ← حط لينك الباك بتاعك هنا
-
-const res = await fetch(`${API}/api/register`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(payload)
-});
+  const res = await fetch(`https://agripay.site/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
 let data;
 
 try {

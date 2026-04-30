@@ -248,11 +248,7 @@ if (age < 21) {
 
 try {
 
-<<<<<<< HEAD
   const res = await fetch(`https://agripay.online/register`, {
-=======
-const res = await fetch("https://your-backend.onrender.com/api/register", {
->>>>>>> b0bdd17b406385e958c365e2af9c9ac0e13f9073
     method: "POST",
     headers: {
       "Content-Type": "application/json"

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 👤 GET USER DATA
   // =========================
   try {
-    const res = await fetch(`https://agripay.site/user/${userData._id}`)
+    const res = await fetch(`https://agripay.online/user/${userData._id}`)
 
     if (!res.ok) {
       throw new Error("User fetch failed");
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 💳 GET CARD
   // =========================
   try {
-    const cardRes = await fetch(`https://agripay.site/card/${userData._id}`)
+    const cardRes = await fetch(`https://agripay.online/card/${userData._id}`)
 
     if (cardRes.ok) {
       const cardData = await cardRes.json();
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 💸 GET TRANSACTIONS
   // =========================
   try {
-    const res = await fetch(`https://agripay.site/transactions/${userData._id}`)
+    const res = await fetch(`https://agripay.online/transactions/${userData._id}`)
 
     if (!res.ok) throw new Error("Transactions failed");
 

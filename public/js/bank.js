@@ -40,7 +40,7 @@ function showBankMessage(text, type) {
   // جلب رقم الحساب من الكارت
   (async () => {
     try {
-      const res = await fetch(`https://agripay.site/card/${currentUser._id}`);
+      const res = await fetch(`https://agripay.online/card/${currentUser._id}`);
 
       if (res.ok) {
         const data = await res.json();
@@ -172,7 +172,7 @@ showBankMessage("", "success");
 
   try {
 
-    const check = await fetch(`https://agripay.site/transfer/check-card-password`, {
+    const check = await fetch(`https://agripay.online/transfer/check-card-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -201,7 +201,7 @@ if (data.transferType === "external") {
   bodyData.bank = data.bank;
 }
 
-const transfer = await fetch(`https://agripay.site/transfer/bank-transfer`, {
+const transfer = await fetch(`https://agripay.online/transfer/bank-transfer`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(bodyData)

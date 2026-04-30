@@ -49,13 +49,17 @@ if (resendBtn) {
 otpActive = true;
 generateBtn.disabled = true;
     
-
+console.log("Deposit Data:", {
+  amount,
+  userId: currentUser?._id
+});
     try {
-      const res = await fetch(`https://agripay.site/atm/generate-otp`, {
+      const res = await fetch(`https://agripay.online/atm/generate-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
+        
         body: JSON.stringify({
          atmCode: atmCodeInput.value.trim(),
          pin: pinInput.value.trim(),
@@ -218,7 +222,7 @@ transactionType.addEventListener("change", () => {
       }
 
       try {
-        const res = await fetch(`https://agripay.site/atm/generate-otp`, {
+        const res = await fetch(`https://agripay.online/atm/generate-otp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -266,7 +270,7 @@ const depositAmountInput = document.getElementById("depositAmount");
 if (depositBtn) {
   depositBtn.addEventListener("click", async () => {
 
-    const amount = depositAmountInput.value.trim();
+    const amount = Number(depositAmountInput.value);
 
     if (!amount || amount <= 0) {
       showDepositMessage("Enter valid amount", "error");
@@ -274,7 +278,7 @@ if (depositBtn) {
     }
 
     try {
-      const res = await fetch(`https://agripay.site/atm/generate-deposit-otp`, {
+      const res = await fetch(`https://agripay.online/atm/generate-deposit-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -17,7 +17,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
   const email = document.getElementById("email").value;
   const message = document.getElementById("message").value;
 
-  const res = await fetch(`https://agripay.site/contact`, {
+  const res = await fetch(`https://agripay.online/contact`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

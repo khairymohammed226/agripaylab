@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       verifyBtn.disabled = true;
       showMessage("Verifying...", "success");
 
-      const res = await fetch("https://agripay.site/atm/verify-deposit-otp", {
+      const res = await fetch(`https://agripay.online/atm/verify-deposit-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       insertBtn.disabled = true;
       showMessage("Processing deposit...", "success");
 
-      const res = await fetch("https://agripay.site/atm/complete-deposit", {
+      const res = await fetch(`https://agripay.online/atm/complete-deposit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -130,7 +130,7 @@ async function sendWelcomeEmail(to, username) {
     </div>
 
     <div style="text-align:center; margin:30px 0;">
-      <a href="href="https://agripay.online" style="
+     <a href="https://agripay.online" style="
         display:inline-block;
         background:#0b6b4a;
         color:white;

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.textContent = "Logging in...";
 
     try {
-      const response = await fetch(`https://bankingnew.onrender.com/login`, {
+      const response = await fetch(`https://www.agripaylab.online/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -69,7 +69,7 @@ cardNameEl.textContent = fullName;
   // 💳 GET CARD
   // =========================
   try {
-    const res = await fetch(`https://bankingnew.onrender.com/card/${user._id}`);
+    const res = await fetch(`https://www.agripaylab.online/card/${user._id}`);
 
     if (!res.ok) throw new Error("Card fetch failed");
 

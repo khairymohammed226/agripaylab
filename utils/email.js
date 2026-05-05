@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 async function sendOtpEmail(to, otp) {
   try {
     const data = await resend.emails.send({
-      from: "Agripay Bank <no-reply@agripay.online>",
+      from: "Agripay Bank <no-reply@agripaylab.online>",
       to: to,
       subject: "Your Verification Code 🔐",
     html: `
@@ -84,7 +84,7 @@ async function sendOtpEmail(to, otp) {
 async function sendWelcomeEmail(to, username) {
   try {
     await resend.emails.send({
-      from: "Agripay Bank <no-reply@agripay.online>",
+      from: "Agripay Bank <no-reply@agripaylab.online>",
       to: to,
       subject: `Welcome ${username} 👋 Your email has been verified successfully ✅`,
    html: `
@@ -130,7 +130,7 @@ async function sendWelcomeEmail(to, username) {
     </div>
 
     <div style="text-align:center; margin:30px 0;">
-     <a href="https://agripay.online" style="
+    <a href="https://www.agripaylab.online"> style="
         display:inline-block;
         background:#0b6b4a;
         color:white;

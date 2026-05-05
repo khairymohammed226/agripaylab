@@ -62,7 +62,7 @@ saveBtn.onclick = async () => {
   }
 });
 
- const res = await fetch(`https://agripay.online/user/${user._id}`, {
+ const res = await fetch(`https://www.agripaylab.online/user/${user._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData)

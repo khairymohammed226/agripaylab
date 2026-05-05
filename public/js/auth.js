@@ -248,7 +248,7 @@ if (age < 21) {
 
 try {
 
-  const res = await fetch(`https://bankingnew.onrender.com/register`, {
+  const res = await fetch(`https://www.agripaylab.online/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

@@ -54,7 +54,7 @@ console.log("Deposit Data:", {
   userId: currentUser?._id
 });
     try {
-      const res = await fetch(`https://agripay.online/atm/generate-otp`, {
+      const res = await fetch(`https://www.agripaylab.online/atm/generate-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -222,7 +222,7 @@ transactionType.addEventListener("change", () => {
       }
 
       try {
-        const res = await fetch(`https://agripay.online/atm/generate-otp`, {
+        const res = await fetch(`https://www.agripaylab.online/atm/generate-otp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -278,7 +278,7 @@ if (depositBtn) {
     }
 
     try {
-      const res = await fetch(`https://bankingnew.onrender.com/atm/generate-deposit-otp`, {
+      const res = await fetch(`https://www.agripaylab.online/atm/generate-deposit-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

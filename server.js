@@ -182,26 +182,26 @@ const otp = Math.floor(100000 + Math.random() * 900000);
 newUser.emailOtp = otp.toString();
 newUser.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
-await newUser.save();
 
-
-// 🔥 ابعت OTP
+// 🔥 ابعت OTP الأول
 try {
 
-  await sendOtpEmail(newUser.email, otp);
+  await sendOtpEmail(email, otp);
 
 } catch (emailErr) {
 
   console.log("EMAIL ERROR:", emailErr);
-
-  // امسح اليوزر لو الإيميل فشل
-  await User.findByIdAndDelete(newUser._id);
 
   return res.status(400).json({
     message: "Invalid or unreachable email address"
   });
 
 }
+
+// ✅ نحفظ المستخدم بعد نجاح الإيميل فقط
+await newUser.save();
+
+
 
 
 // 🔥 رد واحد بس
@@ -217,7 +217,12 @@ res.status(201).json({
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Server error" });
+
+console.log(err);
+
+res.status(500).json({
+  message: err.message
+});
   }
 });
 

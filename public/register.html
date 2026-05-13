@@ -132,15 +132,39 @@
 </div>
 
         <!-- Step 5 -->
- <!-- Step 5 -->
+
 <div class="step" style="display:none">
 
-  <input 
-    type="date" 
-    id="dob" 
-    class="form-control mb-3" 
-    required
-  >
+  <div class="dob-container">
+
+    <!-- Month -->
+    <select id="birthMonth" class="dob-select" required>
+      <option value="">Month</option>
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
+    </select>
+
+    <!-- Day -->
+    <select id="birthDay" class="dob-select" required>
+      <option value="">Day</option>
+    </select>
+
+    <!-- Year -->
+    <select id="birthYear" class="dob-select" required>
+      <option value="">Year</option>
+    </select>
+
+  </div>
 
   <div class="buttons">
     <button type="button" class="backBtn btn btn-secondary">
@@ -153,6 +177,7 @@
   </div>
 
 </div>
+
 <button
   type="button"
   id="addCardBtn"

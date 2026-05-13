@@ -22,7 +22,35 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===== Steps Logic ===== */
 const steps = document.querySelectorAll(".step");
 let currentStep = 0;
+/* ===== DOB Selects ===== */
 
+const daySelect = document.getElementById("birthDay");
+const monthSelect = document.getElementById("birthMonth");
+const yearSelect = document.getElementById("birthYear");
+
+/* Years */
+const currentYear = new Date().getFullYear();
+
+for(let y = currentYear; y >= 1900; y--){
+  const option = document.createElement("option");
+  option.value = y;
+  option.textContent = y;
+  yearSelect.appendChild(option);
+}
+
+/* Days */
+function populateDays(){
+  daySelect.innerHTML = `<option value="">Day</option>`;
+
+  for(let d = 1; d <= 31; d++){
+    const option = document.createElement("option");
+    option.value = d;
+    option.textContent = d;
+    daySelect.appendChild(option);
+  }
+}
+
+populateDays();
 steps.forEach((step, i) => {
   step.style.display = i === 0 ? "block" : "none";
 });
@@ -101,22 +129,31 @@ if (password.length < 8 || !/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
 
 // STEP 5 (Age)
 if (currentStep === 4) {
-  const dob = document.getElementById("dob").value;
+  const day = document.getElementById("birthDay").value;
+const month = document.getElementById("birthMonth").value;
+const year = document.getElementById("birthYear").value;
 
-  const birthDate = new Date(dob);
-  const today = new Date();
+if (!day || !month || !year) {
+  showError("Select your birth date");
+  return;
+}
 
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
+const birthDate = new Date(year, month, day);
+const today = new Date();
 
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
+let age = today.getFullYear() - birthDate.getFullYear();
 
-  if (age < 21) {
-    showError("You must be 21+");
-    return;
-  }
+const m = today.getMonth() - birthDate.getMonth();
+
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  age--;
+}
+
+if (age < 21) {
+  showError("You must be 21+");
+  return;
+}
+
 }
 
     // 4️⃣ لو كله تمام نروح للخطوة اللي بعدها
@@ -183,13 +220,14 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   const email = document.getElementById("email").value.trim();
   const phone = document.getElementById("phonenumber").value.trim();
   
-
+const day = document.getElementById("birthDay").value;
+const month = document.getElementById("birthMonth").value;
+const year = document.getElementById("birthYear").value;
 
 
 
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const dob = document.getElementById("dob").value;
 
   /* ===== Validations ===== */
 // 1️⃣ تأكيد الباسورد
@@ -216,23 +254,6 @@ if (!/^01[0-9]{9}$/.test(phone)) {
   return;
 }
 
-// 5️⃣ السن
-const birthDate = new Date(dob);
-const today = new Date();
-
-let age = today.getFullYear() - birthDate.getFullYear();
-const monthDiff = today.getMonth() - birthDate.getMonth();
-
-if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-  age--;
-}
-
-if (age < 21) {
-  showError("You must be at least 21 years old");
-  return;
-}
-
-
   const payload = {
     firstName,
     lastName,
@@ -241,7 +262,7 @@ if (age < 21) {
     email,
     phone,
     password,
-    dob
+    dob: `${year}-${Number(month)+1}-${day}`
   };
 
   console.log("Register Payload:", payload);

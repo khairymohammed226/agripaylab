@@ -319,4 +319,4 @@ function numbersOnly(inputId) {
 }
 
 numbersOnly("benefAccount");
-numbersOnly("amount");
+numbersOnly("amount");  

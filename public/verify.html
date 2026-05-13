@@ -225,8 +225,9 @@ otpInputs[0].addEventListener("paste", (e) => {
       otpInputs[index].value = char;
     }
   });
+  otpInputs[Math.min(pastedData.length - 1, 5)].focus();
+
 });
-otpInputs[Math.min(pastedData.length - 1, 5)].focus();
 
 /* ===== Email Mask ===== */
 

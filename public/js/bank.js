@@ -270,12 +270,11 @@
     window.location.href = "dashboard.html";
   }
 $('#bank').select2({
-
-templateResult: formatBank,
-templateSelection: formatBank,
-placeholder: "Select Bank",
-width: '100%'
-
+  templateResult: formatBank,
+  templateSelection: formatBank,
+  placeholder: "Select Bank",
+  width: '100%',
+  minimumResultsForSearch: 0
 });
   $('#bank').next('.select2-container').hide();
   function formatBank(bank) {

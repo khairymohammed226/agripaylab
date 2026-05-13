@@ -2,7 +2,7 @@
 /* ======================================================
    عرض بيانات المستخدم من localStorage
 ====================================================== */
-const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+const currentUser = JSON.parse(sessionStorage.getItem("currentUser") || "null");
  if (!currentUser || !currentUser._id) {
   showBankMessage("Please log in first", "error");
   window.location.href = "login.html";
@@ -216,7 +216,7 @@ const transfer = await fetch(`/transfer/bank-transfer`, {
     }
 
     currentUser.balance = transResult.newBalance;
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     showSuccessBox();
 

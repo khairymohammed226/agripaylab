@@ -235,7 +235,54 @@ res.json({ message: "Verified successfully" });
     res.status(500).json({ message: "Server error" });
   }
 });
-    
+/* ===== RESEND OTP ===== */
+
+app.post("/resend-otp", async (req, res) => {
+
+  try {
+
+    const { userId } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    // Generate new OTP
+    const newOtp = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
+    // Save new OTP
+    user.emailOtp = newOtp;
+
+    // 10 minutes expiry
+    user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+    await user.save();
+
+    // Send email
+    await sendOtpEmail(user.email, newOtp);
+
+    res.status(200).json({
+      message: "OTP resent successfully"
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+});
+
      
     // -------- Login --------
     app.post("/login", async (req, res) => {

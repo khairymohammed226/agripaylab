@@ -232,23 +232,28 @@ document.getElementById("bankMessage").style.display = "none";
 const transferType = document.getElementById("transferType");
 const bankSelect = $('#bank');
 
+
 transferType.addEventListener("change", function () {
 
   bankSelect.val(null).trigger('change');
 
   if (this.value === "external") {
 
-    bankSelect.next('.select2-container').show();
-    bankSelect.prop("required", true);
+    $('#bank').next('.select2-container').show();
+    $('#bank').prop("required", true);
 
   } else {
 
-    bankSelect.next('.select2-container').hide();
-    bankSelect.prop("required", false);
+    $('#bank').next('.select2-container').hide();
+    $('#bank').prop("required", false);
 
   }
 
 });
+
+
+
+
 function showSuccessBox(){
 
 document.getElementById("step1").style.display = "none";

@@ -162,10 +162,25 @@ Mashreq Bank
 
 </select>
  <input type="text" id="benefName" placeholder="Beneficiary Name" required>
+<input 
+  type="text"
+  id="benefAccount"
+  placeholder="Account Number"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
 
-<input  type="text" id="benefAccount" placeholder="Account Number" inputmode="numeric" pattern="[0-9]*" required>
+<input 
+  type="text"
+  id="amount"
+  placeholder="Amount"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
 
-<input type="text" id="amount" placeholder="Amount" inputmode="numeric" pattern="[0-9]*"required >
+
 
       <button type="submit">Next</button>
     </form>

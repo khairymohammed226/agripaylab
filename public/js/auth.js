@@ -402,11 +402,30 @@ suggestionBox.innerHTML = "✅ Strong password";
     }
   });
 }
+
 suggestionBox.addEventListener("click", (e) => {
+
   if (e.target.id === "suggestedPass") {
-    passwordInput.value = e.target.textContent;
+
+    const suggestedPassword = e.target.textContent;
+
+    // يحط الباسورد في الخانة الأساسية
+    passwordInput.value = suggestedPassword;
+
+    // يحط نفس الباسورد في التأكيد
+    document.getElementById("confirmPassword").value = suggestedPassword;
+
+    // تحديث الرسالة
+    suggestionBox.innerHTML = "✅ Strong password selected";
+
+    // تحديث الفورم
+    passwordInput.dispatchEvent(new Event("input"));
+
   }
+
 });
+
+
 // password
 document.addEventListener("DOMContentLoaded", () => {
   const password = document.getElementById("password");

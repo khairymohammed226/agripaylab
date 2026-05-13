@@ -2,7 +2,7 @@
     * {box-sizing: border-box; margin: 0; padding: 0;}
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      /* background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat; */
+      background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -338,14 +338,4 @@ form#step1 select:focus {
   border: 1.8px solid #b8dbcb;
   border-radius: 8px;
   box-sizing: border-box;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=text] {
-  appearance: textfield;
 }

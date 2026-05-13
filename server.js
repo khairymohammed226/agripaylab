@@ -86,7 +86,8 @@ mongoose.connect(process.env.MONGO, {
     }
 
     function validateMobile(mobile) {
-      const re = /^[0-9]{7,15}$/;
+     const re = /^01[0-9]{9}$/;
+
       return re.test(mobile);
     }
 
@@ -183,8 +184,25 @@ newUser.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
 await newUser.save();
 
+
 // 🔥 ابعت OTP
-await sendOtpEmail(newUser.email, otp);
+try {
+
+  await sendOtpEmail(newUser.email, otp);
+
+} catch (emailErr) {
+
+  console.log("EMAIL ERROR:", emailErr);
+
+  // امسح اليوزر لو الإيميل فشل
+  await User.findByIdAndDelete(newUser._id);
+
+  return res.status(400).json({
+    message: "Invalid or unreachable email address"
+  });
+
+}
+
 
 // 🔥 رد واحد بس
 res.status(201).json({

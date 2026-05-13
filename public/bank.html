@@ -1,31 +1,30 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- CSS لـ Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="image/logo.png">
-  <link rel="apple-touch-icon" href="image/logo.png">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="apple-touch-icon" href="image/logo.png">
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<!-- JS لـ Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bank Transfer Page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    integrity="sha512-yZq0wJXDhM2XkZ1EohqY7yFQ17kRJhT1BvDIt9bKn2ibR0QhVj7rZrQHDmCzLAdbR6BzuEz0Q1U3+v7NznYQyA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="css/bank.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-yZq0wJXDhM2XkZ1EohqY7yFQ17kRJhT1BvDIt9bKn2ibR0QhVj7rZrQHDmCzLAdbR6BzuEz0Q1U3+v7NznYQyA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/bank.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
 </head>
-
-
 <body>
   <div class="card">
-
-    <!-- ══ HEADER ══ -->
     <header class="header">
       <div class="brand">
-        <a href="dashboard.html">
-          <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Logo" />
-        </a>
+      <a href="dashboard.html">
+    <!-- <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Credit Agricole Logo" /> -->
+      </a> 
       </div>
       <nav class="nav">
         <a href="about.html">About</a>
@@ -35,115 +34,206 @@
       </nav>
     </header>
 
-    <div class="body">
+   <div class="body">
+  <aside class="sidebar">
+    <a href="dashboard.html" class="item">
+      <img src="image/layout.png" alt="Dashboard Logo">
+      Dashboard
+    </a>
 
-      <!-- ══ SIDEBAR ══ -->
-      <aside class="sidebar">
-        <a href="dashboard.html" class="item"><img src="image/layout.png" alt="">Dashboard</a>
-        <a href="bank.html"      class="item"><img src="image/arrows.png" alt="">Transfer</a>
-        <a href="card.html"      class="item"><img src="image/card.png"   alt="">Card</a>
-        <a href="profile.html"   class="item"><img src="image/account.png" alt="">Profile</a>
-        <a href="login.html"     class="item"><img src="image/logout.png"  alt="">Logout</a>
-      </aside>
+    <a href="bank.html" class="item">
+      <img src="image/arrows.png" alt="Transfer Logo">
+      Transfer
+    </a>
 
-      <!-- ══ MAIN ══ -->
-      <main class="main">
+    <a href="card.html" class="item">
+      <img src="image/card.png" alt="Card Logo">
+      Card
+    </a>
 
-        <!-- Account Box -->
-        <section class="account-box">
-          <div>
-            <h3>Account Details</h3>
-            <h3 id="userNameDisplay">User Name</h3>
-            <p><strong id="accountNumberDisplay">Account Number</strong></p>
-          </div>
-        </section>
+    <a href="profile.html" class="item">
+      <img src="image/account.png" alt="Profile Logo">
+      Profile
+    </a>
 
-        <!-- Transfer Form -->
-        <section class="transfer-form">
+    <a href="login.html" class="item">
+      <img src="image/logout.png"  alt="Logout Logo">
+      Logout
+    </a>
+  </aside>
 
-          <!-- Icon Bar -->
-          <div class="icon-bar">
-            <a class="icon active" href="bank.html">
-              <img src="https://i.postimg.cc/4ytt1NLd/mobile-banking-1.png" alt="Bank">
-              <span>Bank</span>
-            </a>
-            <a class="icon" href="wallet.html">
-              <img src="https://i.postimg.cc/G2Tscm1J/wallet-1.png" alt="Wallet">
-              <span>Wallet</span>
-            </a>
-            <a class="icon" href="atm.html">
-              <img src="https://i.postimg.cc/6Q97GhJk/atm-machine.png" alt="ATM">
-              <span>ATM</span>
-            </a>
-          </div>
 
-          <h4>Send Money</h4>
+     <main class="main">
 
-          <!-- ── STEP 1 ── -->
-          <form id="step1">
-            <select id="transferType" required>
-              <option value="">Select Transfer Type</option>
-              <option value="internal">Same Bank</option>
-              <option value="external">Other Bank</option>
-            </select>
+  <!-- البوكس بقى فوق هنا -->
+  <section class="account-box">
+    <div>
+      <h3>Account Details</h3>
+      <h3 username: id="userNameDisplay">User Name</h3>
+      <p><strong id="accountNumberDisplay">Account Number</strong></p>
+    </div>
+  </section>
 
-            <select id="bank" name="bank">
-              <option></option>
-              <option value="banque misr"                  data-logo="https://zeed.tech/wp-content/uploads/2022/05/bank-misr.png">Banque Misr</option>
-              <option value="national bank of egypt"        data-logo="https://i.pinimg.com/474x/48/cd/53/48cd5306afa9161bef590f31a0b9458b.jpg">National Bank of Egypt</option>
-              <option value="CIB"                           data-logo="https://images.seeklogo.com/logo-png/20/2/cib-logo-png_seeklogo-201249.png">CIB</option>
-              <option value="QNB"                           data-logo="https://www.qnb.com/sites/qnb/qnbglobal/arSolidLogo-QNBSolidLogo.jpg">QNB</option>
-              <option value="alex bank"                     data-logo="https://images.seeklogo.com/logo-png/45/2/alexbank-logo-png_seeklogo-453043.png">Alex Bank</option>
-              <option value="hsbc"                          data-logo="https://www.hsbc.com.eg/etc.clientlibs/dpws/clientlibs-public/clientlib-site/resources/social/logo/Square-1200x1200px.jpg">HSBC</option>
-              <option value="arab bank"                     data-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Arab_Bank.svg/960px-Arab_Bank.svg.png">Arab Bank</option>
-              <option value="cairo bank"                    data-logo="https://images.seeklogo.com/logo-png/45/2/banque-du-caire-logo-png_seeklogo-451253.png">Banque du Cairo</option>
-              <option value="housing bank"                  data-logo="https://upload.wikimedia.org/wikipedia/ar/f/f3/Hdb_bank_logo.jpg">Housing &amp; Deployment Bank</option>
-              <option value="Arab African International Bank" data-logo="https://internationalbanker.com/wp-content/uploads/2014/04/Bank-Logo-3.png">Arab African International Bank</option>
-              <option value="Emirates NBD Egypt"            data-logo="https://cdn.emiratesnbd.com/plugins/mediacentre/images/main_images/egypt_abt_news_multiple_development_projects_270423.png">Emirates NBD Egypt</option>
-              <option value="Abu Dhabi Islamic Bank Egypt"  data-logo="https://adib.eg/media/1884298/adib-logoen-200x200.png">Abu Dhabi Islamic Bank Egypt</option>
-              <option value="ABK"                           data-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/ABK_Logo.svg/1280px-ABK_Logo.svg.png">ABK – Al Ahli Bank of Kuwait Egypt</option>
-              <option value="Egyptian Arab Land Bank"       data-logo="https://www.hotlinesegypt.com/wp-content/uploads/2019/05/Egyptian-Arab-Land-bank-19939-372x300.jpg">Egyptian Arab Land Bank</option>
-              <option value="Suez Canal Bank"               data-logo="https://iconape.com/wp-content/files/vh/373149/svg/373149.png">Suez Canal Bank</option>
-              <option value="Mashreq Bank"                  data-logo="https://www.clipartmax.com/png/middle/70-709110_mashreq-bank-egypt.png">Mashreq Bank</option>
-            </select>
+  <section class="transfer-form">
 
-            <input type="text"   id="benefName"    placeholder="Beneficiary Name" required>
-            <input type="text"   id="benefAccount" placeholder="Account Number" inputmode="numeric" pattern="[0-9]*" required>
-            <input type="text"   id="amount"        placeholder="Amount"         inputmode="numeric" pattern="[0-9]*" required>
+    <div class="icon-bar">
+      <a class="icon active" href="bank.html">
+        <img src="https://i.postimg.cc/4ytt1NLd/mobile-banking-1.png" alt="Bank">
+        <span>Bank</span>
+      </a>
 
-            <button type="submit">Next</button>
-          </form>
+      <a class="icon" href="wallet.html">
+        <img src="https://i.postimg.cc/G2Tscm1J/wallet-1.png" alt="Wallet">
+        <span>Wallet</span>
+      </a>
 
-          <!-- ── STEP 2 ── -->
-          <form id="step2" class="step-2" style="display:none;">
-            <h4>Confirm Transfer</h4>
-            <div class="confirm-details"></div>
-            <button type="button" id="backBtn">Back</button>
-            <button type="button" id="nextToPwd">Next</button>
-          </form>
+      <a class="icon" href="atm.html">
+        <img src="https://i.postimg.cc/6Q97GhJk/atm-machine.png" alt="ATM">
+        <span>ATM</span>
+      </a>
+    </div>
 
-          <!-- ── STEP 3 ── -->
-          <form id="stepPwd" style="display:none;">
-            <h4>Enter Password to Confirm</h4>
-            <input type="password" id="pwd"        placeholder="Password"         required>
-            <input type="password" id="pwdConfirm" placeholder="Confirm Password" required>
-            <div id="bankMessage" class="form-message"></div>
-            <button type="button" id="pwdBack">Back</button>
-            <button type="submit">Confirm Transfer</button>
-          </form>
+    <h4>Send Money</h4>
 
-          <!-- ── SUCCESS ── -->
-          <div id="successBox" style="display:none; text-align:center; padding:25px;">
-            <h3 style="color:#0b6b4a;">Transfer Successful ✅</h3>
-            <p>Your transaction has been completed.</p>
-            <button onclick="goDashboard()" style="margin-top:15px;padding:12px 25px;background:#0b6b4a;color:white;border:none;border-radius:8px;cursor:pointer;">
-              Go to Dashboard
-            </button>
-          </div>
+    <!-- STEP 1 -->
+    <form id="step1">
+   <select id="transferType" required>
+<option value="">Select Transfer Type</option>
+<option value="internal">Same Bank</option>
+<option value="external">Other Bank</option>
+</select>
+<select id="bank" name="bank" style="display:none;">
+    <option></option>
 
-        </section>
-      </main>
+  <option value="banque misr" data-logo="https://zeed.tech/wp-content/uploads/2022/05/bank-misr.png">
+    Banque Misr
+  </option>
+
+  <option value="national bank of egypt" data-logo="https://i.pinimg.com/474x/48/cd/53/48cd5306afa9161bef590f31a0b9458b.jpg">
+    National Bank of Egypt
+  </option>
+
+  <option value="CIB" data-logo="https://images.seeklogo.com/logo-png/20/2/cib-logo-png_seeklogo-201249.png">
+    CIB
+  </option>
+
+  <option value="QNB" data-logo="https://www.qnb.com/sites/qnb/qnbglobal/arSolidLogo-QNBSolidLogo.jpg">
+    QNB
+  </option>
+
+  <option value="alex bank" data-logo="https://images.seeklogo.com/logo-png/45/2/alexbank-logo-png_seeklogo-453043.png">
+    Alex Bank
+  </option>
+
+  <option value="hsbc" data-logo="https://www.hsbc.com.eg/etc.clientlibs/dpws/clientlibs-public/clientlib-site/resources/social/logo/Square-1200x1200px.jpg">
+    HSBC
+  </option>
+
+  <option value="arab bank" data-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Arab_Bank.svg/960px-Arab_Bank.svg.png">
+    Arab Bank
+  </option>
+  <option value="cairo bank" data-logo="https://images.seeklogo.com/logo-png/45/2/banque-du-caire-logo-png_seeklogo-451253.png">
+    Banque du Cairo
+  </option>
+  <option value="housing bank" data-logo="https://upload.wikimedia.org/wikipedia/ar/f/f3/Hdb_bank_logo.jpg">
+    Houssing & Deployment Bank
+  </option>
+   <option value="Arab African International Bank" data-logo="https://internationalbanker.com/wp-content/uploads/2014/04/Bank-Logo-3.png">
+Arab African International Bank
+  </option>
+<option value="Emirates NBD Egypt" data-logo="https://cdn.emiratesnbd.com/plugins/mediacentre/images/main_images/egypt_abt_news_multiple_development_projects_270423.png">
+Emirates NBD Egypt
+  </option>
+<option value="Abu Dhabi Islamic Bank Egypt" data-logo="https://adib.eg/media/1884298/adib-logoen-200x200.png">
+Abu Dhabi Islamic Bank Egypt
+  </option>
+<option value="ABK" data-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/ABK_Logo.svg/1280px-ABK_Logo.svg.png">
+ABK_Al Ahli Bank of Kuwait Egypt  
+</option>
+<option value="Egyptian Arab Land Bank" data-logo="https://www.hotlinesegypt.com/wp-content/uploads/2019/05/Egyptian-Arab-Land-bank-19939-372x300.jpg">
+Egyptian Arab Land Bank
+</option>
+<option value="Suez Canal Bank" data-logo="https://iconape.com/wp-content/files/vh/373149/svg/373149.png">
+Suez Canal Bank
+</option>
+<option value="Mashreq Bank" data-logo="https://www.clipartmax.com/png/middle/70-709110_mashreq-bank-egypt.png">
+Mashreq Bank
+</option>
+
+</select>
+ <input type="text" id="benefName" placeholder="Beneficiary Name" required>
+<input 
+  type="text"
+  id="benefAccount"
+  placeholder="Account Number"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
+
+<input 
+  type="text"
+  id="amount"
+  placeholder="Amount"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
+
+
+
+      <button type="submit">Next</button>
+    </form>
+
+    <!-- STEP 2 -->
+    <form id="step2" class="step-2" style="display:none;">
+      <h4>Confirm Transfer</h4>
+      <div class="confirm-details"></div>
+
+      <button type="button" id="backBtn">Back</button>
+      <button type="button" id="nextToPwd">Next</button>
+    </form>
+
+  <!-- STEP 3 (PASSWORD CONFIRMATION) -->
+<form id="stepPwd" class="step-pwd" style="display:none;">
+  <h4>Enter Password to Confirm</h4>
+
+  <input type="password" id="pwd" placeholder="Password" required>
+  <input type="password" id="pwdConfirm" placeholder="Confirm Password" required>
+
+  <div id="bankMessage" class="form-message"></div>
+
+  <button type="button" id="pwdBack">Back</button>
+  <button type="submit">Confirm Transfer</button>
+</form>
+
+<div id="successBox" style="display:none; text-align:center; padding:25px;">
+  <h3 style="color:#0b6b4a;">Transfer Successful ✅</h3>
+  <p>Your transaction has been completed.</p>
+
+  <button onclick="goDashboard()" style="
+      margin-top:15px;
+      padding:12px 25px;
+      background:#0b6b4a;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+  ">
+    Go to Dashboard
+  </button>
+</div>
+
+  </section>
+</main>
+
     </div>
   </div>
-  </body>
+  
+<script src="js/bank.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
+
+
+

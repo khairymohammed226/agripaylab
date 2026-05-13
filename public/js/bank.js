@@ -232,7 +232,6 @@ document.getElementById("bankMessage").style.display = "none";
 const transferType = document.getElementById("transferType");
 const bankSelect = $('#bank');
 
-$('#bank').next('.select2-container').hide();
 
 
 transferType.addEventListener("change", function () {
@@ -243,13 +242,12 @@ transferType.addEventListener("change", function () {
 
     $('#bank').next('.select2-container').show();
     $('#bank').prop("required", true);
+} else {
 
-  } else {
+  $('#bank').next('.select2-container').hide();
+  $('#bank').prop("required", false);
 
-    $('#bank').next('.select2-container').hide();
-    $('#bank').prop("required", false);
-
-  }
+}
 
 });
 
@@ -268,7 +266,6 @@ document.getElementById("successBox").style.display = "block";
 function goDashboard(){
   window.location.href = "dashboard.html";
 }
-bankSelect.next('.select2-container').hide();
 $('#bank').select2({
 
 templateResult: formatBank,
@@ -276,7 +273,7 @@ templateSelection: formatBank,
 placeholder: "Select Bank"
 
 });
-
+$('#bank').next('.select2-container').hide();
 function formatBank(bank) {
 
 if (!bank.id) {
@@ -308,4 +305,18 @@ document.getElementById("amount")
 
 });
 
+function numbersOnly(inputId) {
 
+  document.getElementById(inputId)
+  .addEventListener("keypress", function(e) {
+
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+
+  });
+
+}
+
+numbersOnly("benefAccount");
+numbersOnly("amount");

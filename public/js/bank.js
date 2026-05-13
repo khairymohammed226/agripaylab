@@ -261,7 +261,7 @@ document.getElementById("successBox").style.display = "block";
 function goDashboard(){
   window.location.href = "dashboard.html";
 }
-
+bankSelect.next('.select2-container').hide();
 $('#bank').select2({
 
 templateResult: formatBank,
@@ -286,4 +286,19 @@ bank.text +
 );
 
 }
+
+document.getElementById("benefAccount")
+.addEventListener("input", function () {
+
+  this.value = this.value.replace(/\D/g, '');
+
+});
+
+document.getElementById("amount")
+.addEventListener("input", function () {
+
+  this.value = this.value.replace(/\D/g, '');
+
+});
+
 

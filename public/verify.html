@@ -124,10 +124,17 @@
       font-size: 13px;
     }
 
-    .resend span {
-      color: #00c896;
-      cursor: pointer;
-    }
+.resend span {
+  color: #00c896;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.resend span:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
 
     .timer {
       margin-top: 10px;
@@ -185,6 +192,14 @@
   Resend
 </span>
     </p>
+    
+<p class="resend" style="margin-top:10px;">
+  Wrong email?
+  <span id="changeEmailBtn">
+    Change Email
+  </span>
+</p>
+
 
     <div id="message" class="message"></div>
 
@@ -233,18 +248,12 @@ otpInputs[0].addEventListener("paste", (e) => {
 
 const savedEmail = sessionStorage.getItem("userEmail");
 
-function maskEmail(email){
-  if(!email) return "No Email";
 
-  const [name, domain] = email.split("@");
-
-  let maskedName = name[0] + "***";
-
-  return `${maskedName}@${domain}`;
-}
 
 document.getElementById("userEmail").textContent =
-  maskEmail(savedEmail);
+  savedEmail || "No Email";
+
+
 
 
 /* ===== Countdown ===== */
@@ -383,6 +392,27 @@ sessionStorage.setItem("isLoggedIn", "true");
   }
 
 });
+
+/* ===== Change Email ===== */
+
+document.getElementById("changeEmailBtn")
+.addEventListener("click", () => {
+
+  // مسح بيانات الـ verify
+ 
+sessionStorage.removeItem("verifyUserId");
+sessionStorage.removeItem("userEmail");
+
+sessionStorage.removeItem("verified");
+sessionStorage.removeItem("currentUser");
+sessionStorage.removeItem("isLoggedIn");
+
+window.location.href = "register.html";
+
+
+});
+
+
 </script>
 
 </body>

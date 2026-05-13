@@ -144,12 +144,37 @@ app.post("/register", async (req, res) => {
 const cleanEmail = email.trim().toLowerCase();
 const cleanUsername = username.trim();
 
+
 const existUser = await User.findOne({
   $or: [
     { username: cleanUsername },
-    { email: cleanEmail }
+    { email: cleanEmail },
+    { nationalId: nationalId }
   ]
 });
+
+if (existUser) {
+
+  if (existUser.username === cleanUsername) {
+    return res.status(409).json({
+      message: "Username already exists"
+    });
+  }
+
+  if (existUser.email === cleanEmail) {
+    return res.status(409).json({
+      message: "Email already exists"
+    });
+  }
+
+  if (existUser.nationalId === nationalId) {
+    return res.status(409).json({
+      message: "National ID already exists"
+    });
+  }
+
+}
+
 
 console.log("existUser:", existUser); // 👈 حطه هنا
 

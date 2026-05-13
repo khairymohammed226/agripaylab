@@ -3,7 +3,8 @@
 <head>
   <!-- CSS لـ Select2 -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  <link rel="icon" type="image/png" href="image/logo.png">
+<link rel="apple-touch-icon" href="image/logo.png">
 <!-- jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
@@ -15,14 +16,14 @@
   <title>Bank Transfer Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-yZq0wJXDhM2XkZ1EohqY7yFQ17kRJhT1BvDIt9bKn2ibR0QhVj7rZrQHDmCzLAdbR6BzuEz0Q1U3+v7NznYQyA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/bank.css">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
 </head>
 <body>
   <div class="card">
     <header class="header">
       <div class="brand">
       <a href="dashboard.html">
-    <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Credit Agricole Logo" />
+    <!-- <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Credit Agricole Logo" /> -->
       </a> 
       </div>
       <nav class="nav">
@@ -102,7 +103,7 @@
 <option value="external">Other Bank</option>
 </select>
 <select id="bank" name="bank" style="display:none;">
-  <option></option>
+    <option></option>
 
   <option value="banque misr" data-logo="https://zeed.tech/wp-content/uploads/2022/05/bank-misr.png">
     Banque Misr
@@ -159,17 +160,28 @@ Suez Canal Bank
 Mashreq Bank
 </option>
 
-
-
-
-
-
-
-
 </select>
  <input type="text" id="benefName" placeholder="Beneficiary Name" required>
- <input type="number" id="benefAccount" placeholder="Account Number" required>
-  <input type="number" id="amount" placeholder="Amount" required>
+<input 
+  type="text"
+  id="benefAccount"
+  placeholder="Account Number"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
+
+<input 
+  type="text"
+  id="amount"
+  placeholder="Amount"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
+
+
+
       <button type="submit">Next</button>
     </form>
 
@@ -219,7 +231,7 @@ Mashreq Bank
   </div>
   
 <script src="js/bank.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

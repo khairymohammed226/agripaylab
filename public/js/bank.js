@@ -2,10 +2,10 @@
 /* ======================================================
    عرض بيانات المستخدم من localStorage
 ====================================================== */
-const currentUser = JSON.parse(sessionStorage.getItem("currentUser") || "null");
+const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
  if (!currentUser || !currentUser._id) {
- window.location.href = "login.html";
-return;
+  showBankMessage("Please log in first", "error");
+  window.location.href = "login.html";
 }
 function showBankMessage(text, type) {
   const msg = document.getElementById("bankMessage");
@@ -40,7 +40,7 @@ function showBankMessage(text, type) {
   // جلب رقم الحساب من الكارت
   (async () => {
     try {
-      const res = await fetch(`https://www.agripaylab.online/card/${currentUser._id}`);
+      const res = await fetch(`/card/${currentUser._id}`);
 
       if (res.ok) {
         const data = await res.json();
@@ -172,7 +172,7 @@ showBankMessage("", "success");
 
   try {
 
-    const check = await fetch(`https://www.agripaylab.online/transfer/check-card-password`, {
+    const check = await fetch(`/transfer/check-card-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -201,7 +201,7 @@ if (data.transferType === "external") {
   bodyData.bank = data.bank;
 }
 
-const transfer = await fetch(`https://www.agripaylab.online/transfer/bank-transfer`, {
+const transfer = await fetch(`/transfer/bank-transfer`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(bodyData)
@@ -216,7 +216,7 @@ const transfer = await fetch(`https://www.agripaylab.online/transfer/bank-transf
     }
 
     currentUser.balance = transResult.newBalance;
-    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     showSuccessBox();
 
@@ -232,28 +232,23 @@ document.getElementById("bankMessage").style.display = "none";
 const transferType = document.getElementById("transferType");
 const bankSelect = $('#bank');
 
-
 transferType.addEventListener("change", function () {
 
   bankSelect.val(null).trigger('change');
 
   if (this.value === "external") {
 
-    $('#bank').next('.select2-container').show();
-    $('#bank').prop("required", true);
+    bankSelect.next('.select2-container').show();
+    bankSelect.prop("required", true);
 
   } else {
 
-    $('#bank').next('.select2-container').hide();
-    $('#bank').prop("required", false);
+    bankSelect.next('.select2-container').hide();
+    bankSelect.prop("required", false);
 
   }
 
 });
-
-
-
-
 function showSuccessBox(){
 
 document.getElementById("step1").style.display = "none";
@@ -266,7 +261,7 @@ document.getElementById("successBox").style.display = "block";
 function goDashboard(){
   window.location.href = "dashboard.html";
 }
-bankSelect.next('.select2-container').hide();
+
 $('#bank').select2({
 
 templateResult: formatBank,
@@ -291,19 +286,5 @@ bank.text +
 );
 
 }
-
-document.getElementById("benefAccount")
-.addEventListener("input", function () {
-
-  this.value = this.value.replace(/\D/g, '');
-
-});
-
-document.getElementById("amount")
-.addEventListener("input", function () {
-
-  this.value = this.value.replace(/\D/g, '');
-
-});
 
 

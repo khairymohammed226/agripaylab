@@ -340,12 +340,3 @@ form#step1 select:focus {
   box-sizing: border-box;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=text] {
-  appearance: textfield;
-}

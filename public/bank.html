@@ -23,7 +23,7 @@
     <header class="header">
       <div class="brand">
       <a href="dashboard.html">
-    <!-- <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Credit Agricole Logo" /> -->
+    <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="Credit Agricole Logo" />
       </a> 
       </div>
       <nav class="nav">
@@ -102,7 +102,7 @@
 <option value="internal">Same Bank</option>
 <option value="external">Other Bank</option>
 </select>
-<select id="bank" name="bank" >
+<select id="bank" name="bank" style="display:none;">
   <option></option>
 
   <option value="banque misr" data-logo="https://zeed.tech/wp-content/uploads/2022/05/bank-misr.png">
@@ -160,28 +160,17 @@ Suez Canal Bank
 Mashreq Bank
 </option>
 
+
+
+
+
+
+
+
 </select>
  <input type="text" id="benefName" placeholder="Beneficiary Name" required>
-<input 
-  type="text"
-  id="benefAccount"
-  placeholder="Account Number"
-  inputmode="numeric"
-  pattern="[0-9]*"
-  required
->
-
-<input 
-  type="text"
-  id="amount"
-  placeholder="Amount"
-  inputmode="numeric"
-  pattern="[0-9]*"
-  required
->
-
-
-
+ <input type="number" id="benefAccount" placeholder="Account Number" required>
+  <input type="number" id="amount" placeholder="Amount" required>
       <button type="submit">Next</button>
     </form>
 
@@ -229,6 +218,8 @@ Mashreq Bank
 
     </div>
   </div>
+  
+
 
   
 <script src="js/bank.js"></script>

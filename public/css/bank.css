@@ -116,6 +116,7 @@
 
   padding: 12px 20px;
 align-items: center;
+justify-content: center;
 }
 .sidebar .item {
   display: flex;
@@ -145,19 +146,21 @@ align-items: center;
 
     .sidebar .item:hover {
       background: rgba(223, 242, 230, 0.7);
-      transform: translateX(5px);
+      transform: translateY(-2px);
     }
 
-    .main {
+  .main {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 25px;
   width: 100%;
   box-sizing: border-box;
+
+  background: transparent;
 }
     .account-box {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.18);
 backdrop-filter: blur(20px);
 -webkit-backdrop-filter: blur(20px);
       border: 1px solid #cfe7d6;
@@ -209,6 +212,7 @@ backdrop-filter: blur(20px);
       border-radius: 12px;
       transition: all 0.3s;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .icon-bar .icon img {

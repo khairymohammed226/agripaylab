@@ -143,20 +143,32 @@ body {
 
 .account-box {
   background: rgba(255,255,255,0.8);
-  border: 1px solid #cfe7d6;
-  border-radius: 10px;
-  padding: 18px;
-  margin-bottom: 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid #cfe7d6;
+  border-radius: 12px;
+
+  padding: 18px 25px;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+  margin-bottom: 10px;
+}
 .account-box:hover { transform: scale(1.02); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
 
 .send-box {
   background: rgba(255,255,255,0.8);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
   border: 2px solid #cfe7d6;
   border-radius: 20px;
+
   padding: 20px;
+
   animation: fadeUp 1.6s ease;
 }
 

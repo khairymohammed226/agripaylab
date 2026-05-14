@@ -23,11 +23,11 @@
   <header class="header">
     <div class="brand">
       <a href="dashboard.html">
-        <!-- <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="CA Bank Logo"> -->
+        <img src="https://i.postimg.cc/QCrwp4pC/Picsart-25-10-01-17-11-01-636.png" alt="CA Bank Logo">
       </a>
     </div>
     <nav class="nav">
-      <a href="about.html">About</a>
+      <a href="#">About</a>
       <a href="contact.html">Contact</a>
       <a href="login.html">Login</a>
       <a href="register.html">Sign Up</a>
@@ -94,7 +94,7 @@
 
 <select id="walletProvider" required>
 
-<option value="" disabled selected>Select Wallet</option>
+<option></option>
 
 <option value="vodafone" data-logo="https://www.clipartmax.com/png/small/151-1517832_pay-with-vodafone-cash-vodafone-mobile-money-logo.png">
 Vodafone Cash
@@ -116,7 +116,13 @@ WE Pay
 
 <input type="text" placeholder="Wallet Number" required>
 
-<input type="number" placeholder="Amount" required>
+<input 
+type="text" 
+placeholder="Amount" 
+inputmode="numeric"
+pattern="[0-9]*"
+required
+>
 
       <button type="submit">Next</button>
     </form>
@@ -131,7 +137,7 @@ Go to Dashboard
   <h4>Confirm Transfer</h4>
   <div class="confirm-details"></div>
 
-  
+  <!-- 👇 حط الرسالة هنا -->
   
 
   <button type="button" id="backBtn">Back</button>
@@ -145,6 +151,7 @@ Go to Dashboard
 
   </div>
 </div>
+
 <script src="js/wallet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

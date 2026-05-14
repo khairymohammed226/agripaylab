@@ -2,7 +2,7 @@
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  /* background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat; */
+  background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -115,9 +115,9 @@ body {
 .sidebar .item.active { background: rgba(11,107,74,0.12); box-shadow:0 0 10px rgba(11,107,74,0.25);}
 
 .sidebar a {
-  text-decoration: none;     
-  color: #0b6b4a;           
-  display: flex;               
+  text-decoration: none;       /* يشيل الخط */
+  color: #0b6b4a;              /* يحافظ على نفس اللون */
+  display: flex;               /* يحافظ على تنسيق الصورة + النص */
   align-items: center;
   gap: 10px;
 }
@@ -128,8 +128,8 @@ body {
   padding: 25px;
   animation: fadeUp 1.4s ease;
   display: flex;
-  flex-direction: column;   
-  gap: 20px;                
+  flex-direction: column;   /* ← ده اللي بيرجعهم فوق بعض */
+  gap: 20px;                /* اختياري لتنسيق المسافة */
 }
 
 
@@ -264,207 +264,6 @@ body {
   cursor:pointer;
 }
 
-
-
-.card {
-  width: 850px;
-  max-width: 100%;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(30px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* Header */
-.header {
-  padding: 15px 25px;
-  background: rgba(234, 248, 240, 0.6);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.brand img { height: 50px; }
-.nav a {
-  text-decoration: none;
-  color: #064a31;
-  font-weight: 600;
-  margin-left: 20px;
-  transition: 0.3s;
-}
-.nav a:hover { color: #0b6b4a; }
-
-/* Layout Body */
-.body { display: flex; flex: 1; }
-
-/* Sidebar */
-.sidebar {
-  width: 200px;
-  background: rgba(247, 251, 249, 0.6);
-  border-right: 2px solid rgba(213,233,219,0.7);
-  padding: 20px 10px;
-}
-.side-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-  text-decoration: none;
-  color: #0b6b4a;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-.side-item img { width: 24px; }
-.side-item:hover, .side-item.active {
-  background: rgba(11,107,74,0.1);
-  transform: translateX(5px);
-}
-
-
-/* Send Box */
-.send-box {
-  background: rgba(255,255,255,0.9);
-  padding: 25px;
-  border-radius: 15px;
-  border: 2px solid #cfe7d6;
-}
-.transfer-types {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 25px;
-}
-.type-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-.type-btn img { width: 40px; }
-.type-btn span { font-weight: 600; color: #064a31; font-size: 14px; }
-.type-btn:hover, .type-btn.active { background: #eef7f2; transform: translateY(-3px); }
-
-/* Form Controls */
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #0b6b4a; }
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 12px;
-  border: 1.5px solid #b8dbcb;
-  border-radius: 8px;
-  outline: none;
-}
-.form-group input:focus { border-color: #0b6b4a; }
-
-.send-box button {
-  width: 100%;
-  padding: 12px;
-  background: #0b6b4a;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor:pointer;
-  transition: background 0.3s, transform 0.2s;
-  margin-top: 10px;
-}
-
-.send-box button:hover { background:#097043; transform:scale(1.03); }
-
-/* Step 2 for Next */
-.step-2 { display: none; }
-.confirm-details p { margin-bottom: 8px; color: #064a31; font-weight:600; }
-
-.atm-message {
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: all 0.6s ease;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.atm-message.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.atm-message.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.atm-message.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-.hidden { display: none; }
-
-
-@media(max-width:768px){
-  body { padding: 10px; }
-  
-  .header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .nav a { margin-left: 0; font-size: 14px; }
-
-  .body { flex-direction: column; }
-  
-  .sidebar { 
-    width: 100%; 
-    display: flex; 
-    overflow-x: auto;
-    border-right: none; 
-    border-bottom: 2px solid rgba(213,233,219,0.7); 
-    padding: 10px;
-    white-space: nowrap;
-  }
-  
-  .side-item {
-    margin-bottom: 0;
-    margin-right: 15px;
-    flex-shrink: 0;
-  }
-
-  .main-content { padding: 15px 10px; }
-  
-  .transfer-types {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .type-btn {
-    flex: 1 1 30%;
-    padding: 5px;
-  }
+#goDashboardBtn:hover{
+  background:#097043;
 }

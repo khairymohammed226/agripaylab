@@ -9,11 +9,14 @@ function showWalletMessage(text, type) {
   }, 6000);
 }
 
-
-  const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+  // ================================
+  // 1) عرض بيانات اليوزر بعد اللوجن
+  // ================================
+ const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
 
   if (currentUser) {
 
+    // إخفاء رقم الحساب
     function maskAccountNumber(acct) {
       if (!acct) return "No Account";
       const s = String(acct).trim();
@@ -23,11 +26,13 @@ function showWalletMessage(text, type) {
       return stars + last4;
     }
 
+    // عرض الاسم
    document.getElementById("userNameDisplay").textContent =
   `${currentUser.firstName} ${currentUser.lastName}`;
 
 
-   
+    // عرض رقم الحساب المخفي
+  // 🟢 جلب رقم الحساب من الكارت
 (async () => {
   try {
     const res = await fetch(`/card/${currentUser._id}`)
@@ -58,7 +63,9 @@ function showWalletMessage(text, type) {
   }
 
 
- 
+  // ================================
+  // 2) باقي كود التحويل (Wallet Steps)
+  // ================================
   const step1 = document.getElementById('step1');
   const step2 = document.getElementById('step2');
   const confirmDiv = step2.querySelector('.confirm-details');
@@ -67,6 +74,13 @@ function showWalletMessage(text, type) {
 const walletSelect = document.getElementById("walletProvider");
 const walletNumberInput = step1.querySelector('input[placeholder="Wallet Number"]');
 
+const amountInput = step1.querySelector('input[placeholder="Amount"]');
+
+amountInput.addEventListener("input", function () {
+
+this.value = this.value.replace(/\D/g, '');
+
+});
 function validateWalletNumber(){
 
 const provider = walletSelect.value;
@@ -136,6 +150,7 @@ step2.addEventListener("submit", async function (e) {
   const amount = step1.querySelector('input[placeholder="Amount"]').value;
   const password = step2.querySelector('input[type="password"]').value;
 
+  // 1️⃣ تحقق الباسورد
   const check = await fetch(`/transfer/check-card-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -151,6 +166,7 @@ step2.addEventListener("submit", async function (e) {
     return;
   }
 
+  // 2️⃣ تنفيذ التحويل
   const res = await fetch(`/transfer/wallet-transfer`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -170,11 +186,12 @@ step2.addEventListener("submit", async function (e) {
 
   // 3️⃣ نجاح العملية
   currentUser.balance = data.newBalance;
-  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
 
 showWalletMessage("Wallet transfer successful", "success");
 
 document.getElementById("goDashboardBtn").style.display = "block";
+  // 👇 نستنى 5 ثواني بعد ما الرسالة تظهر
   setTimeout(() => {
     step2.reset();
     step2.style.display = "none";
@@ -213,13 +230,4 @@ document.getElementById("goDashboardBtn").addEventListener("click", function(){
 window.location.href = "dashboard.html";
 });
 
-if (!currentUser || !currentUser._id) {
-  showWalletMessage("Session expired ❌", "error");
-
-  setTimeout(() => {
-    window.location.href = "login.html";
-  }, 1500);
-
-  return;
-}
 

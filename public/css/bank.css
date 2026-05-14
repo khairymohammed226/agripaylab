@@ -160,7 +160,7 @@ justify-content: center;
   background: transparent;
 }
     .account-box {
-      background: rgba(255, 255, 255, 0.18);
+background: rgba(255,255,255,0.8);
 backdrop-filter: blur(20px);
 -webkit-backdrop-filter: blur(20px);
       border: 1px solid #cfe7d6;
@@ -186,7 +186,7 @@ backdrop-filter: blur(20px);
     }
 
     .transfer-form {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,0.8);
 backdrop-filter: blur(20px);
 -webkit-backdrop-filter: blur(20px);
   border: 2px solid #cfe7d6;

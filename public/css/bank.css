@@ -19,11 +19,11 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 10px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       flex-direction: column;
       animation: fadeIn 1s ease-in-out;
-      overflow: hidden;
+      
     }
 
     @keyframes fadeIn {
@@ -186,7 +186,7 @@ backdrop-filter: blur(20px);
     }
 
     .transfer-form {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.35);
 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

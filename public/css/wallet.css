@@ -2,7 +2,7 @@
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  /* background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat; */
+  background: url(../image/image.png) center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;

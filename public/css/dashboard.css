@@ -6,7 +6,7 @@
     }
 
     body {
-      /* background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') no-repeat center center fixed; */
+      background: url("../image/image.png") no-repeat center center fixed;
       background-size: cover;
     }
 

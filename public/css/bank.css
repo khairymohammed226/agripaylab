@@ -149,15 +149,16 @@ justify-content: center;
       transform: translateY(-2px);
     }
 
-  .main {
+.main {
+  flex: 1;
+  padding: 25px;
+
+  animation: fadeUp 1.4s ease;
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 25px;
-  width: 100%;
-  box-sizing: border-box;
 
-  background: transparent;
+  gap: 20px;
 }
     .account-box {
 background: rgba(255,255,255,0.8);
@@ -166,9 +167,8 @@ backdrop-filter: blur(20px);
       border: 1px solid #cfe7d6;
       border-radius: 12px;
       padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      
+      
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       margin-bottom: 10px;
     }

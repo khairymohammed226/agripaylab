@@ -92,9 +92,10 @@
     }
 
     .body {
-      display: flex;
-      animation: fadeUp 1.2s ease;
-    }
+  display: flex;
+  flex-direction: column;
+  animation: fadeUp 1.2s ease;
+}
 
     @keyframes fadeUp {
       from {opacity: 0; transform: translateY(20px);}
@@ -102,31 +103,38 @@
     }
 
     .sidebar {
-      width: 180px;
-      background: rgba(247, 251, 249, 0.6);
-      border-right: 2px solid rgba(213, 233, 219, 0.7);
-      padding: 20px 15px;
-    }
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 12px;
 
-    .sidebar .item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      color: #0b6b4a;
-      margin-bottom: 16px;
-      transition: all 0.3s;
-      border-radius: 8px;
-      padding: 8px;
-      cursor: pointer;
-    }
-    .sidebar .item {
+  background: rgba(247, 251, 249, 0.45);
+  backdrop-filter: blur(15px);
+
+  border-bottom: 2px solid rgba(213, 233, 219, 0.7);
+
+  padding: 12px 20px;
+align-items: center;
+}
+.sidebar .item {
   display: flex;
   align-items: center;
-  gap: 10px;        /* المسافة بين الصورة والنص */
-  text-decoration: none; /* يشيل الخط تحت النص */
-  color: #000;      /* لون النص */
-  font-weight: 600; /* optional لو عايز نفس الوزن السابق */
+  gap: 10px;
+
+  font-weight: 600;
+  color: #0b6b4a;
+
+  text-decoration: none;
+
+  margin-bottom: 16px;
+  transition: all 0.3s;
+
+  border-radius: 8px;
+  padding: 8px;
+
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 
@@ -149,7 +157,9 @@
   box-sizing: border-box;
 }
     .account-box {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.25);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
       border: 1px solid #cfe7d6;
       border-radius: 12px;
       padding: 18px 25px;
@@ -173,7 +183,9 @@
     }
 
     .transfer-form {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.25);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
   border: 2px solid #cfe7d6;
   border-radius: 20px;
   padding: 20px;
@@ -257,11 +269,7 @@
     .step-2 {display: none;}
     .confirm-details p {margin-bottom: 8px; color: #064a31; font-weight: 600;}
 
-    @media(max-width: 720px) {
-      .body {flex-direction: column;}
-      .sidebar {width: 100%; display: flex; justify-content: space-around; border-right: none; border-bottom: 2px solid rgba(213, 233, 219, 0.7);}
-      .transfer-form button {width: 100%; margin-top: 10px;}
-    }
+    
     /* تعديل شكل select عشان يكون زي باقي الحقول */
 form#step1 select {
   width: 100%;           /* نفس عرض الحقول */

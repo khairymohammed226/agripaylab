@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const liveNumber = document.getElementById("liveNumber");
   const liveExp    = document.getElementById("liveExp");
 
-  const cardNameEl   = document.getElementById("detailsName");
+  const cardNameEl = document.getElementById("cardName");
   const cardNumberEl = document.getElementById("cardNumber");
   const expDateEl    = document.getElementById("cardExpiry");
   const cardTypeEl   = document.getElementById("cardType");

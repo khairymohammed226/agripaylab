@@ -2,7 +2,7 @@
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  /* background: url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat; */
+  background: url("../image/image.png") center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -87,7 +87,21 @@ body {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
 }
+.sidebar{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
 
+  background:rgba(247,251,249,.6);
+
+  border-bottom:2px solid rgba(213,233,219,.7);
+
+  padding:20px 15px;
+
+  overflow-x:auto;
+}
 /* Sidebar */
 .sidebar .item{
   display:flex;
@@ -220,10 +234,7 @@ body {
 .step-2 { display: none; }
 .confirm-details p { margin-bottom: 8px; color: #064a31; font-weight:600; }
 
-@media(max-width:720px){
-  .body { flex-direction: column; }
-  .sidebar { width:100%; display:flex; justify-content:space-around; border-right:none; border-bottom:2px solid rgba(213,233,219,0.7); }
-}
+
 .atm-message {
   opacity: 0;
   transform: translateY(-5px);
@@ -296,83 +307,10 @@ body {
   background: #1e7e34;
   color: #fff;
 }
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) لصفحة ATM Simulator */
-/* ========================================================= */
-@media (max-width: 768px) {
-  body { padding: 10px; }
-
-  .card { width: 100%; }
-
-  /* تظبيط الهيدر والروابط */
-  .header {
-    flex-direction: column;
-    gap: 12px;
-    padding: 10px;
-  }
-
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .nav a { margin-left: 0; font-size: 14px; }
-
-  .body { flex-direction: column; }
-
-  /* تظبيط القائمة الجانبية لتكون شريط علوي قابل للتمرير (أفقي) */
-  .sidebar {
-    width: 100%;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-start !important;
-    overflow-x: auto;
-    border-right: none;
-    border-bottom: 2px solid rgba(213,233,219,0.7);
-    padding: 10px;
-    white-space: nowrap;
-  }
-
-  .sidebar .item {
-    margin-bottom: 0 !important;
-    margin-right: 15px;
-    flex-shrink: 0; /* بيمنع الزراير تصغر أو تنزل تحت بعض */
-  }
-
-  .main { padding: 15px 10px; width: 100%; }
-
-  .send-box {
-    padding: 20px;
-  }
-}
 
 
-#depositInfo {
-  margin-top: 15px;
-  padding: 15px;
-  background: rgba(223, 242, 230, 0.6);
-  border-radius: 12px;
-  border: 1px solid #cfe7d6;
-}
 
-#depositInfo h4 {
-  color: #0b6b4a;
-  margin-bottom: 5px;
-}
 
-#depositInfo p {
-  color: #555;
-  margin-bottom: 10px;
-}
-
-#amountBox {
-  font-size: 22px;
-  font-weight: bold;
-  color: #064a31;
-  margin-bottom: 10px;
-}
 /* ========================================================= */
 /* Responsive Design */
 /* ========================================================= */

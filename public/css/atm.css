@@ -2,7 +2,7 @@
 
 body{
   font-family:'Segoe UI',Tahoma,sans-serif;
-  /* background:url('https://www.firstbankeg.com/UserFiles/NewsSizes/1920/2023/09/24/17792.jpg?230924102238') center/cover no-repeat; */
+  background:url("../image/image.png") center/cover no-repeat;
   min-height:100vh;
   display:flex;
   justify-content:center;
@@ -102,13 +102,20 @@ header nav a:hover::after{width:100%}
 }
 
 /* ACCOUNT BOX */
-.account-box{
-  background:rgba(255,255,255,.85);
-  border:1px solid #cfe7d6;
-  border-radius:10px;
-  padding:18px;
-  margin-bottom:20px;
-  transition:.3s;
+.account-box {
+  background: rgba(255,255,255,0.8);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid #cfe7d6;
+  border-radius: 12px;
+
+  padding: 18px 25px;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+  margin-bottom: 10px;
 }
 
 .account-box:hover{

@@ -78,25 +78,37 @@ body {
 .nav a:hover { color: #0b6b4a; }
 
 /* Body layout */
-.body {
-  display: flex;
-  animation: fadeUp 1.2s ease;
+.body{
+  display:flex;
+  flex-direction:column;
+  animation:fadeUp 1.2s ease;
 }
-
 @keyframes fadeUp {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
 }
 
 /* Sidebar */
-.sidebar {
-  width: 180px;
-  background: rgba(247, 251, 249, 0.6);
-  border-right: 2px solid rgba(213, 233, 219, 0.7);
-  padding: 20px 15px;
-  border-radius: 15px 0 0 15px;
-}
+.sidebar .item{
+  display:flex;
+  align-items:center;
+  gap:10px;
 
+  font-weight:600;
+  color:#0b6b4a;
+
+  transition:all .3s;
+
+  border-radius:8px;
+
+  padding:10px;
+
+  cursor:pointer;
+
+  margin-bottom:0;
+
+  flex-shrink:0;
+}
 .sidebar .item {
   display: flex;
   align-items: center;
@@ -124,8 +136,9 @@ body {
 
 /* Main content */
 .main {
-  flex: 1;
-  padding: 25px;
+   flex:1;
+  padding:25px;
+  width:100%;
   animation: fadeUp 1.4s ease;
   display: flex;
   flex-direction: column;   /* ← ده اللي بيرجعهم فوق بعض */
@@ -359,4 +372,78 @@ body {
   font-weight: bold;
   color: #064a31;
   margin-bottom: 10px;
+}
+/* ========================================================= */
+/* Responsive Design */
+/* ========================================================= */
+
+@media (max-width: 768px) {
+
+  body{
+    padding:10px;
+  }
+
+  .card{
+    width:100%;
+  }
+
+  /* HEADER */
+  .header{
+    flex-direction:column;
+    gap:15px;
+    padding:12px;
+  }
+
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+  }
+
+  .nav a{
+    margin-left:0;
+    font-size:14px;
+  }
+
+  /* BODY */
+  .body{
+    flex-direction:column;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    width:100%;
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+
+    border-right:none;
+    border-bottom:2px solid rgba(213,233,219,.7);
+
+    padding:10px;
+    gap:10px;
+  }
+
+  .sidebar .item{
+    flex-shrink:0;
+    margin-bottom:0;
+  }
+
+  /* MAIN */
+  .main{
+    width:100%;
+    padding:15px 10px;
+  }
+
+  /* SEND BOX */
+  .send-box{
+    padding:20px 15px;
+  }
+
+  .send-box input,
+  .send-box button{
+    font-size:15px;
+  }
+
 }

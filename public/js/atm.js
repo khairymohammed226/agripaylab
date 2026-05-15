@@ -183,7 +183,17 @@ function showDepositMessage(text, type) {
   // 🟢 إظهار / إخفاء withdrawal
   if (transactionType && withdrawalSection) {
      const depositSection = document.getElementById("depositSection");
+const savedPage = sessionStorage.getItem("atmPage");
 
+if (savedPage === "withdrawal") {
+  transactionType.value = "withdrawal";
+  withdrawalSection.style.display = "block";
+}
+
+if (savedPage === "deposit") {
+  transactionType.value = "deposit";
+  depositSection.style.display = "block";
+}
 transactionType.addEventListener("change", () => {
 
   withdrawalSection.style.display = "none";
@@ -191,10 +201,12 @@ transactionType.addEventListener("change", () => {
 
   if (transactionType.value === "withdrawal") {
     withdrawalSection.style.display = "block";
+    sessionStorage.setItem("atmPage", "withdrawal");
   }
 
   if (transactionType.value === "deposit") {
     depositSection.style.display = "block";
+    sessionStorage.setItem("atmPage", "deposit");
   }
 
 });

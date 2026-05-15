@@ -40,9 +40,7 @@ if (depositSession) {
     otpInput.value = depositSession.otp;
     currentOtp = depositSession.otp;
 
-    verifyBtn.disabled = true;
 
-    showMessage("OTP already active ⏳", "success");
 
   }
 }

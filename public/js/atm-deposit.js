@@ -15,10 +15,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentOtp = null;
 
+
+
   function showMessage(text, type) {
     messageBox.textContent = text;
     messageBox.className = "atm-message show " + type;
   }
+
+  const depositSession = JSON.parse(
+  sessionStorage.getItem("depositSession")
+);
+
+if (depositSession) {
+
+  const now = Date.now();
+  const diff = now - depositSession.createdAt;
+
+  if (diff > 5 * 60 * 1000) {
+
+    sessionStorage.removeItem("depositSession");
+
+  } else {
+
+    otpInput.value = depositSession.otp;
+    currentOtp = depositSession.otp;
+
+    verifyBtn.disabled = true;
+
+    showMessage("OTP already active ⏳", "success");
+
+  }
+}
 
   // 🔐 VERIFY OTP
   verifyBtn.onclick = async () => {
@@ -61,7 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
       amountBox.textContent = data.amount + " EGP";
 
       currentOtp = otp;
-
+       
+      sessionStorage.setItem(
+  "depositSession",
+  JSON.stringify({
+    otp,
+    createdAt: Date.now()
+  })
+);
       showMessage("OTP Verified ✅", "success");
 
     } catch {
@@ -98,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       showMessage("Deposit Successful 💰", "success");
-
+sessionStorage.removeItem("depositSession");
       setTimeout(() => {
         window.location.href = "dashboard.html";
       }, 1500);

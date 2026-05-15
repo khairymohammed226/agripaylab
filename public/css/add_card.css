@@ -9,39 +9,62 @@
     }
 
     /* ===== Navbar ===== */
-    .top-nav {
-      background-color: rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 60px;
-      position: fixed;
-      top: 20px;
-      left: 3%;
-      border-radius: 12px;
-      width: 84%;
-      z-index: 1000;
-    }
-    .top-nav .logo img {
+
+.top-nav {
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 40px;
+
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-radius: 14px;
+
+  width: 92%;
+  max-width: 1250px;
+
+  z-index: 1000;
+}
+
+.top-nav .logo img {
   height: 55px;
   cursor: pointer;
 }
 
-
- .top-nav ul {
+.top-nav ul {
   list-style: none;
+
   display: flex;
+  align-items: center;
+  justify-content: center;
+
   gap: 40px;
-  margin-left: auto; 
+
+  margin: 0;
+  padding: 0;
 }
 
-    .top-nav ul li a {
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-    }
+.top-nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+  font-size: 18px;
+
+  transition: 0.3s;
+}
+
+.top-nav ul li a:hover {
+  color: #0b6b4a;
+}
 
     /* ===== Main ===== */
    .main {
@@ -106,4 +129,60 @@
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+    height: auto;
+  }
+
+  /* NAVBAR */
+  .top-nav {
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 15px 20px;
+
+    top: 10px;
+    width: 95%;
+  }
+
+  .top-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .top-nav ul li a {
+    font-size: 16px;
+  }
+
+  /* MAIN */
+  .main {
+    margin-top: 170px;
+    padding-bottom: 30px;
+  }
+
+  /* FORM */
+  .form-container {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 25px 20px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 15px;
+  }
+
 }

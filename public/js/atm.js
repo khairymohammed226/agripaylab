@@ -278,6 +278,42 @@ resendBtn.classList.add("hidden");
 // 🟢 Deposit OTP
 const depositBtn = document.getElementById("generateDepositOtp");
 const depositAmountInput = document.getElementById("depositAmount");
+const depositSession = JSON.parse(
+  sessionStorage.getItem("depositSession")
+);
+
+const depositTimer = document.getElementById("otpTimer");
+
+if (depositSession) {
+
+  depositAmountInput.value = depositSession.amount;
+
+  const now = Date.now();
+  const diff = now - depositSession.createdAt;
+
+  const remainingTime = 300 - Math.floor(diff / 1000);
+
+  if (remainingTime > 0) {
+
+    depositBtn.disabled = true;
+
+    showDepositMessage(
+      "Deposit OTP: " + depositSession.otp,
+      "success"
+    );
+
+    document.getElementById(
+      "goToDepositAtmBtn"
+    ).style.display = "block";
+
+    startOtpTimer(remainingTime);
+
+  } else {
+
+    sessionStorage.removeItem("depositSession");
+
+  }
+}
 
 if (depositBtn) {
   depositBtn.addEventListener("click", async () => {
@@ -309,6 +345,9 @@ if (depositBtn) {
       }
 
       showDepositMessage("Deposit OTP: " + data.otp, "success");
+      depositBtn.disabled = true;
+
+startOtpTimer(300);
 document.getElementById("goToDepositAtmBtn").style.display = "block";
       sessionStorage.setItem("depositSession", JSON.stringify({
         otp: data.otp,

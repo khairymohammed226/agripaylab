@@ -58,14 +58,19 @@ header nav a:hover::after{width:100%}
 /* BODY */
 .main-container{
   display:flex;
+  flex-direction:column;
   animation:fadeUp 1s ease;
 }
 
 /* SIDEBAR */
 .sidebar-wrapper{
-  width:200px;
+    width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
   background:rgba(247,251,249,.6);
-  border-right:2px solid rgba(213,233,219,.7);
+  border-bottom:2px solid rgba(213,233,219,.7);
   padding:20px 15px;
 }
 
@@ -74,7 +79,7 @@ header nav a:hover::after{width:100%}
   align-items:center;
   gap:10px;
   padding:10px;
-  margin-bottom:14px;
+margin-bottom:0;
   font-weight:600;
   color:#0b6b4a;
   border-radius:8px;

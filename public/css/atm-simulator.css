@@ -376,3 +376,9 @@ body {
     padding: 10px;
   }
 }
+.sidebar-wrapper a{
+  text-decoration: none !important;
+}
+.sidebar-wrapper a:hover{
+  text-decoration: none !important;
+}

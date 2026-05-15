@@ -27,8 +27,8 @@ setTimeout(() => {
   const accountNumber = document.getElementById("accountNumber").value;
   const cardType = document.getElementById("cardType").value;
   const expiryDate = document.getElementById("expiry").value;
-  const cvv = document.getElementById("cvv").value;
-  const cardPassword = document.getElementById("cardPassword").value;
+  const cvv = document.getElementById("cvv").value.trim();
+const cardPassword = document.getElementById("cardPassword").value.trim();
 
   
  
@@ -49,6 +49,11 @@ if (!cardName || !accountNumber || !cvv || !cardPassword) {
 }
 if (cvv.length !== 3) {
   messageDiv.textContent = "❌ CVV must be 3 digits";
+  messageDiv.className = "message error";
+  return;
+}
+if (cardPassword.length !== 4) {
+  messageDiv.textContent = "❌ Card Password must be 4 digits";
   messageDiv.className = "message error";
   return;
 }
@@ -111,4 +116,20 @@ if (expiryInput) {
     this.value = value;
   });
 }
+// ===== CVV Numbers Only =====
+const cvvInput = document.getElementById("cvv");
 
+if (cvvInput) {
+  cvvInput.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "");
+  });
+}
+
+// ===== Card Password Numbers Only =====
+const passwordInput = document.getElementById("cardPassword");
+
+if (passwordInput) {
+  passwordInput.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "");
+  });
+}

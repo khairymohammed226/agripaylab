@@ -54,15 +54,23 @@ if (sessionStorage.getItem("isLoggedIn") !== "true") {
   placeholder="MM/YY"
   maxlength="5"
 >
-        <input 
+ <input 
   type="text"
   id="cvv"
   placeholder="CVV"
   maxlength="3"
   inputmode="numeric"
-  pattern="\d{3}"
+  pattern="[0-9]*"
 >
-        <input type="password" id="cardPassword" placeholder="Card Password" required>
+      <input 
+  type="password"
+  id="cardPassword"
+  placeholder="Card Password"
+  maxlength="4"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  required
+>
 
 <button type="submit">Save Card</button>
 </form>

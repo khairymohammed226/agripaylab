@@ -9,7 +9,8 @@
     }
 
     .card-container {
-      width: 900px;
+      width: 100%;
+      max-width: 900px;
       background: rgba(255,255,255,0.25);
       border-radius: 14px;
       display: flex;
@@ -65,40 +66,28 @@
 .sidebar {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 
   background: rgba(247,251,249,.6);
 
   border-bottom: 2px solid rgba(213,233,219,.7);
 
-  padding: 20px 15px;
+  padding: 15px 12px;
 
   overflow-x: auto;
+
   white-space: nowrap;
+
+  scrollbar-width: none;
 }
 
-/* ITEMS */
-.sidebar .item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  padding: 10px 14px;
-
-  border-radius: 8px;
-
-  font-weight: 600;
-
-  color: #0b6b4a;
-
-  text-decoration: none;
-
-  transition: .3s;
-
-  flex-shrink: 0;
+.sidebar::-webkit-scrollbar{
+  display: none;
 }
+
 
 
    .sidebar .item {
@@ -314,6 +303,19 @@
   .profile-row{
     flex-direction: column;
     gap: 8px;
+  }
+
+}
+@media (max-width: 768px){
+
+  .sidebar{
+    justify-content: flex-start;
+    padding-left: 12px;
+  }
+
+  .sidebar .item{
+    font-size: 14px;
+    padding: 8px 10px;
   }
 
 }

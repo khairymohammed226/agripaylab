@@ -311,20 +311,17 @@ body {
 
 
 
-/* ========================================================= */
-/* Responsive Design */
-/* ========================================================= */
-
 @media (max-width: 768px) {
 
   body{
     padding:10px;
+    align-items:flex-start;
   }
 
- .card{
-  width:95%;
-  margin:20px auto;
-}
+  .card{
+    width:100%;
+    margin-top:20px;
+  }
 
   /* HEADER */
   .header{
@@ -370,13 +367,14 @@ body {
   }
 
   /* MAIN */
-.main{
-  width:100%;
-  padding:10px;
-}
+  .main{
+    width:100%;
+    padding:15px 10px;
+  }
 
   /* SEND BOX */
   .send-box{
+    width:100%;
     padding:20px 15px;
   }
 

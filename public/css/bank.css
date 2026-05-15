@@ -186,7 +186,7 @@
       color: #064a31;
     }
 
-  .transfer-form {
+  .send-box {
 
   background: rgba(255,255,255,0.18);
 
@@ -241,7 +241,7 @@
       color: #064a31;
     }
 
-    .transfer-form input {
+    .send-box input {
       width: 100%;
       padding: 10px 12px;
       margin-bottom: 12px;
@@ -251,13 +251,13 @@
       transition: box-shadow 0.3s, border-color 0.3s;
     }
 
-    .transfer-form input:focus {
+    .send-box input:focus {
       outline: none;
       border-color: #0b6b4a;
       box-shadow: 0 0 6px rgba(11,107,74,0.3);
     }
 
-    .transfer-form button {
+    .send-box button {
       display: block;
       width: 48%;
       padding: 12px;
@@ -271,7 +271,7 @@
       margin-top: 10px;
     }
 
-    .transfer-form button:hover {
+    .send-box button:hover{
       background: #097043;
       transform: scale(1.03);
     }

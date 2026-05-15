@@ -382,3 +382,69 @@ body {
 .sidebar-wrapper a:hover{
   text-decoration: none !important;
 }
+
+
+
+
+
+
+
+
+/* FIX OLD ATM PAGES */
+
+.body{
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  background:rgba(247,251,249,.6);
+  border-bottom:2px solid rgba(213,233,219,.7);
+  padding:20px 15px;
+  overflow-x:auto;
+}
+
+.sidebar .item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+  color:#0b6b4a;
+  border-radius:8px;
+  padding:10px;
+  flex-shrink:0;
+  text-decoration:none;
+}
+
+.sidebar .item.active{
+  background:rgba(11,107,74,0.12);
+  box-shadow:0 0 10px rgba(11,107,74,0.25);
+}
+
+.main{
+  width:100%;
+  padding:25px;
+}
+
+@media(max-width:768px){
+
+  .sidebar{
+    justify-content:flex-start;
+    padding:10px;
+    gap:15px;
+  }
+
+  .main{
+    padding:15px 10px;
+  }
+
+  .send-box{
+    width:100%;
+  }
+
+}

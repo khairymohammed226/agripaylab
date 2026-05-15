@@ -321,9 +321,10 @@ body {
     padding:10px;
   }
 
-  .card{
-    width:100%;
-  }
+ .card{
+  width:95%;
+  margin:20px auto;
+}
 
   /* HEADER */
   .header{
@@ -369,10 +370,10 @@ body {
   }
 
   /* MAIN */
-  .main{
-    width:100%;
-    padding:15px 10px;
-  }
+.main{
+  width:100%;
+  padding:10px;
+}
 
   /* SEND BOX */
   .send-box{

@@ -2,122 +2,578 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vault Bank</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/index.css"/>
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Agripay -Banking Simulation">
+  <link rel="icon" type="image/png" href="image/logo.png">
+<link rel="apple-touch-icon" href="image/logo.png">
+<meta property="og:description" content="Educational banking simulation platform for learning and practice.">
+<!-- <meta property="og:image" content="https://www.agripay.online/image/logo.png"> -->
+<!-- <meta property="og:url" content="https://www.agripay.online/"> -->
+  <title>Agripay - banking-simulator</title>
+
+<meta name="description" content="Agripay is a secure online banking platform that allows users to manage accounts, transfer money, and control cards easily and safely.">
+
+<meta name="keywords" content="agripay, online banking, bank system, money transfer, finance">
+
+<meta name="author" content="Agripay Team">
+
+<!-- 🔥 اللوجو (Favicon) -->
+<link rel="icon" type="image/png" href="/image/logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    
+body {
+  background: url(image/back.png) no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  animation: fadeIn 1s ease-in;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+    /* Top Navigation Bar */
+    .top-nav {
+      width: 90%;
+      background-color: rgba(213, 232, 212, 0.4);
+      margin: 20px auto 0;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);      backdrop-filter: blur(6px);
+      z-index: 1000;
+    }
+
+    .top-nav .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+  .top-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.top-nav ul li {
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.3s;
+  color: #083c24;
+  font-size: 17px;
+  letter-spacing: 1px;
+
+  white-space: nowrap;
+}
+
+    .top-nav ul li:hover {
+      color: #2f8a64;
+      transform: scale(1.05);
+    }
+
+
+    /* Page Layout */
+    .page-content {
+      display: flex;
+      flex: 1;
+      width: 90%;
+      margin: 30px auto;
+      gap: 25px;
+    }
+
+    /* Sidebar */
+/* 🔹 Sidebar Navigation Links Color */
+
+.main {
+  flex: 1;
+  padding: 60px 40px;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: #083c24;
+  max-width: 900px;
+  margin: 60px auto; 
+}
+
+    
+
+    .main h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .main p {
+      font-size: 16px;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* ✅ About Section (Moved Up) */
+    .about-section {
+      background: rgba(249, 249, 249, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .about-section h2 {
+      color: #2f8a64;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      color: #333;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+
+    /* ✅ Feature Boxes */
+ .features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-items: center;
+  margin-top: 40px;
+}
+
+    .feature-box {
+      background-color: rgba(47, 138, 100, 0.8);
+      color: white;
+      padding: 25px 15px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 260px;
+      height: 200px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+
+    .icon-container img {
+      width: 60px;
+      height: 60px;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-text {
+      position: absolute;
+      opacity: 0;
+      text-align: center;
+      padding: 0 10px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(15px);
+    }
+
+    .feature-text h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .feature-text p {
+      font-size: 14px;
+      color: #f0f0f0;
+    }
+
+    .feature-box:hover .icon-container img {
+      opacity: 0;
+    }
+
+    .feature-box:hover .feature-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+        .logo img {
+  width: 80px; /* أو المقاس اللي يناسبك */
+  transition: transform 0.5s ease, filter 0.5s ease;
+  cursor: pointer;
+}
+
+/* لما تقف على اللوجو */
+.logo img:hover {
+  transform: rotate(10deg) scale(1.1);
+  filter: brightness(1.2);
+}
+
+
+.top-nav ul li a {
+  color: black !important; 
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.top-nav ul li a:hover {
+  transform: scale(1.1);
+  color: #2f8a64 !important; 
+}
+
+/* زر sign up */
+.signup {
+  background-color: transparent;
+  color: black !important;
+  border: 2px solid black;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.signup:hover {
+  background-color: black;
+  color: white !important;
+}
+/* ===============================
+   MOBILE RESPONSIVE - HOME PAGE
+================================*/
+@media (max-width:768px){
+
+/* navbar */
+.top-nav{
+padding:10px 15px;
+flex-direction:row;
+}
+
+.top-nav ul{
+  gap:10px;
+  flex-wrap:nowrap;   
+  overflow-x:auto;   
+}
+
+/* logo smaller */
+.logo img{
+width:60px;
+}
+
+/* main content */
+.main{
+padding:30px 20px;
+margin:120px auto 40px;
+width:95%;
+}
+
+/* title */
+.main h1{
+font-size:24px;
+}
+
+/* paragraph */
+.main p{
+font-size:14px;
+}
+
+/* about section */
+.about-section{
+padding:25px 20px;
+margin:20px auto;
+width:95%;
+}
+
+.about-section h2{
+font-size:22px;
+}
+
+/* feature boxes */
+.features{
+grid-template-columns:1fr;
+gap:15px;
+}
+
+.feature-box{
+max-width:100%;
+height:180px;
+}
+body {
+  overflow-x: hidden;
+}
+
+* {
+}
+@media (max-width:768px){
+
+/* navbar */
+.top-nav{
+  width:95%;
+  padding:10px;
+  flex-direction:row;
+}
+
+.top-nav ul{
+  gap:10px;
+  overflow-x:auto;
+}
+
+/* logo */
+.logo img{
+  width:60px;
+}
+
+/* main */
+.main{
+  padding:25px 15px;
+  margin:100px auto 30px;
+  width:100%;
+  max-width:900px;
+}
+
+/* text */
+.main h1{
+  font-size:22px;
+}
+
+.main p{
+  font-size:14px;
+}
+
+/* about */
+.about-section{
+  padding:20px;
+  width:95%;
+}
+
+/* features */
+.feature-box{
+  height:160px;
+}
+
+}
+}
+/* ========================================================= */
+/* إضافات الموبايل (Responsive) للصفحة الرئيسية (Home) */
+/* ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding: 10px 0;
+  }
+
+  /* تظبيط شريط التنقل العلوي (الناف بار) */
+  .top-nav {
+    width: 95%;
+    height: auto; /* بيلغي الارتفاع الثابت عشان يستوعب العناصر لما تنزل تحت بعض */
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  /* تظبيط الروابط والزراير جوه الناف بار */
+  .top-nav > div, 
+  .top-nav nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  /* تظبيط النصوص الرئيسية */
+  .hero-section, 
+  .hero-text {
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 26px; /* تصغير الخط شوية عشان يناسب شاشة الموبايل */
+  }
+
+  /* تظبيط المربعات بتاعة المميزات (الكروت اللي تحت) */
+  .features-container,
+  .features-wrapper {
+    display: flex;
+    flex-direction: column; /* بيخلي الكروت تنزل تحت بعض بدل جنب بعض */
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .feature-box {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+  </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
 <body>
+  <!-- Top Navbar -->
+<nav class="navbar navbar-expand bg-light">
+  <div class="container">
 
-  <!-- NAV -->
-  <nav class="navbar">
-    <div class="logo">
-      <span class="logo-icon">◎</span> AGRIPAY 
-    </div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-   <div class="nav-btns">
-  <a href="login.html" class="btn-outline">Login</a>
+    <a class="navbar-brand" href="home.html">
+      <!-- <img src="image/Picsart_25-10-01_17-11-01-636.png" width="50"> -->
+    </a>
 
-  <a href="register.html" class="btn-solid">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="home.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+
+       <li class="nav-item">
+  <a class="nav-link" href="login.html">Login</a>
+</li>
+
+<li class="nav-item">
+  <a class="btn btn-success ms-lg-2 mt-2 mt-lg-0" href="register.html">
     Sign Up
   </a>
-</div>
+</li>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <p class="tagline">SECURE · SMART · SIMPLE</p>
-      <h1>Banking built for <span class="accent">your future</span></h1>
-      <p class="sub">Manage your accounts, transfer money, and control your cards — all from one elegant platform. Protected by advanced encryption, available 24/7.</p>
-      <div class="hero-btns">
-        <button class="btn-solid">Get Started</button>
-        <button class="btn-outline">Learn More</button>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+    <!-- Main Section -->
+    <div class="main">
+
+      <!-- ✅ About Section Placed Here -->
+      <section class="about-section">
+        <h2>Welcome to Our Online Banking System</h2>
+        <p>This website makes it easy for you to manage your account anytime and anywhere.
+          You can check your balance, view your account details, transfer money,
+          and manage your bank cards with just a few clicks.</p>
+
+        <p>Our platform provides a secure and user-friendly experience designed to make
+          your online banking fast and reliable. With advanced encryption and real-time
+          updates, you can confidently handle your financial activities anytime.</p>
+
+        <p>Easily send and receive money between accounts, pay your bills online, and keep
+          track of every transaction in one place. Your financial management has never
+          been easier or more organized.</p>
+
+        <p>You can also manage your debit and credit cards directly from your account.
+          Activate or deactivate your card, set spending limits, and review card activity instantly.</p>
+
+        <p>Our system is optimized for all devices — whether you’re on your computer,
+          tablet, or phone, you’ll get the same smooth experience with full functionality.</p>
+
+        <p>We prioritize your safety. All your data is protected using the latest cybersecurity
+          measures, ensuring your information remains private and secure.</p>
+          <p style="margin-top:15px; font-weight:500; color:#2f8a64;">
+  This platform is a banking simulation created for educational purposes only and does not represent any real financial institution.
+</p>
+      </section>
+
+      <!-- ✅ Feature Boxes Below -->
+      <div class="features">
+        <div class="feature-box">
+          <div class="icon-container">
+            <img src="image/cyber-security.png" alt="security">
+          </div>
+          <div class="feature-text">
+            <h3>Security</h3>
+            <p>Send money instantly and securely to any account.</p>
+          </div>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-container">
+            <img src="image/planet-earth.png" alt="Mobility">
+          </div>
+          <div class="feature-text">
+            <h3>Mobility</h3>
+            <p>Check your balance and transaction history anytime.</p>
+          </div>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-container">
+            <img src="image/debit-card.png" alt="Cards">
+          </div>
+          <div class="feature-text">
+            <h3>Manage Cards</h3>
+            <p>Block or activate cards anytime safely and easily.</p>
+          </div>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-container">
+            <img src="image/mobile-access.png" alt="Mobile Access">
+          </div>
+          <div class="feature-text">
+            <h3>Mobile Access</h3>
+            <p>Access your account securely from any device.</p>
+          </div>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-container">
+            <img src="image/atm-machine.png" alt="ATM">
+          </div>
+          <div class="feature-text">
+            <h3>ATM</h3>
+            <p>Withdraw or deposit money with ease and safety.</p>
+          </div>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-container">
+<img src="image/technical-support.png" alt="Support">     
+     </div>
+          <div class="feature-text">
+          <h3>Simulation</h3>
+<p>This system is a demo banking experience designed for learning and practice.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="hero-card-wrap">
-      <div class="card-glow"></div>
-      <div class="bank-card">
-        <div class="card-chip"></div>
-        <div class="card-number">•••• •••• •••• 4821</div>
-        <div class="card-label">VAULT PREMIUM</div>
-        <div class="card-shine"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="stats">
-    <div class="stat-item">
-      <h2 class="stat-num">2M+</h2>
-      <p>Active customers</p>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-item">
-      <h2 class="stat-num">99.9%</h2>
-      <p>Uptime guaranteed</p>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-item">
-      <h2 class="stat-num">256-bit</h2>
-      <p>SSL encryption</p>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services">
-    <p class="section-label">OUR SERVICES</p>
-    <div class="services-grid">
-
-      <div class="service-card" data-delay="0">
-        <div class="service-icon">⇄</div>
-        <h3>Money Transfer</h3>
-        <p>Send & receive funds instantly between accounts worldwide.</p>
-      </div>
-
-      <div class="service-card" data-delay="1">
-        <div class="service-icon">▤</div>
-        <h3>Card Management</h3>
-        <p>Activate, freeze, and set spending limits with one tap.</p>
-      </div>
-
-      <div class="service-card" data-delay="2">
-        <div class="service-icon">↗</div>
-        <h3>Analytics</h3>
-        <p>Track spending patterns and manage your budget in real time.</p>
-      </div>
-
-      <div class="service-card" data-delay="3">
-        <div class="service-icon">⊕</div>
-        <h3>Global Access</h3>
-        <p>Full functionality across desktop, tablet, and mobile.</p>
-      </div>
-
-      <div class="service-card" data-delay="4">
-        <div class="service-icon">⊛</div>
-        <h3>Security</h3>
-        <p>End-to-end encryption with real-time fraud detection.</p>
-      </div>
-
-      <div class="service-card" data-delay="5">
-        <div class="service-icon">☏</div>
-        <h3>24/7 Support</h3>
-        <p>Expert help available whenever you need it, any time.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>This platform is a banking simulation created for educational purposes only and does not represent any real financial institution.</p>
-    <div class="scroll-btn" id="scrollTop">↓</div>
-  </footer>
-
-  <script src="js/index.js"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+

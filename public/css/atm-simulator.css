@@ -78,7 +78,7 @@ body {
 .nav a:hover { color: #0b6b4a; }
 
 /* Body layout */
-.body{
+.main-container{
   display:flex;
   flex-direction:column;
   animation:fadeUp 1.2s ease;
@@ -87,7 +87,7 @@ body {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
 }
-.sidebar{
+.sidebar-wrapper{
   width:100%;
   display:flex;
   justify-content:center;
@@ -103,7 +103,7 @@ body {
   overflow-x:auto;
 }
 /* Sidebar */
-.sidebar .item{
+.sidebar-box{
   display:flex;
   align-items:center;
   gap:10px;
@@ -136,9 +136,9 @@ body {
   cursor: pointer;
 }
 
-.sidebar .item img { width: 20px; height: 20px; }
-.sidebar .item:hover { background: rgba(223, 242, 230, 0.7); transform: translateX(5px);}
-.sidebar .item.active { background: rgba(11,107,74,0.12); box-shadow:0 0 10px rgba(11,107,74,0.25);}
+.sidebar-box img{ width: 20px; height: 20px; }
+.sidebar-box:hover{ background: rgba(223, 242, 230, 0.7); transform: translateX(5px);}
+.sidebar-box.active { background: rgba(11,107,74,0.12); box-shadow:0 0 10px rgba(11,107,74,0.25);}
 
 .sidebar a {
   text-decoration: none;       /* يشيل الخط */
@@ -149,7 +149,7 @@ body {
 }
 
 /* Main content */
-.main {
+.dashboard-content { 
    flex:1;
   padding:25px;
   width:100%;

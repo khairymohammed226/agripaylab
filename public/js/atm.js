@@ -161,6 +161,7 @@ sessionStorage.setItem("atmSession", JSON.stringify({
   otp: data.otp,
   amount: Number(amountInput.value),
   atmCode: atmCodeInput.value.trim(),
+  pin: pinInput.value.trim(),
   createdAt: Date.now()
 }));
       // 🔁 يبدأ timer من جديد
@@ -230,7 +231,16 @@ if (currentUser && userNameDisplay && accountNumberDisplay) {
     const session = JSON.parse(sessionStorage.getItem("atmSession"));
 
 if (session) {
+
   document.getElementById("amount").value = session.amount;
+
+  // ✅ رجع البيانات المحفوظة
+  document.getElementById("atmCode").value =
+    session.atmCode || "";
+
+  document.getElementById("pin").value =
+    session.pin || "";
+
 
   const now = Date.now();
   const diff = now - session.createdAt;
@@ -274,11 +284,7 @@ function showATMMessage(text, type) {
 function showDepositMessage(text, type) {
   const msg = document.getElementById("depositMessage");
   if (!msg) return;
-sessionStorage.setItem("depositSession", JSON.stringify({
-  otp: data.otp,
-  amount: amount,
-  createdAt: Date.now()
-}));
+
   msg.textContent = text;
   msg.className = "atm-message " + type + " show";
 
@@ -377,6 +383,7 @@ sessionStorage.setItem("atmSession", JSON.stringify({
   otp: data.otp,
   amount: amount,
   atmCode: atmCode,
+  pin: pin,
   createdAt: Date.now()
 }));
 resendBtn.classList.add("hidden");
@@ -416,6 +423,7 @@ if (depositSession) {
       "Deposit OTP: " + depositSession.otp,
       "success"
     );
+
 
     document.getElementById(
       "goToDepositAtmBtn"
@@ -529,10 +537,20 @@ if (depositResendBtn) {
         "success"
       );
 
-      depositResendBtn.classList.add("hidden");
+   showDepositMessage(
+  "Deposit OTP: " + data.otp,
+  "success"
+);
 
-      startDepositTimer(300);
+sessionStorage.setItem("depositSession", JSON.stringify({
+  otp: data.otp,
+  amount: amount,
+  createdAt: Date.now()
+}));
 
+depositResendBtn.classList.add("hidden");
+
+startDepositTimer(300);
     } catch {
 
       showDepositMessage("Server error", "error");
@@ -565,3 +583,20 @@ if (goToDepositAtmBtn) {
     window.location.href = "atm-deposit.html";
   };
 }
+// numbers only + منع الأسهم
+
+const amountInputs = document.querySelectorAll('input[type="number"]');
+
+amountInputs.forEach(input => {
+
+  // يمنع كتابة أي حاجة غير أرقام
+  input.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "");
+  });
+
+  // يمنع الأسهم بتاعة الزيادة والنقصان
+  input.addEventListener("wheel", function (e) {
+    e.preventDefault();
+  });
+
+});

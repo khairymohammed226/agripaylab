@@ -117,3 +117,21 @@ if (!user) {
   };
 
 });
+
+// numbers only + منع الأسهم
+
+const amountInputs = document.querySelectorAll('input[type="number"]');
+
+amountInputs.forEach(input => {
+
+  // أرقام فقط
+  input.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "");
+  });
+
+  // منع scroll يغير الرقم
+  input.addEventListener("wheel", function (e) {
+    e.preventDefault();
+  });
+
+});

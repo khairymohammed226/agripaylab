@@ -75,11 +75,13 @@
       opacity: 0.7;
     }
 
-    .otp-box {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
+    .otp-box{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:20px;
+  flex-wrap:nowrap;
+}
 
     .otp-box input {
       width: 45px;
@@ -155,6 +157,20 @@
       color: #ff6b6b;
     }
 
+    @media (max-width: 480px){
+
+  .otp-box{
+    gap:8px;
+  }
+
+  .otp-box input{
+    width:42px;
+    height:52px;
+    font-size:20px;
+  }
+
+}
+
   </style>
 </head>
 
@@ -175,12 +191,12 @@
     <div class="email" id="userEmail"></div>
 
     <div class="otp-box">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+     <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+     <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1">
     </div>
 
 <button id="verifyBtn" class="verify-btn">Verify</button>

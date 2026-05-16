@@ -382,10 +382,50 @@
   }
   /* ===== DOB ===== */
 
+/* ===== DOB ===== */
+
 .dob-container{
   display:flex;
-  gap:12px;
+  gap:10px;
   margin-bottom:20px;
+  width:100%;
+}
+
+.dob-select{
+  flex:1;
+  min-width:0;
+  padding:14px 10px;
+
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.3);
+
+  background:rgba(255,255,255,0.15);
+
+  backdrop-filter:blur(8px);
+
+  font-size:16px;
+  color:#000;
+
+  outline:none;
+  transition:0.3s;
+}
+
+.dob-select:focus{
+  border:1px solid #0b5134;
+  box-shadow:0 0 12px rgba(11,81,52,0.3);
+}
+
+@media (max-width: 768px){
+
+  .dob-container{
+    gap:8px;
+  }
+
+  .dob-select{
+    padding:12px 8px;
+    font-size:15px;
+  }
+
 }
 
 .dob-select{

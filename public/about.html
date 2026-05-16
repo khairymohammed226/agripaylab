@@ -1,198 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="image/logomain.png">
-<link rel="apple-touch-icon" href="image/logomain.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About | CA Bank</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — ALBank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    :root {
+      --green-darkest: #0d3a22;
+      --green-dark:    #1a5c36;
+      --green-mid:     #2d8a55;
+      --green-light:   #e1f5ee;
+      --green-pale:    #f0faf5;
+      --gold:          #d4a84b;
+      --gold-light:    #fdf3dc;
+      --text-primary:  #1a1a1a;
+      --text-secondary:#5a5a5a;
+      --text-muted:    #9a9a9a;
+      --bg-page:       #f7f8f6;
+      --bg-card:       #ffffff;
+      --border:        rgba(0,0,0,0.08);
+      --radius-sm:     8px;
+      --radius-md:     12px;
+      --radius-lg:     18px;
+    }
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:'Segoe UI',Tahoma,sans-serif;
-}
+    html { scroll-behavior: smooth; }
 
-body{
-  min-height:100vh;
-  background:url("image/image2.png") center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
 
-.app{
-  width:1200px;
-  max-width:95%;
-  background:rgba(255,255,255,0.25);
-  backdrop-filter:blur(20px);
-  border-radius:18px;
-  box-shadow:0 10px 40px rgba(0,0,0,.25);
-  overflow:hidden;
-}
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo {
+      width: 42px; height: 42px;
+      background: var(--green-darkest);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo svg { width: 22px; height: 22px; fill: #a8f0c6; }
+    .nav-name { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green-darkest); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--green-pale); color: var(--green-dark); }
+    .nav-links a.active { background: var(--green-light); color: var(--green-darkest); }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-btn-login {
+      font-size: 14px; font-weight: 500;
+      color: var(--green-dark);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(26,92,54,0.25);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .nav-btn-login:hover { background: var(--green-pale); border-color: rgba(26,92,54,0.45); }
+    .nav-btn-signup {
+      font-size: 14px; font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      background: var(--green-dark);
+      border: 1px solid transparent;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .nav-btn-signup:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
 
-/* HEADER */
-.header{
-  background:rgba(255,255,255,.65);
-  padding:16px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+    /* ── HERO ── */
+    .hero {
+      background: var(--green-darkest);
+      padding: 80px 40px 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(45,138,85,0.25) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(13,58,34,0.6) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(168,240,198,0.3);
+      color: #a8f0c6;
+      font-size: 12px; font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      color: #fff;
+      margin-bottom: 18px;
+      line-height: 1.15;
+      position: relative;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 16px;
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+      position: relative;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      position: relative;
+    }
+    .hero-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: #fff;
+    }
+    .hero-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
 
-.header img{height:50px}
+    /* ── CONTENT WRAPPER ── */
+    .content {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-.header nav a{
-  text-decoration:none;
-  color:#064a31;
-  font-weight:600;
-  margin-left:18px;
-}
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      animation: fadeUp 0.4s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.10s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.20s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+    .card:nth-child(6) { animation-delay: 0.30s; }
+    .card:nth-child(7) { animation-delay: 0.35s; }
 
-/* LAYOUT */
-.main{
-  display:flex;
-}
+    .card-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 22px;
+    }
+    .card-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--green-light);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green-dark);
+    }
+    .card-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--green-darkest);
+      font-weight: 400;
+    }
+    .card p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.75;
+    }
 
-/* SIDEBAR */
-.sidebar{
-  width:220px;
-  background:rgba(245,245,245,.6);
-  padding:20px;
-}
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .feature-item {
+      background: var(--green-pale);
+      border: 1px solid rgba(26,92,54,0.1);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-item:hover { border-color: rgba(26,92,54,0.3); transform: translateY(-2px); }
+    .feature-dot {
+      width: 8px; height: 8px; flex-shrink: 0;
+      background: var(--green-mid);
+      border-radius: 50%;
+      margin-top: 6px;
+    }
+    .feature-text { font-size: 14px; color: var(--text-primary); line-height: 1.5; }
 
-.sidebar a{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:10px;
-  text-decoration:none;
-  color:#0b6b4a;
-  font-weight:600;
-  transition:.3s;
-}
+    /* ── TECH GRID ── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .tech-item {
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tech-item:hover { border-color: var(--green-mid); transform: translateY(-2px); }
+    .tech-icon-wrap {
+      width: 48px; height: 48px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      color: var(--green-dark);
+    }
+    .tech-icon-wrap svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .tech-name { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .tech-role { font-size: 12px; color: var(--text-muted); }
 
-.sidebar a:hover,
-.sidebar a.active{
-  background:rgba(11,107,74,.15);
-  transform:translateX(5px);
-}
+    /* ── TEAM ── */
+    .team-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .team-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .leaders-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .leader-card {
+      background: var(--green-darkest);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      border: 1px solid rgba(45,138,85,0.5);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .leader-card:hover { transform: translateY(-3px); }
+    .leader-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      background: radial-gradient(circle, rgba(45,138,85,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .leader-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(212,168,75,0.15);
+      border: 1px solid rgba(212,168,75,0.35);
+      color: var(--gold);
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .leader-badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .leader-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      border: 2px solid rgba(168,240,198,0.35);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 20px; font-weight: 500;
+      margin: 0 auto 14px;
+      font-family: 'DM Serif Display', serif;
+    }
+    .leader-name { font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 5px; }
+    .leader-role { font-size: 12px; color: rgba(168,240,198,0.75); }
 
-/* CONTENT */
-.content{
-  flex:1;
-  padding:30px;
-}
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .member-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 12px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .member-card:hover { border-color: rgba(26,92,54,0.3); transform: translateY(-2px); }
+    .member-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 15px; font-weight: 500;
+      margin: 0 auto 10px;
+      font-family: 'DM Serif Display', serif;
+    }
+    .member-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; }
+    .member-role { font-size: 11px; color: var(--text-muted); }
 
-/* GLASS BOX */
-.box{
-  background:rgba(255,255,255,.85);
-  border-radius:16px;
-  padding:25px;
-  margin-bottom:20px;
-  border:1px solid #cfe7d6;
-  animation:fadeUp .8s ease;
-}
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item { display: flex; gap: 18px; padding-bottom: 28px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-left { display: flex; flex-direction: column; align-items: center; }
+    .tl-dot {
+      width: 14px; height: 14px; flex-shrink: 0;
+      background: var(--green-mid);
+      border-radius: 50%;
+      border: 2px solid var(--green-light);
+      margin-top: 3px;
+    }
+    .tl-line { width: 1px; background: var(--border); flex: 1; margin: 4px 0; }
+    .tl-item:last-child .tl-line { display: none; }
+    .tl-date { font-size: 12px; font-weight: 500; color: var(--green-mid); margin-bottom: 4px; }
+    .tl-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .tl-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-.box h2{
-  color:#0b6b4a;
-  margin-bottom:15px;
-}
+    /* ── PURPOSE ── */
+    .purpose-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
 
-.box p{
-  color:#333;
-  line-height:1.8;
-  margin-bottom:10px;
-}
+    /* ── CTA ── */
+    .cta-card {
+      background: var(--green-darkest);
+      text-align: center;
+      padding: 48px 32px;
+      border: none;
+    }
+    .cta-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: #fff;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .cta-card p { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 28px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-mid);
+      color: #fff;
+      border: none;
+      padding: 12px 26px;
+      border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.15s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #3aa066; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 26px;
+      border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s, background 0.15s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
+    .btn-primary svg, .btn-outline svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-.box ul{
-  margin-top:10px;
-  padding-left:20px;
-}
-
-.box ul li{
-  margin-bottom:8px;
-}
-
-/* ANIMATION */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:none}
-}
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 56px 20px 64px; }
+      .hero-stats { gap: 32px; }
+      .content { padding: 32px 16px 60px; }
+      .card { padding: 22px; }
+      .leaders-row { grid-template-columns: 1fr; }
+      .members-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="app">
-
-  <!-- HEADER -->
-  <div class="header">
-    <img src="image/logomain.png">
-    <nav>
-     <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-
-  <!-- MAIN -->
-  <div class="main">
-
-    <!-- SIDEBAR -->
- 
-
-    <!-- CONTENT -->
-    <div class="content">
-
-      <div class="box">
-        <h2>About This Project</h2>
-        <p>
-          This Online Banking System is a full-stack web application
-          designed to simulate real banking operations in a secure
-          and modern way.
-        </p>
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+        </svg>
       </div>
-
-      <div class="box">
-        <h2>Main Features</h2>
-        <ul>
-          <li>User Registration & Secure Login</li>
-          <li>ATM Withdraw & Deposit Operations</li>
-          <li>Bank Transfers</li>
-          <li>Card Management</li>
-          <li>Transaction History</li>
-        </ul>
+      <span class="nav-name">ALBank</span>
+    </a>
+    <div style="display:flex; align-items:center; gap:0;">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
       </div>
-
-      <div class="box">
-        <h2>Technologies Used</h2>
-        <ul>
-          <li>HTML, CSS, JavaScript</li>
-          <li>Node.js & Express</li>
-          <li>MongoDB & Mongoose</li>
-          <li>JWT Authentication</li>
-        </ul>
+      <div class="nav-divider"></div>
+      <div class="nav-right">
+     <a href="login.html" class="nav-btn-login">Log in</a>
+<a href="register.html" class="nav-btn-signup">Sign up</a>
       </div>
-
-      <div class="box">
-        <h2>Purpose</h2>
-        <p>
-          The project was created for educational purposes to demonstrate
-          how modern online banking systems work, including authentication,
-          transactions, and database integration.
-        </p>
-      </div>
-
     </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Educational Project · Secure Banking Simulation
+    </div>
+    <h1>Online Banking System</h1>
+    <p>A full-stack web application designed to simulate real banking operations in a secure and modern way — built for learning and demonstration.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label">Core Features</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Technologies</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">11</div>
+        <div class="hero-stat-label">Team Members</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">JWT</div>
+        <div class="hero-stat-label">Auth System</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <!-- ABOUT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <h2>About this project</h2>
+      </div>
+      <p>This Online Banking System is a full-stack web application designed to simulate real banking operations in a secure and modern way. Built as an educational project to demonstrate authentication flows, database integration, and financial transaction logic — covering everything from account creation to secure fund transfers.</p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h2>Main features</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">User registration &amp; secure login</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">ATM withdraw &amp; deposit operations</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Bank transfers between accounts</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Card management system</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Full transaction history</div></div>
+        <div class="feature-item"><div class="feature-dot"></div><div class="feature-text">Real-time balance updates</div></div>
+      </div>
+    </div>
+
+    <!-- TECHNOLOGIES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Technologies used</h2>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div class="tech-name">HTML · CSS · JS</div>
+          <div class="tech-role">Frontend</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="tech-name">Node.js &amp; Express</div>
+          <div class="tech-role">Backend server</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon-wrap"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <div class="tech-name">MongoDB &amp; Mongoose</div>
+          <div class="tech-role">Database</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="tech-name">JWT Authentication</div>
+          <div class="tech-role">Security layer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h2>Our team</h2>
+      </div>
+
+      <!-- Leaders -->
+      <div class="team-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Team leaders
+      </div>
+      <div class="leaders-row">
+        <div class="leader-card">
+          <div class="leader-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            Team Leader
+          </div>
+          <div class="leader-avatar">AH</div>
+          <div class="leader-name">Ahmed Hassan</div>
+          <div class="leader-role">Project Lead &amp; Full-stack</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            Team Leader
+          </div>
+          <div class="leader-avatar" style="background: #1a5c36;">SM</div>
+          <div class="leader-name">Sara Mohamed</div>
+          <div class="leader-role">Tech Lead &amp; Backend</div>
+        </div>
+      </div>
+
+      <!-- Members -->
+      <div class="team-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-muted)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team members
+      </div>
+      <div class="members-grid">
+        <div class="member-card">
+          <div class="member-avatar">KA</div>
+          <div class="member-name">Khaled Ali</div>
+          <div class="member-role">Backend Developer</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#0d3a22;">NN</div>
+          <div class="member-name">Nour Nabil</div>
+          <div class="member-role">Frontend Developer</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#2d8a55;">MR</div>
+          <div class="member-name">Mohamed Ramy</div>
+          <div class="member-role">UI Designer</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#1a5c36;">YS</div>
+          <div class="member-name">Youssef Samir</div>
+          <div class="member-role">Database Engineer</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#0d3a22;">LF</div>
+          <div class="member-name">Layla Farouk</div>
+          <div class="member-role">QA Tester</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#2d8a55;">OT</div>
+          <div class="member-name">Omar Tarek</div>
+          <div class="member-role">DevOps</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">RA</div>
+          <div class="member-name">Rana Ashraf</div>
+          <div class="member-role">Frontend Developer</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#0d3a22;">HM</div>
+          <div class="member-name">Hana Mostafa</div>
+          <div class="member-role">Documentation</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar" style="background:#2d8a55;">BK</div>
+          <div class="member-name">Basel Kamal</div>
+          <div class="member-role">Security</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+        </div>
+        <h2>Project timeline</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-date">Week 1</div>
+            <div class="tl-title">Project planning &amp; setup</div>
+            <div class="tl-desc">Defined architecture, assigned roles, set up Node.js + MongoDB environment and Git workflow.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-date">Week 2–3</div>
+            <div class="tl-title">Authentication &amp; user system</div>
+            <div class="tl-desc">Built registration, login, and JWT token management with role-based access control.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="tl-date">Week 4–5</div>
+            <div class="tl-title">Core banking features</div>
+            <div class="tl-desc">Implemented transfers, deposits, withdrawals, card management, and transaction history.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div></div>
+          <div>
+            <div class="tl-date">Week 6</div>
+            <div class="tl-title">UI polish &amp; testing</div>
+            <div class="tl-desc">Final design pass, end-to-end testing, bug fixes, and documentation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURPOSE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h2>Purpose</h2>
+      </div>
+      <p class="purpose-text">This project was created for educational purposes to demonstrate how modern online banking systems work end-to-end — from secure user authentication and session management, to financial transactions and database integration. It serves as a hands-on learning experience for full-stack development best practices.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="card cta-card">
+      <h2>Want to explore the system?</h2>
+      <p>Try the live demo or check out the source code on GitHub.</p>
+      <div class="cta-buttons">
+        <a href="https://www.agripaylab.online/" class="btn-primary">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Live demo
+        </a>
+        <a href="https://github.com/khairymohammed226/agripaylab" class="btn-outline">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
   </div>
-</div>
-<script src="js/transitions.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/transitions.js"></script>
 </body>
 </html>

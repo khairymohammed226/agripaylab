@@ -210,3 +210,55 @@
   });
 
 })();
+// =========================
+// AUTO LOGOUT AFTER INACTIVITY
+// =========================
+
+let inactivityTimer;
+
+function resetInactivityTimer() {
+
+  clearTimeout(inactivityTimer);
+
+  inactivityTimer = setTimeout(() => {
+
+    // ❌ clear sessions
+    sessionStorage.removeItem("currentUser");
+    sessionStorage.removeItem("atmSession");
+    sessionStorage.removeItem("depositSession");
+
+    // ✅ redirect to login
+    window.location.href = "login.html";
+
+  }, 10 * 60 * 1000);
+
+}
+
+// 🟢 detect user activity
+[
+  "click",
+  "mousemove",
+  "keydown",
+  "scroll",
+  "touchstart"
+].forEach(event => {
+
+  document.addEventListener(
+    event,
+    resetInactivityTimer
+  );
+
+});
+
+// start timer
+const currentPage = window.location.pathname;
+
+if (
+  !currentPage.includes("login.html") &&
+  !currentPage.includes("register.html") &&
+  !currentPage.includes("verify.html")
+) {
+
+  resetInactivityTimer();
+
+}

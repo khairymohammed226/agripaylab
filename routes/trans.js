@@ -7,6 +7,9 @@ const bcrypt = require("bcrypt");
 const Otp = require("../models/Otp");
 const Transaction = require("../models/Transaction");
 const rateLimit = require("express-rate-limit");
+const {
+  sendWithdrawalAlertEmail
+} = require("../utils/email");
 
 // 🔒 limiter
 const otpLimiter = rateLimit({
@@ -50,14 +53,32 @@ router.post("/generate-otp", otpLimiter, async (req, res) => {
       return res.status(400).json({ message: "Insufficient balance 💸" });
     }
 
-    // 🔒 prevent duplicate OTP
-    const existingOtp = await Otp.findOne({
-      userId,
-      atmCode,
-      used: false,
-      expiresAt: { $gt: new Date() }
-    });
+    // 🔒 check blocked OTP
+const blockedOtp = await Otp.findOne({
+  userId,
+  cancelled: true,
+  blockedUntil: { $gt: new Date() }
+});
 
+if (blockedOtp) {
+
+  const remainingBlock = Math.floor(
+    (new Date(blockedOtp.blockedUntil) - new Date()) / 60000
+  );
+
+  return res.status(400).json({
+    message:
+      `OTP generation blocked for ${remainingBlock} minutes ❌`
+  });
+}
+
+// 🔒 prevent duplicate OTP
+const existingOtp = await Otp.findOne({
+  userId,
+  atmCode,
+  used: false,
+  expiresAt: { $gt: new Date() }
+});
     if (existingOtp) {
 
   const remainingTime = Math.floor(
@@ -78,14 +99,22 @@ router.post("/generate-otp", otpLimiter, async (req, res) => {
 
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
-    await Otp.create({
-      userId,
-      otpHash,
-      amount: amountNumber,
-      atmCode,
-      expiresAt,
-      used: false
-    });
+    const createdOtp = await Otp.create({
+  userId,
+  otpHash,
+  amount: amountNumber,
+  atmCode,
+  expiresAt,
+  used: false
+});
+
+await sendWithdrawalAlertEmail(
+  user.email,
+  user.username,
+  amountNumber,
+  atmCode,
+  createdOtp._id
+);
 
     res.json({
       message: "OTP created successfully ✅",

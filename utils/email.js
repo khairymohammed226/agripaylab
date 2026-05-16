@@ -166,4 +166,208 @@ async function sendWelcomeEmail(to, username) {
   }
 }
 
-module.exports = { sendOtpEmail, sendWelcomeEmail };
+
+
+
+async function sendWithdrawalAlertEmail(
+  to,
+  username,
+  amount,
+  atmCode,
+  otpId
+) {
+
+  try {
+
+    const cancelUrl =
+      `https://www.agripaylab.online/atm/cancel-otp/${otpId}`;
+
+    await resend.emails.send({
+
+      from: "Agripay Bank <no-reply@agripaylab.online>",
+
+      to: to,
+
+      subject: "⚠️ Withdrawal OTP Created",
+
+      html: `
+<div style="background:#f4f6f8; padding:40px 0; font-family:Arial,sans-serif;">
+
+  <div style="
+    max-width:540px;
+    margin:0 auto;
+    background:#ffffff;
+    padding:35px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  ">
+
+    <div style="text-align:center; margin-bottom:25px;">
+
+      <div style="
+        width:70px;
+        height:70px;
+        background:#fff4f4;
+        border-radius:50%;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        font-size:34px;
+      ">
+        ⚠️
+      </div>
+
+    </div>
+
+    <h2 style="
+      color:#c0392b;
+      text-align:center;
+      margin-bottom:15px;
+    ">
+      Withdrawal Request Detected
+    </h2>
+
+    <p style="
+      color:#333;
+      font-size:15px;
+      line-height:1.7;
+      text-align:center;
+    ">
+      Hello <b>${username}</b>,<br>
+      A withdrawal OTP has just been generated from your account.
+    </p>
+
+    <div style="
+      background:#f8f9fa;
+      padding:20px;
+      border-radius:12px;
+      margin:30px 0;
+      border:1px solid #e5e7eb;
+    ">
+
+      <table style="width:100%; font-size:15px; color:#333;">
+
+        <tr>
+          <td style="padding:8px 0;">
+            💳 <b>Amount</b>
+          </td>
+
+          <td style="text-align:right;">
+            ${amount} EGP
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px 0;">
+            🏧 <b>ATM Code</b>
+          </td>
+
+          <td style="text-align:right;">
+            ${atmCode}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px 0;">
+            🔐 <b>Operation</b>
+          </td>
+
+          <td style="text-align:right;">
+            Withdrawal
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px 0;">
+            ⏰ <b>Time</b>
+          </td>
+
+          <td style="text-align:right;">
+            ${new Date().toLocaleString()}
+          </td>
+        </tr>
+
+      </table>
+
+    </div>
+
+    <div style="
+      background:#fff8e7;
+      padding:14px;
+      border-radius:10px;
+      color:#8a6d3b;
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:25px;
+    ">
+      If this operation was not performed by you,
+      cancel it immediately to protect your account.
+    </div>
+
+    <div style="text-align:center; margin:35px 0;">
+
+      <a href="${cancelUrl}" style="
+        display:inline-block;
+        background:#e74c3c;
+        color:white;
+        padding:16px 30px;
+        border-radius:12px;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:16px;
+        box-shadow:0 6px 15px rgba(231,76,60,0.25);
+      ">
+        Cancel Transaction ❌
+      </a>
+
+    </div>
+
+    <div style="
+      background:#fff4f4;
+      padding:14px;
+      border-radius:10px;
+      font-size:13px;
+      color:#a94442;
+      line-height:1.6;
+    ">
+      ⚠️ For your security, Agripay Bank will never ask for your OTP or password.
+    </div>
+
+    <hr style="
+      border:none;
+      border-top:1px solid #eee;
+      margin:30px 0 20px;
+    ">
+
+    <p style="
+      font-size:13px;
+      color:#888;
+      text-align:center;
+      line-height:1.7;
+    ">
+      — Agripay Bank 💚<br>
+      Secure Banking. Trusted Experience.
+    </p>
+
+  </div>
+
+</div>
+`
+    });
+
+    console.log("✅ Withdrawal alert email sent");
+
+  } catch (error) {
+
+    console.log("❌ Withdrawal email error:", error);
+
+  }
+}
+
+
+
+module.exports = {
+  sendOtpEmail,
+  sendWelcomeEmail,
+  sendWithdrawalAlertEmail
+};

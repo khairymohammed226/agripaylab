@@ -37,6 +37,15 @@ expiresAt: {
     type: Boolean,
     default: false
   },
+  cancelled: {
+  type: Boolean,
+  default: false
+},
+
+blockedUntil: {
+  type: Date,
+  default: null
+},
 
   attempts: {
     type: Number,

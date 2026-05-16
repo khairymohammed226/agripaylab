@@ -10,7 +10,7 @@
       padding: 20px;
     }
 
-   .card {
+   .bank-card-layout {
   width: 850px;
   max-width: 100%;
     background: rgba(255, 255, 255, 0.05);
@@ -158,48 +158,44 @@
 }
 .account-box {
 
-  background: rgba(255,255,255,0.08);
+  background: #ffffff;
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid #d9e9df;
 
   border-radius: 12px;
 
   padding: 18px 25px;
 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 
   margin-bottom: 10px;
 }
 
     .account-box h3 {
       margin: 0;
-      color: #064a31;
+        color: #222;
+
       font-size: 20px;
     }
 
     .account-box p {
       margin: 0;
       font-weight: 600;
-      color: #064a31;
+        color: #333;
+
     }
 
   .send-box {
 
-  background: rgba(255,255,255,0.08);
+  background: #ffffff;
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid #d9e9df;
 
   border-radius: 20px;
 
   padding: 20px;
 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 
   animation: fadeUp 1.6s ease;
 }

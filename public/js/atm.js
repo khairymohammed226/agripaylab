@@ -107,10 +107,40 @@ sessionStorage.setItem("atmSession", JSON.stringify({
   const userNameDisplay = document.getElementById("userNameDisplay");
   const accountNumberDisplay = document.getElementById("accountNumberDisplay");
 
-  if (currentUser && userNameDisplay && accountNumberDisplay) {
-    userNameDisplay.textContent = currentUser.fullname;
-    accountNumberDisplay.textContent = maskAccountNumber(currentUser.accountNumber);
-  }
+if (currentUser && userNameDisplay && accountNumberDisplay) {
+
+  userNameDisplay.textContent =
+    currentUser.firstName + " " + currentUser.lastName;
+
+  (async () => {
+    try {
+
+      const res = await fetch(
+        `https://www.agripaylab.online/card/${currentUser._id}`
+      );
+
+      if (res.ok) {
+
+        const data = await res.json();
+
+        accountNumberDisplay.textContent =
+          maskAccountNumber(data.card.accountNumber);
+
+      } else {
+
+        accountNumberDisplay.textContent = "No Account";
+
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
+      accountNumberDisplay.textContent = "No Account";
+
+    }
+  })();
+}
 
   // 🟢 عناصر الصفحة
   const transactionType = document.getElementById("transactionType");

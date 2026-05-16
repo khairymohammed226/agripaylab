@@ -40,7 +40,7 @@ function showBankMessage(text, type) {
   // جلب رقم الحساب من الكارت
   (async () => {
     try {
-      const res = await fetch(`/card/${currentUser._id}`);
+      const res = await fetch(`https://www.agripaylab.online/card/${currentUser._id}`);
 
       if (res.ok) {
         const data = await res.json();

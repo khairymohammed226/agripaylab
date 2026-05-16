@@ -369,10 +369,34 @@ if (depositBtn) {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        showATMMessage(data.message, "error");
-        return;
-      }
+     if (data.otpActive) {
+
+  showDepositMessage(
+    "OTP already active ⏳",
+    "error"
+  );
+
+  depositBtn.disabled = true;
+
+  document.getElementById(
+    "goToDepositAtmBtn"
+  ).style.display = "block";
+
+  sessionStorage.setItem("depositSession", JSON.stringify({
+    amount: data.amount,
+    createdAt: Date.now(),
+    remainingTime: data.remainingTime
+  }));
+
+  startOtpTimer(data.remainingTime);
+
+  return;
+}
+
+if (!res.ok) {
+  showDepositMessage(data.message, "error");
+  return;
+}
 
       showDepositMessage("Deposit OTP: " + data.otp, "success");
       depositBtn.disabled = true;

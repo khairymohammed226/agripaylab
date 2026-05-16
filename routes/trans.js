@@ -59,8 +59,18 @@ router.post("/generate-otp", otpLimiter, async (req, res) => {
     });
 
     if (existingOtp) {
-      return res.status(400).json({ message: "OTP already active ⏳" });
-    }
+
+  const remainingTime = Math.floor(
+    (new Date(existingOtp.expiresAt) - new Date()) / 1000
+  );
+
+  return res.status(200).json({
+    message: "OTP already active ⏳",
+    otpActive: true,
+    remainingTime,
+    amount: existingOtp.amount
+  });
+}
 
     // 🔢 generate
     const otp = Math.floor(100000 + Math.random() * 900000);
@@ -118,8 +128,18 @@ router.post("/generate-deposit-otp", async (req, res) => {
     });
 
     if (existingOtp) {
-      return res.status(400).json({ message: "OTP already active ⏳" });
-    }
+
+  const remainingTime = Math.floor(
+    (new Date(existingOtp.expiresAt) - new Date()) / 1000
+  );
+
+  return res.status(200).json({
+    message: "OTP already active ⏳",
+    otpActive: true,
+    remainingTime,
+    amount: existingOtp.amount
+  });
+}
 
     // 🔢 generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000);

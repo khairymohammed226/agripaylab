@@ -5,27 +5,10 @@
   <title>Email Verification</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-.vpage{
-  min-height:500px;
-  display:flex;align-items:center;
-  justify-content:center;
-  padding:2rem 1rem;
-  background:linear-gradient(135deg,#0b2e2b,#004d40,#00796b);
-  border-radius:var(--border-radius-lg)
-}
-.vcard{
-  width:100%;
-  max-width:400px;
-  background:rgba(255,255,255,0.12);
-  border:0.5px solid rgba(255,255,255,0.25);
-  border-radius:20px;padding:2rem 1.75rem;
-  text-align:center;
-  color:#fff
-}
-.vlogo{
-  width:72px;
-  height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 0 0 6px rgba(255,255,255,0.15)}
+ <style>
+.vpage{min-height:500px;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;background:linear-gradient(135deg,#0b2e2b,#004d40,#00796b);border-radius:var(--border-radius-lg)}
+.vcard{width:100%;max-width:400px;background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.25);border-radius:20px;padding:2rem 1.75rem;text-align:center;color:#fff}
+.vlogo{width:72px;height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 0 0 6px rgba(255,255,255,0.15)}
 .vlogo i{font-size:32px;color:#0b6b4a}
 .vtitle{font-size:20px;font-weight:500;margin:0 0 6px;color:#fff}
 .vsub{font-size:13px;color:rgba(255,255,255,0.7);margin:0 0 8px}
@@ -99,70 +82,213 @@
 </div>
 
 <script>
-const inputs = document.querySelectorAll('.otp-row input');
-const verifyBtn = document.getElementById('verifyBtn');
-const resendBtn = document.getElementById('resendBtn');
-const countdownEl = document.getElementById('countdown');
-const msgEl = document.getElementById('message');
+const otpInputs = document.querySelectorAll(".otp-box input");
 
-inputs.forEach((inp, i) => {
-  inp.addEventListener('input', () => {
-    inp.value = inp.value.replace(/\D/g,'');
-    inp.classList.toggle('filled', inp.value !== '');
-    if (inp.value && i < inputs.length - 1) inputs[i+1].focus();
-  });
-  inp.addEventListener('keydown', e => {
-    if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
-    if (e.key === 'ArrowLeft' && i > 0) inputs[i-1].focus();
-    if (e.key === 'ArrowRight' && i < inputs.length-1) inputs[i+1].focus();
-  });
-  inp.addEventListener('paste', e => {
-    e.preventDefault();
-    const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-    [...text].forEach((ch, j) => { if (inputs[i+j]) { inputs[i+j].value = ch; inputs[i+j].classList.add('filled'); } });
-    const next = inputs[Math.min(i + text.length, inputs.length-1)];
-    if (next) next.focus();
-  });
+otpInputs.forEach((input, index) => {
+input.addEventListener("input", () => {
+
+  input.value = input.value.replace(/\D/g, "");
+
+  if (input.value.length === 1 && index < otpInputs.length - 1) {
+    otpInputs[index + 1].focus();
+  }
+
 });
 
-function showMsg(text, type) {
-  msgEl.textContent = text;
-  msgEl.className = 'vmsg ' + type;
-  msgEl.style.display = 'block';
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && input.value === "" && index > 0) {
+      otpInputs[index - 1].focus();
+    }
+  });
+});
+otpInputs[0].addEventListener("paste", (e) => {
+
+  e.preventDefault();
+
+  const pastedData = e.clipboardData.getData("text")
+    .replace(/\D/g, "")
+    .slice(0, 6);
+
+  pastedData.split("").forEach((char, index) => {
+    if (otpInputs[index]) {
+      otpInputs[index].value = char;
+    }
+  });
+  otpInputs[Math.min(pastedData.length - 1, 5)].focus();
+
+});
+
+/* ===== Email Mask ===== */
+
+const savedEmail = sessionStorage.getItem("userEmail");
+
+
+
+document.getElementById("userEmail").textContent =
+  savedEmail || "No Email";
+
+
+
+
+/* ===== Countdown ===== */
+
+let timeLeft = 30;
+
+const countdownEl = document.getElementById("countdown");
+const resendBtn = document.getElementById("resendBtn");
+
+function startCountdown(){
+
+  resendBtn.style.pointerEvents = "none";
+  resendBtn.style.opacity = "0.5";
+
+  timeLeft = 30;
+  countdownEl.textContent = timeLeft;
+
+  const timer = setInterval(() => {
+
+    timeLeft--;
+
+    countdownEl.textContent = timeLeft;
+
+    if(timeLeft <= 0){
+
+      clearInterval(timer);
+
+      countdownEl.textContent = "0";
+
+      resendBtn.style.pointerEvents = "auto";
+      resendBtn.style.opacity = "1";
+    }
+
+  }, 1000);
 }
 
-verifyBtn.addEventListener('click', () => {
-  const code = [...inputs].map(i => i.value).join('');
-  if (code.length < 6) { showMsg('Please enter all 6 digits.', 'err'); return; }
-  verifyBtn.disabled = true;
-  verifyBtn.textContent = 'Verifying…';
-  setTimeout(() => {
-    showMsg('Email verified successfully!', 'ok');
-    verifyBtn.textContent = 'Verified';
-  }, 1200);
-});
+startCountdown();
 
-let t = 30;
-const timer = setInterval(() => {
-  t--;
-  countdownEl.textContent = t;
-  if (t <= 0) {
-    clearInterval(timer);
-    countdownEl.closest('.vtimer').textContent = 'You can resend now.';
-    resendBtn.disabled = false;
+
+/* ===== Resend OTP ===== */
+
+resendBtn.addEventListener("click", async () => {
+
+  const userId = sessionStorage.getItem("verifyUserId");
+
+  try {
+
+    resendBtn.style.pointerEvents = "none";
+    resendBtn.style.opacity = "0.5";
+
+    const res = await fetch("https://www.agripaylab.online/resend-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      alert(data.message || "Failed to resend code");
+      return;
+    }
+
+    startCountdown();
+
+  } catch(err){
+
+    alert("Server error");
+
+    resendBtn.style.pointerEvents = "auto";
+    resendBtn.style.opacity = "1";
   }
-}, 1000);
 
-resendBtn.addEventListener('click', () => {
-  resendBtn.disabled = true;
-  showMsg('A new code has been sent to your email.', 'ok');
 });
 
-document.getElementById('changeEmailBtn').addEventListener('click', () => {
-  showMsg('Redirecting to change your email…', 'ok');
+document.getElementById("verifyBtn").addEventListener("click", async () => {
+
+  const inputs = document.querySelectorAll(".otp-box input");
+  const otp = Array.from(inputs).map(input => input.value).join("");
+
+  const userId = sessionStorage.getItem("verifyUserId");
+  const msg = document.getElementById("message");
+
+  if (otp.length < 6) {
+    msg.textContent = "Please enter full code";
+    msg.style.color = "red";
+    return;
+  }
+
+  const btn = document.getElementById("verifyBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Verifying...";
+
+  try {
+    const res = await fetch("https://www.agripaylab.online/verify-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId, otp })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      msg.textContent = data.message;
+      msg.style.color = "red";
+
+      btn.disabled = false;
+      btn.textContent = "Verify";
+      return;
+    }
+
+    msg.textContent = "Verified successfully ✅";
+    msg.style.color = "green";
+sessionStorage.setItem("verified", "true");
+
+     sessionStorage.setItem("currentUser", JSON.stringify({
+  _id: userId
+}));
+sessionStorage.setItem("isLoggedIn", "true");
+
+ setTimeout(() => {
+  window.location.href = "register.html";
+}, 1500);
+
+  } catch (err) {
+    msg.textContent = "Server error";
+    msg.style.color = "red";
+
+    btn.disabled = false;
+    btn.textContent = "Verify";
+  }
+
 });
+
+/* ===== Change Email ===== */
+
+document.getElementById("changeEmailBtn")
+.addEventListener("click", () => {
+
+  // مسح بيانات الـ verify
+ 
+sessionStorage.removeItem("verifyUserId");
+sessionStorage.removeItem("userEmail");
+
+sessionStorage.removeItem("verified");
+sessionStorage.removeItem("currentUser");
+sessionStorage.removeItem("isLoggedIn");
+
+window.location.href = "register.html";
+
+
+});
+
+
 </script>
-
 <script src="js/transitions.js"></script>
 </body>
 </html>

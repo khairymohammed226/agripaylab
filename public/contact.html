@@ -1,49 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="image/logomain.png">
-<link rel="apple-touch-icon" href="image/logomain.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | CA Bank</title>
-<link rel="stylesheet" href="css/contact.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — ALBank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --green-darkest: #0d3a22;
+      --green-dark:    #1a5c36;
+      --green-mid:     #2d8a55;
+      --green-light:   #e1f5ee;
+      --green-pale:    #f0faf5;
+      --text-primary:  #1a1a1a;
+      --text-secondary:#5a5a5a;
+      --text-muted:    #9a9a9a;
+      --bg-page:       #f7f8f6;
+      --bg-card:       #ffffff;
+      --border:        rgba(0,0,0,0.08);
+      --radius-sm:     8px;
+      --radius-md:     12px;
+      --radius-lg:     18px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg-page); color: var(--text-primary); min-height: 100vh; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { width: 42px; height: 42px; background: var(--green-darkest); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+    .nav-logo svg { width: 22px; height: 22px; fill: #a8f0c6; }
+    .nav-name { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green-darkest); }
+    .nav-right-group { display: flex; align-items: center; gap: 0; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 8px 16px; border-radius: var(--radius-sm); transition: background 0.15s, color 0.15s; }
+    .nav-links a:hover { background: var(--green-pale); color: var(--green-dark); }
+    .nav-links a.active { background: var(--green-light); color: var(--green-darkest); }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 8px; }
+    .nav-btn-login { font-size: 14px; font-weight: 500; color: var(--green-dark); text-decoration: none; padding: 8px 18px; border-radius: var(--radius-sm); border: 1px solid rgba(26,92,54,0.25); transition: background 0.15s, border-color 0.15s; }
+    .nav-btn-login:hover { background: var(--green-pale); border-color: rgba(26,92,54,0.45); }
+    .nav-btn-signup { font-size: 14px; font-weight: 500; color: #fff; text-decoration: none; padding: 8px 18px; border-radius: var(--radius-sm); background: var(--green-dark); margin-left: 8px; transition: background 0.15s, transform 0.15s; }
+    .nav-btn-signup:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--green-darkest);
+      padding: 64px 40px 72px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(45,138,85,0.25) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(13,58,34,0.6) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(168,240,198,0.3); color: #a8f0c6; font-size: 12px; font-weight: 500; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; position: relative; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 44px); color: #fff; margin-bottom: 14px; position: relative; }
+    .hero p { color: rgba(255,255,255,0.6); font-size: 15px; max-width: 480px; margin: 0 auto; line-height: 1.75; position: relative; }
+
+    /* ── LAYOUT ── */
+    .page-body { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    @media (max-width: 720px) { .page-body { grid-template-columns: 1fr; } nav { padding: 0 16px; } .hero { padding: 48px 20px 56px; } }
+
+    /* ── CARD ── */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; animation: fadeUp 0.4s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .side-col .card:nth-child(1) { animation-delay: 0.15s; }
+    .side-col .card:nth-child(2) { animation-delay: 0.22s; }
+    .side-col .card:nth-child(3) { animation-delay: 0.29s; }
+
+    .card h2 { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--green-darkest); font-weight: 400; margin-bottom: 6px; }
+    .card .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+
+    /* ── FORM ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group:last-of-type { margin-bottom: 0; }
+    label { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+    input, textarea, select {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      resize: none;
+    }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+    input:focus, textarea:focus, select:focus { border-color: var(--green-mid); background: #fff; }
+    textarea { height: 120px; line-height: 1.6; }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+    .submit-btn {
+      width: 100%; margin-top: 20px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--green-dark); color: #fff;
+      border: none; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+      padding: 13px; cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .submit-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* success state */
+    .success-msg { display: none; align-items: center; gap: 10px; background: var(--green-light); border: 1px solid rgba(26,92,54,0.2); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 16px; color: var(--green-darkest); font-size: 14px; }
+    .success-msg svg { width: 18px; height: 18px; stroke: var(--green-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .success-msg.show { display: flex; }
+
+    /* ── SIDE COLUMN ── */
+    .side-col { display: flex; flex-direction: column; gap: 16px; }
+
+    .info-card-title { font-size: 13px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
+    .info-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-icon { width: 36px; height: 36px; background: var(--green-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--green-dark); flex-shrink: 0; }
+    .info-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; font-weight: 500; letter-spacing: 0.04em; }
+    .info-value { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+    .info-sub { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+    /* hours table */
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--text-secondary); }
+    .hours-time { color: var(--text-primary); font-weight: 500; }
+    .badge-open { background: var(--green-light); color: var(--green-darkest); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+    .badge-closed { background: #fee; color: #a33; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+
+    /* social */
+    .social-row { display: flex; gap: 10px; margin-top: 4px; }
+    .social-btn { width: 36px; height: 36px; background: var(--bg-page); border: 1px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .social-btn:hover { background: var(--green-light); color: var(--green-dark); border-color: rgba(26,92,54,0.2); }
+    .social-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
 <body>
 
-
-
-<header class="header">
-  <img src="image/logomain.png">
-
-  <nav class="nav">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="login.html">Login</a>
-    <a href="register.html">Sign Up</a>
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+        </svg>
+      </div>
+      <span class="nav-name">Agripay</span>
+    </a>
+    <div class="nav-right-group">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+      <div class="nav-divider"></div>
+       <a href="login.html" class="nav-btn-login">Log in</a>
+       <a href="register.html" class="nav-btn-signup">Sign up</a>
+    </div>
   </nav>
-</header>
 
-<main class="main">
-  <div class="contact-box">
-    <h2>Contact Us</h2>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      We're here to help
+    </div>
+    <h1>Get in touch</h1>
+    <p>Have a question or want to learn more about ALBank? Send us a message and we'll get back to you as soon as possible.</p>
+  </section>
 
-    <form>
-      <input type="text" placeholder="Enter your name">
-      <input type="text" placeholder="Enter your phone number">
-      <input type="email" placeholder="Enter your email">
-      <textarea placeholder="Write your message..."></textarea>
+  <!-- BODY -->
+  <div class="page-body">
 
-      <button type="submit">Send</button>
-    </form>
+    <!-- FORM CARD -->
+    <div class="card">
+      <h2>Send us a message</h2>
+      <p class="subtitle">Fill in the form below and we'll respond within 24 hours.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" placeholder="Ahmed" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" placeholder="Hassan" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="ahmed@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" placeholder="+20 100 000 0000" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <select id="subject">
+          <option value="" disabled selected>Select a topic</option>
+          <option>Account inquiry</option>
+          <option>Transaction issue</option>
+          <option>Card management</option>
+          <option>Technical support</option>
+          <option>General question</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Write your message here..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="handleSend()">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Send message
+      </button>
+
+      <div class="success-msg" id="successMsg">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Your message has been sent! We'll get back to you within 24 hours.
+      </div>
+    </div>
+
+    <!-- SIDE COLUMN -->
+    <div class="side-col">
+
+      <!-- Contact info -->
+      <div class="card">
+        <div class="info-card-title">Contact info</div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.4 2 2 0 0 1 3.56 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.75a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg></div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value">+20 1096497313</div>
+            <div class="info-sub">Sat – Thu, 9am – 5pm</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">youssefhamada@gmail.com</div>
+            <div class="info-sub">We reply within 24 hours</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-value">Cairo, Egypt</div>
+            <div class="info-sub">Main campus office</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Working hours -->
+      <div class="card">
+        <div class="info-card-title">Working hours</div>
+        <div class="hours-row"><span class="hours-day">Saturday – Monday</span><span class="badge-open">9am – 5pm</span></div>
+        <div class="hours-row"><span class="hours-day">Tuesday – Wednesday</span><span class="badge-open">9am – 5pm</span></div>
+        <div class="hours-row"><span class="hours-day">Thursday</span><span class="badge-open">9am – 3pm</span></div>
+        <div class="hours-row"><span class="hours-day">Friday</span><span class="badge-closed">Closed</span></div>
+      </div>
+
+      <!-- Social -->
+      <div class="card">
+        <div class="info-card-title">Follow us</div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">Stay updated with the latest news and announcements.</p>
+        <div class="social-row">
+          <a href="#" class="social-btn" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Twitter / X">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
-</main>
 
-  </div>
-</div>
-<script src="js/contact.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function handleSend() {
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!fname || !email || !message) {
+        alert('Please fill in your name, email, and message.');
+        return;
+      }
+      document.getElementById('successMsg').classList.add('show');
+      document.querySelector('.submit-btn').disabled = true;
+      document.querySelector('.submit-btn').style.opacity = '0.5';
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/transitions.js"></script>
 </body>
 </html>

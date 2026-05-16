@@ -1,579 +1,940 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:title" content="Agripay -Banking Simulation">
-  <link rel="icon" type="image/png" href="image/logomain.png">
-<link rel="apple-touch-icon" href="image/logomain.png">
-<meta property="og:description" content="Educational banking simulation platform for learning and practice.">
-<!-- <meta property="og:image" content="https://www.agripay.online/image/logo.png"> -->
-<!-- <meta property="og:url" content="https://www.agripay.online/"> -->
-  <title>Agripay - banking-simulator</title>
-
-<meta name="description" content="Agripay is a secure online banking platform that allows users to manage accounts, transfer money, and control cards easily and safely.">
-
-<meta name="keywords" content="agripay, online banking, bank system, money transfer, finance">
-
-<meta name="author" content="Agripay Team">
-
-<!-- 🔥 اللوجو (Favicon) -->
-<link rel="icon" type="image/png" href="/image/logo.png">
+  <title>Agripay — Online Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+  
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:   #071210;
+      --bg-secondary: #0c1c18;
+      --bg-card:      rgba(200,170,100,0.04);
+      --gold:         #c8aa64;
+      --gold-dim:     rgba(200,170,100,0.18);
+      --gold-line:    rgba(200,170,100,0.15);
+      --text-primary: #f0ead8;
+      --text-muted:   #8a9088;
+      --text-faint:   #556058;
     }
-    
-body {
-  background: url(image/back.png) no-repeat center center fixed;
-  background-size: cover;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  animation: fadeIn 1s ease-in;
-}
 
+    html { scroll-behavior: smooth; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-    /* Top Navigation Bar */
-    .top-nav {
-      width: 90%;
-      background-color: rgba(213, 232, 212, 0.4);
-      margin: 20px auto 0;
-      border-radius: 12px;
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 50px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);      backdrop-filter: blur(6px);
-      z-index: 1000;
+      padding: 18px 48px;
+      background: rgba(7,18,16,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--gold-line);
     }
 
-    .top-nav .logo img {
-      height: 50px;
-      width: auto;
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      user-select: none;
     }
 
-  .top-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.top-nav ul li {
-  cursor: pointer;
-  font-weight: 700;
-  transition: 0.3s;
-  color: #083c24;
-  font-size: 17px;
-  letter-spacing: 1px;
-
-  white-space: nowrap;
-}
-
-    .top-nav ul li:hover {
-      color: #2f8a64;
-      transform: scale(1.05);
+    .logo span {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 18px;
     }
 
-
-    /* Page Layout */
-    .page-content {
+    .nav-links {
       display: flex;
-      flex: 1;
-      width: 90%;
-      margin: 30px auto;
-      gap: 25px;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
     }
 
-    /* Sidebar */
-/* 🔹 Sidebar Navigation Links Color */
-
-.main {
-  flex: 1;
-  padding: 60px 40px;
-  background-color: rgba(255, 255, 255, 0.65);
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  color: #083c24;
-  max-width: 900px;
-  margin: 60px auto; 
-}
-
-    
-
-    .main h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-      font-weight: 700;
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.4px;
+      transition: color 0.2s;
     }
 
-    .main p {
-      font-size: 16px;
-      color: #333;
-      max-width: 600px;
-      margin: 0 auto 40px;
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .btn-outline {
+      border: 0.5px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 22px;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, color 0.2s;
     }
 
-    /* ✅ About Section (Moved Up) */
-    .about-section {
-      background: rgba(249, 249, 249, 0.85);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 900px;
-      margin: 40px auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      backdrop-filter: blur(5px);
+    .btn-outline:hover {
+      background: var(--gold-dim);
     }
 
-    .about-section h2 {
-      color: #2f8a64;
-      font-size: 28px;
-      margin-bottom: 20px;
+    .btn-solid {
+      background: var(--gold);
+      color: var(--bg-primary);
+      padding: 8px 22px;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      transition: opacity 0.2s;
     }
 
-    .about-section p {
-      color: #333;
-      line-height: 1.8;
-      font-size: 16px;
+    .btn-solid:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+
+    .hero-left {
+      padding: 64px 48px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
       margin-bottom: 18px;
     }
 
-    /* ✅ Feature Boxes */
- .features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
-  justify-items: center;
-  margin-top: 40px;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      line-height: 1.18;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
 
-    .feature-box {
-      background-color: rgba(47, 138, 100, 0.8);
-      color: white;
-      padding: 25px 15px;
-      border-radius: 15px;
-      width: 100%;
-      max-width: 260px;
-      height: 200px;
-      position: relative;
+    h1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+
+    .hero-cta {
       display: flex;
-      justify-content: center;
+      gap: 14px;
+    }
+
+    .hero-cta .btn-solid,
+    .hero-cta .btn-outline {
+      padding: 12px 28px;
+      font-size: 13px;
+    }
+
+    .hero-right {
+      background: var(--bg-secondary);
+      display: flex;
       align-items: center;
-      cursor: pointer;
-      transition: all 0.4s ease;
+      justify-content: center;
+      position: relative;
       overflow: hidden;
     }
 
-    .icon-container img {
-      width: 60px;
-      height: 60px;
-      transition: opacity 0.3s ease;
-    }
-
-    .feature-text {
+    /* decorative rings */
+    .ring {
       position: absolute;
-      opacity: 0;
-      text-align: center;
-      padding: 0 10px;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      transform: translateY(15px);
+      border-radius: 50%;
+      border: 0.5px solid var(--gold-line);
+      pointer-events: none;
     }
 
-    .feature-text h3 {
-      margin-bottom: 8px;
-      font-size: 20px;
+    .ring-1 { width: 280px; height: 280px; top: -80px; right: -80px; }
+    .ring-2 { width: 180px; height: 180px; bottom: 30px; left: 30px; }
+    .ring-3 { width: 100px; height: 100px; top: 50%; right: 60px; transform: translateY(-50%); opacity: .5; }
+
+    .card-preview {
+      position: relative;
+      z-index: 1;
+      background: rgba(200,170,100,0.07);
+      border: 0.5px solid rgba(200,170,100,0.3);
+      border-radius: 14px;
+      padding: 24px 24px 20px;
+      width: 220px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
     }
 
-    .feature-text p {
+    .card-chip {
+      width: 36px;
+      height: 26px;
+      background: rgba(200,170,100,0.35);
+      border-radius: 5px;
+      margin-bottom: 32px;
+    }
+
+    .card-number {
+      font-size: 12px;
+      letter-spacing: 3.5px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .card-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 0.5px solid var(--gold-line);
+    }
+
+    .stat {
+      padding: 24px 36px;
+      border-right: 0.5px solid var(--gold-line);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: 48px 48px 56px;
+      border-top: 0.5px solid var(--gold-line);
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--gold-line);
+      border-radius: 10px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: border-color 0.25s, background 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .service-card:hover {
+      border-color: rgba(200,170,100,0.45);
+      background: rgba(200,170,100,0.07);
+    }
+
+    .service-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .service-title {
       font-size: 14px;
-      color: #f0f0f0;
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 6px;
     }
 
-    .feature-box:hover .icon-container img {
+    .service-desc {
+      font-size: 12px;
+      color: var(--text-faint);
+      line-height: 1.6;
+    }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      padding: 14px 48px;
+      background: rgba(200,170,100,0.03);
+      border-top: 0.5px solid var(--gold-line);
+      font-size: 11px;
+      color: var(--text-faint);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
       opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
-
-    .feature-box:hover .feature-text {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
 
-    .feature-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    /* ── FEATURES ── */
+    .features {
+      padding: 72px 48px;
+      border-top: 0.5px solid var(--gold-line);
+      background: var(--bg-secondary);
     }
 
+    .features-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .features-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .features-header h2 em { color: var(--gold); font-style: normal; }
+
+    .features-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+
+    .features-row:last-child { margin-bottom: 0; }
+    .features-row.reverse { direction: rtl; }
+    .features-row.reverse > * { direction: ltr; }
+
+    .feature-visual {
+      background: rgba(200,170,100,0.05);
+      border: 0.5px solid var(--gold-line);
+      border-radius: 16px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      color: var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-visual::before {
+      content: '';
+      position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      border: 0.5px solid var(--gold-line);
+      top: -40px; right: -40px;
+    }
+
+    .feature-text { padding: 8px 0; }
+
+    .feature-tag {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .feature-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+
+    .feature-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-list li {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-list li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 72px 48px;
+      border-top: 0.5px solid var(--gold-line);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .faq-header h2 em { color: var(--gold); font-style: normal; }
+
+    .faq-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border-bottom: 0.5px solid var(--gold-line);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      text-align: left;
+      gap: 16px;
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-icon {
+      color: var(--gold);
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding-bottom: 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 0.5px solid var(--gold-line);
+      background: var(--bg-secondary);
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding: 56px 48px 40px;
+    }
+
+    .footer-brand .logo {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand p {
+      font-size: 12px;
+      color: var(--text-faint);
+      line-height: 1.7;
+      max-width: 240px;
+      margin-bottom: 20px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 32px; height: 32px;
+      border: 0.5px solid var(--gold-line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .footer-col h4 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 12px;
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--text-muted); }
+
+    .footer-bottom {
+      border-top: 0.5px solid var(--gold-line);
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    .footer-disclaimer {
+      font-size: 11px;
+      color: var(--text-faint);
+      font-style: italic;
+      text-align: right;
+      max-width: 420px;
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .features {
-        grid-template-columns: 1fr;
-      }
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 40px 24px; }
+      h1 { font-size: 30px; }
+      .stats { grid-template-columns: repeat(3,1fr); }
+      .stat { padding: 16px 18px; }
+      .services { padding: 32px 20px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .features { padding: 48px 20px; }
+      .features-row { grid-template-columns: 1fr; gap: 24px; }
+      .features-row.reverse { direction: ltr; }
+      .faq { padding: 48px 20px; }
+      .footer-main { grid-template-columns: 1fr 1fr; padding: 40px 20px 28px; }
+      .footer-bottom { flex-direction: column; gap: 8px; padding: 14px 20px; text-align: center; }
+      .footer-disclaimer { text-align: center; max-width: 100%; }
     }
-        .logo img {
-  width: 80px; /* أو المقاس اللي يناسبك */
-  transition: transform 0.5s ease, filter 0.5s ease;
-  cursor: pointer;
-}
-
-/* لما تقف على اللوجو */
-.logo img:hover {
-  transform: rotate(10deg) scale(1.1);
-  filter: brightness(1.2);
-}
-
-
-.top-nav ul li a {
-  color: black !important; 
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.3s ease;
-}
-
-.top-nav ul li a:hover {
-  transform: scale(1.1);
-  color: #2f8a64 !important; 
-}
-
-/* زر sign up */
-.signup {
-  background-color: transparent;
-  color: black !important;
-  border: 2px solid black;
-  padding: 6px 12px;
-  border-radius: 10px;
-  transition: transform 0.3s ease, background-color 0.3s;
-}
-
-.signup:hover {
-  background-color: black;
-  color: white !important;
-}
-/* ===============================
-   MOBILE RESPONSIVE - HOME PAGE
-================================*/
-@media (max-width:768px){
-
-/* navbar */
-.top-nav{
-padding:10px 15px;
-flex-direction:row;
-}
-
-.top-nav ul{
-  gap:10px;
-  flex-wrap:nowrap;   
-  overflow-x:auto;   
-}
-
-/* logo smaller */
-.logo img{
-width:60px;
-}
-
-/* main content */
-.main{
-padding:30px 20px;
-margin:120px auto 40px;
-width:95%;
-}
-
-/* title */
-.main h1{
-font-size:24px;
-}
-
-/* paragraph */
-.main p{
-font-size:14px;
-}
-
-/* about section */
-.about-section{
-padding:25px 20px;
-margin:20px auto;
-width:95%;
-}
-
-.about-section h2{
-font-size:22px;
-}
-
-/* feature boxes */
-.features{
-grid-template-columns:1fr;
-gap:15px;
-}
-
-.feature-box{
-max-width:100%;
-height:180px;
-}
-body {
-  overflow-x: hidden;
-}
-
-* {
-}
-@media (max-width:768px){
-
-/* navbar */
-.top-nav{
-  width:95%;
-  padding:10px;
-  flex-direction:row;
-}
-
-.top-nav ul{
-  gap:10px;
-  overflow-x:auto;
-}
-
-/* logo */
-.logo img{
-  width:60px;
-}
-
-/* main */
-.main{
-  padding:25px 15px;
-  margin:100px auto 30px;
-  width:100%;
-  max-width:900px;
-}
-
-/* text */
-.main h1{
-  font-size:22px;
-}
-
-.main p{
-  font-size:14px;
-}
-
-/* about */
-.about-section{
-  padding:20px;
-  width:95%;
-}
-
-/* features */
-.feature-box{
-  height:160px;
-}
-
-}
-}
-/* ========================================================= */
-/* إضافات الموبايل (Responsive) للصفحة الرئيسية (Home) */
-/* ========================================================= */
-@media (max-width: 768px) {
-  body {
-    padding: 10px 0;
-  }
-
-  /* تظبيط شريط التنقل العلوي (الناف بار) */
-  .top-nav {
-    width: 95%;
-    height: auto; /* بيلغي الارتفاع الثابت عشان يستوعب العناصر لما تنزل تحت بعض */
-    flex-direction: column;
-    padding: 15px 10px;
-    gap: 15px;
-    margin-top: 10px;
-  }
-
-  /* تظبيط الروابط والزراير جوه الناف بار */
-  .top-nav > div, 
-  .top-nav nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    text-align: center;
-  }
-
-  /* تظبيط النصوص الرئيسية */
-  .hero-section, 
-  .hero-text {
-    padding: 20px 10px;
-    text-align: center;
-  }
-
-  .hero-text h1 {
-    font-size: 26px; /* تصغير الخط شوية عشان يناسب شاشة الموبايل */
-  }
-
-  /* تظبيط المربعات بتاعة المميزات (الكروت اللي تحت) */
-  .features-container,
-  .features-wrapper {
-    display: flex;
-    flex-direction: column; /* بيخلي الكروت تنزل تحت بعض بدل جنب بعض */
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
-    width: 100%;
-  }
-
-  .feature-box {
-    width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
-  }
+    html{
+  scroll-behavior: smooth;
 }
   </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head>
+</head>
 <body>
-  <!-- Top Navbar -->
-<nav class="navbar navbar-expand bg-light">
-  <div class="container">
 
-    <a class="navbar-brand" href="home.html">
-      <!-- <img src="image/Picsart_25-10-01_17-11-01-636.png" width="50"> -->
-    </a>
+  <!-- NAV -->
+  <nav>
+    <div class="logo"><span>⬡</span> AGRI PAY</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <a href="login.html" class="btn-outline">Login</a>
+      <a href="register.html" class="btn-solid">Sign Up</a>
+    </ul>
+  </nav>
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav ms-auto">
-
-        <li class="nav-item">
-          <a class="nav-link" href="home.html">Home</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact</a>
-        </li>
-
-       <li class="nav-item">
-  <a class="nav-link" href="login.html">Login</a>
-</li>
-
-<li class="nav-item">
-  <a class="btn btn-success ms-lg-2 mt-2 mt-lg-0" href="register.html">
-    Sign Up
-  </a>
-</li>
-
-      </ul>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="eyebrow">Secure · Smart · Simple</p>
+      <h1>Banking built for<br><em>your future</em></h1>
+      <p class="hero-sub">
+        Manage your accounts, transfer money, and control your cards —
+        all from one elegant platform. Protected by advanced encryption,
+        available 24/7.
+      </p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn-solid">Get Started</a>
+       <a href="#features" class="btn-outline">Learn More</a>
+     </div>
     </div>
 
-  </div>
-</nav>
-
-
-    <!-- Main Section -->
-    <div class="main">
-
-      <!-- ✅ About Section Placed Here -->
-      <section class="about-section">
-        <h2>Welcome to Our Online Banking System</h2>
-        <p>This website makes it easy for you to manage your account anytime and anywhere.
-          You can check your balance, view your account details, transfer money,
-          and manage your bank cards with just a few clicks.</p>
-
-        <p>Our platform provides a secure and user-friendly experience designed to make
-          your online banking fast and reliable. With advanced encryption and real-time
-          updates, you can confidently handle your financial activities anytime.</p>
-
-        <p>Easily send and receive money between accounts, pay your bills online, and keep
-          track of every transaction in one place. Your financial management has never
-          been easier or more organized.</p>
-
-        <p>You can also manage your debit and credit cards directly from your account.
-          Activate or deactivate your card, set spending limits, and review card activity instantly.</p>
-
-        <p>Our system is optimized for all devices — whether you’re on your computer,
-          tablet, or phone, you’ll get the same smooth experience with full functionality.</p>
-
-        <p>We prioritize your safety. All your data is protected using the latest cybersecurity
-          measures, ensuring your information remains private and secure.</p>
-          <p style="margin-top:15px; font-weight:500; color:#2f8a64;">
-  This platform is a banking simulation created for educational purposes only and does not represent any real financial institution.
-</p>
-      </section>
-
-      <!-- ✅ Feature Boxes Below -->
-      <div class="features">
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/cyber-security.png" alt="security">
-          </div>
-          <div class="feature-text">
-            <h3>Security</h3>
-            <p>Send money instantly and securely to any account.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/planet-earth.png" alt="Mobility">
-          </div>
-          <div class="feature-text">
-            <h3>Mobility</h3>
-            <p>Check your balance and transaction history anytime.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/debit-card.png" alt="Cards">
-          </div>
-          <div class="feature-text">
-            <h3>Manage Cards</h3>
-            <p>Block or activate cards anytime safely and easily.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/mobile-access.png" alt="Mobile Access">
-          </div>
-          <div class="feature-text">
-            <h3>Mobile Access</h3>
-            <p>Access your account securely from any device.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-            <img src="image/atm-machine.png" alt="ATM">
-          </div>
-          <div class="feature-text">
-            <h3>ATM</h3>
-            <p>Withdraw or deposit money with ease and safety.</p>
-          </div>
-        </div>
-
-        <div class="feature-box">
-          <div class="icon-container">
-<img src="image/technical-support.png" alt="Support">     
-     </div>
-          <div class="feature-text">
-          <h3>Simulation</h3>
-<p>This system is a demo banking experience designed for learning and practice.</p>
-          </div>
-        </div>
+    <div class="hero-right">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="card-preview">
+        <div class="card-chip"></div>
+        <div class="card-number">•••• •••• •••• 4821</div>
+        <div class="card-label">AGRI PAY</div>
       </div>
     </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">2M+</div>
+      <div class="stat-label">Active customers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">99.9%</div>
+      <div class="stat-label">Uptime guaranteed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">256-bit</div>
+      <div class="stat-label">SSL encryption</div>
+    </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- SERVICES -->
+  <section class="services">
+    <p class="section-label">Our Services</p>
+    <div class="services-grid">
+
+      <a class="service-card" href="#">
+        <div class="service-icon">⇄</div>
+        <div class="service-title">Money Transfer</div>
+        <div class="service-desc">Send &amp; receive funds instantly between accounts worldwide.</div>
+      </a>
+
+      <a class="service-card" href="#">
+        <div class="service-icon">▣</div>
+        <div class="service-title">Card Management</div>
+        <div class="service-desc">Activate, freeze, and set spending limits with one tap.</div>
+      </a>
+
+      <a class="service-card" href="#">
+        <div class="service-icon">↗</div>
+        <div class="service-title">Analytics</div>
+        <div class="service-desc">Track spending patterns and manage your budget in real time.</div>
+      </a>
+
+      <a class="service-card" href="#">
+        <div class="service-icon">◎</div>
+        <div class="service-title">Global Access</div>
+        <div class="service-desc">Full functionality across desktop, tablet, and mobile devices.</div>
+      </a>
+
+      <a class="service-card" href="#">
+        <div class="service-icon">⊛</div>
+        <div class="service-title">Security</div>
+        <div class="service-desc">End-to-end encryption with real-time fraud detection.</div>
+      </a>
+
+      <a class="service-card" href="#">
+        <div class="service-icon">◈</div>
+        <div class="service-title">24/7 Support</div>
+        <div class="service-desc">Expert help available whenever you need it, any time.</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header reveal">
+      <p class="eyebrow">Why AGRI PAY </p>
+      <h2>Everything you need,<br><em>nothing you don't</em></h2>
+      <p>A platform built around clarity, speed, and security — designed to make your financial life effortless.</p>
+    </div>
+
+    <div class="features-row">
+      <div class="feature-visual reveal reveal-delay-1">💳</div>
+      <div class="feature-text reveal reveal-delay-2">
+        <p class="feature-tag">Smart Cards</p>
+        <h3>Full control over your cards, instantly</h3>
+        <p>Manage all your debit and credit cards from a single dashboard. Activate, freeze, or set custom limits in seconds — no need to call the bank.</p>
+        <ul class="feature-list">
+          <li>Instant card freeze & unfreeze</li>
+          <li>Custom spending limits per category</li>
+          <li>Real-time transaction notifications</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="features-row reverse">
+      <div class="feature-visual reveal reveal-delay-1">🔒</div>
+      <div class="feature-text reveal reveal-delay-2">
+        <p class="feature-tag">Bank-Grade Security</p>
+        <h3>Your money is protected around the clock</h3>
+        <p>256-bit SSL encryption, two-factor authentication, and real-time fraud monitoring keep your account safe — always, on every device.</p>
+        <ul class="feature-list">
+          <li>256-bit end-to-end encryption</li>
+          <li>Two-factor authentication (2FA)</li>
+          <li>Automatic fraud detection alerts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="features-row">
+      <div class="feature-visual reveal reveal-delay-1">📊</div>
+      <div class="feature-text reveal reveal-delay-2">
+        <p class="feature-tag">Financial Insights</p>
+        <h3>Understand your money at a glance</h3>
+        <p>Visual reports and spending breakdowns help you stay on top of your finances, plan ahead, and hit your savings goals faster.</p>
+        <ul class="feature-list">
+          <li>Monthly spending summaries</li>
+          <li>Category-based budget tracking</li>
+          <li>Savings goals with progress tracking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-header reveal">
+      <p class="eyebrow">Support</p>
+      <h2>Frequently <em>Asked Questions</em></h2>
+      <p>Can't find what you're looking for? Reach out to our 24/7 support team.</p>
+    </div>
+
+    <div class="faq-list reveal reveal-delay-1">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I open an account?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Opening an account takes less than 5 minutes. Click "Sign Up", fill in your basic details, verify your identity, and you're ready to go. No paperwork, no branch visits required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is my money safe with AGRI PAY?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Absolutely. All data is protected with 256-bit SSL encryption, and every account is secured with two-factor authentication. Our real-time fraud detection system monitors your account 24/7.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I transfer money between accounts?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Log in to your dashboard, go to "Money Transfer", select the source and destination accounts, enter the amount, and confirm. Transfers between AGRI PAY accounts are instant and free.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I manage multiple cards from one account?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes. You can link and manage multiple debit and credit cards from your dashboard. Freeze, set spending limits, or view activity for each card individually.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is the mobile experience the same as desktop?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes — our platform is fully responsive. Whether you're on a phone, tablet, or desktop, you get the same full-featured experience with no compromises.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand reveal">
+        <span class="logo">⬡  AGRI PAY</span>
+        <p>A secure, elegant online banking platform built to make your financial life simpler and smarter.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#" title="Twitter">𝕏</a>
+          <a class="social-btn" href="#" title="LinkedIn">in</a>
+          <a class="social-btn" href="#" title="Instagram">◎</a>
+        </div>
+      </div>
+
+      <div class="footer-col reveal reveal-delay-1">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Mobile App</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col reveal reveal-delay-2">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col reveal reveal-delay-3">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 AGRI PAY. All rights reserved.</p>
+      <p class="footer-disclaimer">This platform is a banking simulation created for educational purposes only and does not represent any real financial institution.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── FAQ Toggle ── */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── Scroll Reveal ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ── Hero immediate reveal ── */
+    document.querySelectorAll('.hero .reveal, .stats .reveal').forEach(el => {
+      el.classList.add('visible');
+    });
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/transitions.js"></script>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-

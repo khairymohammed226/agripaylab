@@ -35,21 +35,34 @@ function startWithdrawTimer(durationInSeconds) {
 
     if (timeLeft < 0) {
 
-      otpActive = false;
+  otpActive = false;
 
-      generateBtn.disabled = false;
+  clearInterval(withdrawInterval);
 
-      clearInterval(withdrawInterval);
+  generateBtn.disabled = false;
 
-      timerElement.textContent = "OTP expired ❌";
+  // ❌ حذف السيشن
+  sessionStorage.removeItem("atmSession");
 
-      resendBtn.classList.remove("hidden");
+  // ❌ اخفاء رسالة الـ OTP
+  const msg = document.getElementById("atmMessage");
 
-      timerElement.style.color = "#e74c3c";
+  msg.className = "atm-message";
 
-      timerElement.style.background =
-        "rgba(231, 76, 60, 0.1)";
-    }
+  msg.textContent = "";
+
+  // ✅ اظهار رسالة انتهاء
+  timerElement.textContent = "OTP expired ❌";
+
+  timerElement.style.color = "#e74c3c";
+
+  timerElement.style.background =
+    "rgba(231, 76, 60, 0.1)";
+
+  // ✅ اظهار زرار الريسند
+  resendBtn.classList.remove("hidden");
+
+}
 
   }, 1000);
 }
@@ -80,17 +93,30 @@ function startDepositTimer(durationInSeconds) {
 
     if (timeLeft < 0) {
 
-      depositBtn.disabled = false;
+  clearInterval(depositInterval);
 
-      clearInterval(depositInterval);
+  depositBtn.disabled = false;
 
-      depositTimer.textContent = "OTP expired ❌";
+  // ❌ حذف الـ session
+  sessionStorage.removeItem("depositSession");
 
-      depositTimer.style.color = "#e74c3c";
+  // ❌ اخفاء رسالة الـ OTP
+  const msg = document.getElementById("depositMessage");
+  msg.className = "atm-message";
+  msg.textContent = "";
 
-      depositTimer.style.background =
-        "rgba(231, 76, 60, 0.1)";
-    }
+  // ✅ اظهار انتهاء الوقت
+  depositTimer.textContent = "OTP expired ❌";
+
+  depositTimer.style.color = "#e74c3c";
+
+  depositTimer.style.background =
+    "rgba(231, 76, 60, 0.1)";
+
+  // ✅ اظهار زرار الريسند
+  depositResendBtn.classList.remove("hidden");
+
+}
 
   }, 1000);
 }
@@ -105,10 +131,7 @@ if (resendBtn) {
 otpActive = true;
 generateBtn.disabled = true;
     
-console.log("Deposit Data:", {
-  amount,
-  userId: currentUser?._id
-});
+
     try {
       const res = await fetch(`https://www.agripaylab.online/atm/generate-otp`, {
         method: "POST",
@@ -251,7 +274,11 @@ function showATMMessage(text, type) {
 function showDepositMessage(text, type) {
   const msg = document.getElementById("depositMessage");
   if (!msg) return;
-
+sessionStorage.setItem("depositSession", JSON.stringify({
+  otp: data.otp,
+  amount: amount,
+  createdAt: Date.now()
+}));
   msg.textContent = text;
   msg.className = "atm-message " + type + " show";
 
@@ -503,7 +530,7 @@ if (depositResendBtn) {
       );
 
       depositResendBtn.classList.add("hidden");
-      
+
       startDepositTimer(300);
 
     } catch {

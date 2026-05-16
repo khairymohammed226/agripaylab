@@ -368,10 +368,32 @@ transactionType.addEventListener("change", () => {
 
         const data = await res.json();
 
-        if (!res.ok) {
-          showATMMessage(data.message || "Error", "error");
-          return;
-        }
+       if (!res.ok) {
+
+  // ⛔ cancelled
+  if (
+    data.message &&
+    data.message.includes("cancelled")
+  ) {
+
+    sessionStorage.removeItem("atmSession");
+
+    otpMessage.innerHTML = "";
+    otpTimer.innerHTML = "";
+
+    resendOtpBtn.style.display = "none";
+
+    showMessage(
+      "Transaction cancelled ⛔ OTP generation blocked for 30 minutes",
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(data.message || "Error ❌", "error");
+  return;
+}
 
 
         // 🟢 عرض OTP

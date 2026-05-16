@@ -216,9 +216,31 @@ router.post("/withdraw", async (req, res) => {
       expiresAt: { $gt: new Date() }
     });
 
-    if (!otpDoc) {
-      return res.status(400).json({ message: "OTP expired or invalid ❌" });
-    }
+   if (!otpDoc) {
+
+  const cancelledOtp = await Otp.findOne({
+    userId,
+    atmCode,
+    cancelled: true,
+    blockedUntil: { $gt: new Date() }
+  });
+
+  if (cancelledOtp) {
+
+    const remainingBlock = Math.floor(
+      (new Date(cancelledOtp.blockedUntil) - new Date()) / 60000
+    );
+
+    return res.status(400).json({
+      message:
+        `Transaction cancelled ⛔ OTP blocked for ${remainingBlock} minutes`
+    });
+  }
+
+  return res.status(400).json({
+    message: "OTP expired or invalid ❌"
+  });
+}}
 
     const isOtpValid = await bcrypt.compare(otp, otpDoc.otpHash);
     if (!isOtpValid) {

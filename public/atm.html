@@ -124,9 +124,12 @@ if (sessionStorage.getItem("isLoggedIn") !== "true") {
   <button id="generateDepositOtp" class="otp-btn">
     Generate Deposit OTP
   </button>
-
   <div id="depositMessage" class="atm-message"></div>
+<p id="depositTimer" style="margin-top:10px; font-weight:bold;"></p>
 
+<button id="depositResendOtp" class="hidden resend-btn">
+  Resend Deposit OTP
+</button>
   <!-- 🔥 الزرار اللي ناقص -->
   <button id="goToDepositAtmBtn" style="display:none; margin-top:10px;">
   Go to ATM 🏧

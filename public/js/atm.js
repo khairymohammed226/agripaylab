@@ -9,33 +9,89 @@ if (!currentUser) {
   return;
 }
 let otpActive = false;
-  let timerInterval;
-function startOtpTimer(durationInSeconds) {
+
+// =========================
+// WITHDRAW TIMER
+// =========================
+let withdrawInterval;
+
+function startWithdrawTimer(durationInSeconds) {
+
   let timeLeft = durationInSeconds;
 
   const timerElement = document.getElementById("otpTimer");
 
-  clearInterval(timerInterval);
-  
+  clearInterval(withdrawInterval);
 
-  timerInterval = setInterval(() => {
+  withdrawInterval = setInterval(() => {
+
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    timerElement.textContent = `Valid for: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    timerElement.textContent =
+      `Valid for: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
     timeLeft--;
+
     if (timeLeft < 0) {
+
       otpActive = false;
-generateBtn.disabled = false;
-      clearInterval(timerInterval);
+
+      generateBtn.disabled = false;
+
+      clearInterval(withdrawInterval);
+
       timerElement.textContent = "OTP expired ❌";
-        resendBtn.classList.remove("hidden"); // 👈 هنا
 
-timerElement.style.color = "#e74c3c"; // أحمر
-timerElement.style.background = "rgba(231, 76, 60, 0.1)";
+      resendBtn.classList.remove("hidden");
 
+      timerElement.style.color = "#e74c3c";
 
+      timerElement.style.background =
+        "rgba(231, 76, 60, 0.1)";
     }
+
+  }, 1000);
+}
+
+// =========================
+// DEPOSIT TIMER
+// =========================
+let depositInterval;
+
+function startDepositTimer(durationInSeconds) {
+
+  let timeLeft = durationInSeconds;
+
+  const depositTimer =
+    document.getElementById("depositTimer");
+
+  clearInterval(depositInterval);
+
+  depositInterval = setInterval(() => {
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    depositTimer.textContent =
+      `Valid for: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    timeLeft--;
+
+    if (timeLeft < 0) {
+
+      depositBtn.disabled = false;
+
+      clearInterval(depositInterval);
+
+      depositTimer.textContent = "OTP expired ❌";
+
+      depositTimer.style.color = "#e74c3c";
+
+      depositTimer.style.background =
+        "rgba(231, 76, 60, 0.1)";
+    }
+
   }, 1000);
 }
   const atmCodeInput = document.getElementById("atmCode");
@@ -85,7 +141,7 @@ sessionStorage.setItem("atmSession", JSON.stringify({
   createdAt: Date.now()
 }));
       // 🔁 يبدأ timer من جديد
-      startOtpTimer(300);
+      startWithdrawTimer(300);
 
     } catch {
       showATMMessage("Server error", "error");
@@ -166,7 +222,7 @@ if (session) {
 
     showATMMessage("Your OTP is: " + session.otp, "success");
 
-    startOtpTimer(remainingTime); // 👈 بدل 300
+    startWithdrawTimer(remainingTime); // 👈 بدل 300
   } else {
    sessionStorage.removeItem("atmSession");
   }
@@ -297,7 +353,7 @@ sessionStorage.setItem("atmSession", JSON.stringify({
   createdAt: Date.now()
 }));
 resendBtn.classList.add("hidden");
-          startOtpTimer(300);
+          startWithdrawTimer(300);
          
       } catch (err) {
         console.error(err);
@@ -307,12 +363,14 @@ resendBtn.classList.add("hidden");
   }
 // 🟢 Deposit OTP
 const depositBtn = document.getElementById("generateDepositOtp");
+const depositResendBtn =
+  document.getElementById("depositResendOtp");
 const depositAmountInput = document.getElementById("depositAmount");
 const depositSession = JSON.parse(
   sessionStorage.getItem("depositSession")
 );
 
-const depositTimer = document.getElementById("otpTimer");
+const depositTimer = document.getElementById("depositTimer");
 
 if (depositSession) {
 
@@ -336,7 +394,7 @@ if (depositSession) {
       "goToDepositAtmBtn"
     ).style.display = "block";
 
-    startOtpTimer(remainingTime);
+    startDepositTimer(remainingTime);
 
   } else {
 
@@ -396,7 +454,7 @@ if (!res.ok) {
       showDepositMessage("Deposit OTP: " + data.otp, "success");
       depositBtn.disabled = true;
 
-startOtpTimer(300);
+startDepositTimer(300);
 document.getElementById("goToDepositAtmBtn").style.display = "block";
       sessionStorage.setItem("depositSession", JSON.stringify({
         otp: data.otp,
@@ -409,6 +467,53 @@ document.getElementById("goToDepositAtmBtn").style.display = "block";
     }
 
   });
+}
+if (depositResendBtn) {
+
+  depositResendBtn.addEventListener("click", async () => {
+
+    const amount = Number(depositAmountInput.value);
+
+    try {
+
+      const res = await fetch(
+        `https://www.agripaylab.online/atm/generate-deposit-otp`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            amount,
+            userId: currentUser._id
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showDepositMessage(data.message, "error");
+        return;
+      }
+
+      showDepositMessage(
+        "Deposit OTP: " + data.otp,
+        "success"
+      );
+
+      depositResendBtn.classList.add("hidden");
+      
+      startDepositTimer(300);
+
+    } catch {
+
+      showDepositMessage("Server error", "error");
+
+    }
+
+  });
+
 }
   // 🟢 Logout
   const logoutBtn = document.getElementById("logoutBtn");

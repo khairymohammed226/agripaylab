@@ -382,13 +382,8 @@ if (depositBtn) {
     "goToDepositAtmBtn"
   ).style.display = "block";
 
-  sessionStorage.setItem("depositSession", JSON.stringify({
-    amount: data.amount,
-    createdAt: Date.now(),
-    remainingTime: data.remainingTime
-  }));
+  
 
-  startOtpTimer(data.remainingTime);
 
   return;
 }

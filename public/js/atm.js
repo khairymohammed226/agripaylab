@@ -378,12 +378,10 @@ transactionType.addEventListener("change", () => {
 
     sessionStorage.removeItem("atmSession");
 
-    otpMessage.innerHTML = "";
-    otpTimer.innerHTML = "";
+    document.getElementById("atmMessage").textContent = "";
+document.getElementById("otpTimer").textContent = "";
 
-    resendOtpBtn.style.display = "none";
-
-    showMessage(
+showATMMessage(
       "Transaction cancelled ⛔ OTP generation blocked for 30 minutes",
       "error"
     );

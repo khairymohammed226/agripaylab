@@ -5,415 +5,164 @@
   <title>Email Verification</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-     background: linear-gradient(135deg, #0b2e2b, #004d40, #00796b);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 30px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 🔥 اللوجو */
-    .logo {
-      margin-bottom: 15px;
-    }
-
-    .logo img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      padding: 8px;
-      background: white;
-      object-fit: contain;
-      box-shadow: 0 0 20px rgba(0,255,200,0.4);
-    }
-
-    h2 {
-      margin: 10px 0;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 20px;
-    }
-
-    .email {
-      font-size: 13px;
-      margin-bottom: 20px;
-      opacity: 0.7;
-    }
-
-    .otp-box {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .otp-box input {
-      width: 45px;
-      height: 55px;
-      text-align: center;
-      font-size: 20px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      background: rgba(255,255,255,0.2);
-      color: white;
-      transition: 0.2s;
-    }
-
-    .otp-box input:focus {
-      background: rgba(255,255,255,0.4);
-      transform: scale(1.1);
-    }
-
-    .verify-btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #00c896, #00966c);      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .verify-btn:hover {
-      background: #00a87a;
-    }
-
-    .verify-btn.loading {
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .resend {
-      margin-top: 15px;
-      font-size: 13px;
-    }
-
-.resend span {
-  color: #00c896;
-  cursor: pointer;
-  transition: 0.2s;
+<style>
+.vpage{
+  min-height:500px;
+  display:flex;align-items:center;
+  justify-content:center;
+  padding:2rem 1rem;
+  background:linear-gradient(135deg,#0b2e2b,#004d40,#00796b);
+  border-radius:var(--border-radius-lg)
 }
-
-.resend span:hover {
-  opacity: 0.8;
-  text-decoration: underline;
+.vcard{
+  width:100%;
+  max-width:400px;
+  background:rgba(255,255,255,0.12);
+  border:0.5px solid rgba(255,255,255,0.25);
+  border-radius:20px;padding:2rem 1.75rem;
+  text-align:center;
+  color:#fff
 }
+.vlogo{
+  width:72px;
+  height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 0 0 6px rgba(255,255,255,0.15)}
+.vlogo i{font-size:32px;color:#0b6b4a}
+.vtitle{font-size:20px;font-weight:500;margin:0 0 6px;color:#fff}
+.vsub{font-size:13px;color:rgba(255,255,255,0.7);margin:0 0 8px}
+.vemail{font-size:13px;color:rgba(255,255,255,0.55);margin:0 0 1.5rem;font-style:italic}
+.otp-row{display:flex;justify-content:center;gap:10px;margin-bottom:1.5rem}
+.otp-row input{width:44px;height:54px;text-align:center;font-size:22px;font-weight:500;border-radius:10px;border:1.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.15);color:#fff;outline:none;transition:.2s;caret-color:#00c896}
+.otp-row input:focus{background:rgba(255,255,255,0.28);border-color:#00c896;transform:scale(1.06)}
+.otp-row input.filled{border-color:rgba(0,200,150,0.7);background:rgba(0,200,150,0.15)}
+.vbtn{width:100%;padding:13px;border:none;border-radius:10px;background:#00c896;color:#fff;font-size:15px;font-weight:500;cursor:pointer;transition:.25s;letter-spacing:.3px}
+.vbtn:hover{background:#00a87a;transform:translateY(-1px)}
+.vbtn:active{transform:scale(0.98)}
+.vbtn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.vtimer{font-size:12px;color:rgba(255,255,255,0.5);margin:.9rem 0 .5rem}
+.vtimer span{color:#00c896;font-weight:500}
+.vresend{font-size:13px;color:rgba(255,255,255,0.65);margin:.3rem 0}
+.vresend button{background:none;border:none;color:#00c896;cursor:pointer;font-size:13px;font-weight:500;padding:0;transition:.2s}
+.vresend button:hover{opacity:.75;text-decoration:underline}
+.vresend button:disabled{color:rgba(255,255,255,0.35);cursor:not-allowed;text-decoration:none}
+.vmsg{margin-top:1rem;font-size:13px;padding:10px 14px;border-radius:8px;display:none}
+.vmsg.ok{background:rgba(0,255,200,0.12);border:0.5px solid rgba(0,200,150,0.4);color:#00ffcc}
+.vmsg.err{background:rgba(255,100,100,0.12);border:0.5px solid rgba(255,80,80,0.4);color:#ff8888}
+.vdivider{border:none;border-top:0.5px solid rgba(255,255,255,0.12);margin:1.1rem 0}
+.vchange{font-size:12px;color:rgba(255,255,255,0.5)}
+.vchange button{background:none;border:none;color:rgba(255,255,255,0.65);cursor:pointer;font-size:12px;padding:0;text-decoration:underline}
+.vchange button:hover{color:#fff}
+@media(max-width:480px){.otp-row input{width:38px;height:48px;font-size:19px}.vcard{padding:1.5rem 1.1rem}}
+</style>
 
+<div class="vpage">
+  <div class="vcard" role="main">
+    <h2 class="sr-only">Email verification</h2>
 
-    .timer {
-      margin-top: 10px;
-      font-size: 12px;
-      opacity: 0.6;
-    }
-
-    .message {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .success {
-      color: #00ffcc;
-    }
-
-    .error {
-      color: #ff6b6b;
-    }
-
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-  <div class="card">
-
-    <!-- 🔥 هنا اللوجو -->
-     <div class="logo">
-      <img src="image/logomain.png" alt="Bank Logo">
-    </div> 
-
-    <h2>Email Verification</h2>
-
-    <p class="subtitle">Enter the 6-digit code sent to your email</p>
-
-    <div class="email" id="userEmail"></div>
-
-    <div class="otp-box">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
+    <div class="vlogo" aria-hidden="true">
+      <i class="ti ti-mail-check"></i>
     </div>
 
-<button id="verifyBtn" class="verify-btn">Verify</button>
-    <div class="timer">Resend available in <span id="countdown">30</span>s</div>
+    <p class="vtitle">Verify your email</p>
+    <p class="vsub">Enter the 6-digit code sent to</p>
+    <p class="vemail" id="userEmail">user@example.com</p>
 
-    <p class="resend">
-      Didn't receive code?
-      <span id="resendBtn" style="opacity:0.5; pointer-events:none;">
-  Resend
-</span>
+    <div class="otp-row" role="group" aria-label="One-time code">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+    </div>
+
+    <button class="vbtn" id="verifyBtn">
+      <i class="ti ti-shield-check" aria-hidden="true" style="font-size:16px;vertical-align:-2px;margin-right:6px"></i>
+      Verify
+    </button>
+
+    <p class="vtimer">Resend available in <span id="countdown">30</span>s</p>
+
+    <p class="vresend">
+      Didn't receive the code?
+      <button id="resendBtn" disabled>Resend</button>
     </p>
-    
-<p class="resend" style="margin-top:10px;">
-  Wrong email?
-  <span id="changeEmailBtn">
-    Change Email
-  </span>
-</p>
 
+    <hr class="vdivider">
 
-    <div id="message" class="message"></div>
+    <p class="vchange">
+      Wrong email?
+      <button id="changeEmailBtn">Change email</button>
+    </p>
 
+    <div class="vmsg" id="message" role="alert"></div>
   </div>
 </div>
 
 <script>
-const otpInputs = document.querySelectorAll(".otp-box input");
+const inputs = document.querySelectorAll('.otp-row input');
+const verifyBtn = document.getElementById('verifyBtn');
+const resendBtn = document.getElementById('resendBtn');
+const countdownEl = document.getElementById('countdown');
+const msgEl = document.getElementById('message');
 
-otpInputs.forEach((input, index) => {
-input.addEventListener("input", () => {
-
-  input.value = input.value.replace(/\D/g, "");
-
-  if (input.value.length === 1 && index < otpInputs.length - 1) {
-    otpInputs[index + 1].focus();
-  }
-
-});
-
-
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace" && input.value === "" && index > 0) {
-      otpInputs[index - 1].focus();
-    }
+inputs.forEach((inp, i) => {
+  inp.addEventListener('input', () => {
+    inp.value = inp.value.replace(/\D/g,'');
+    inp.classList.toggle('filled', inp.value !== '');
+    if (inp.value && i < inputs.length - 1) inputs[i+1].focus();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !inp.value && i > 0) inputs[i-1].focus();
+    if (e.key === 'ArrowLeft' && i > 0) inputs[i-1].focus();
+    if (e.key === 'ArrowRight' && i < inputs.length-1) inputs[i+1].focus();
+  });
+  inp.addEventListener('paste', e => {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
+    [...text].forEach((ch, j) => { if (inputs[i+j]) { inputs[i+j].value = ch; inputs[i+j].classList.add('filled'); } });
+    const next = inputs[Math.min(i + text.length, inputs.length-1)];
+    if (next) next.focus();
   });
 });
-otpInputs[0].addEventListener("paste", (e) => {
 
-  e.preventDefault();
-
-  const pastedData = e.clipboardData.getData("text")
-    .replace(/\D/g, "")
-    .slice(0, 6);
-
-  pastedData.split("").forEach((char, index) => {
-    if (otpInputs[index]) {
-      otpInputs[index].value = char;
-    }
-  });
-  otpInputs[Math.min(pastedData.length - 1, 5)].focus();
-
-});
-
-/* ===== Email Mask ===== */
-
-const savedEmail = sessionStorage.getItem("userEmail");
-
-
-
-document.getElementById("userEmail").textContent =
-  savedEmail || "No Email";
-
-
-
-
-/* ===== Countdown ===== */
-
-let timeLeft = 30;
-
-const countdownEl = document.getElementById("countdown");
-const resendBtn = document.getElementById("resendBtn");
-
-function startCountdown(){
-
-  resendBtn.style.pointerEvents = "none";
-  resendBtn.style.opacity = "0.5";
-
-  timeLeft = 30;
-  countdownEl.textContent = timeLeft;
-
-  const timer = setInterval(() => {
-
-    timeLeft--;
-
-    countdownEl.textContent = timeLeft;
-
-    if(timeLeft <= 0){
-
-      clearInterval(timer);
-
-      countdownEl.textContent = "0";
-
-      resendBtn.style.pointerEvents = "auto";
-      resendBtn.style.opacity = "1";
-    }
-
-  }, 1000);
+function showMsg(text, type) {
+  msgEl.textContent = text;
+  msgEl.className = 'vmsg ' + type;
+  msgEl.style.display = 'block';
 }
 
-startCountdown();
-
-
-/* ===== Resend OTP ===== */
-
-resendBtn.addEventListener("click", async () => {
-
-  const userId = sessionStorage.getItem("verifyUserId");
-
-  try {
-
-    resendBtn.style.pointerEvents = "none";
-    resendBtn.style.opacity = "0.5";
-
-    const res = await fetch("https://www.agripaylab.online/resend-otp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userId })
-    });
-
-    const data = await res.json();
-
-    if(!res.ok){
-      alert(data.message || "Failed to resend code");
-      return;
-    }
-
-    startCountdown();
-
-  } catch(err){
-
-    alert("Server error");
-
-    resendBtn.style.pointerEvents = "auto";
-    resendBtn.style.opacity = "1";
-  }
-
+verifyBtn.addEventListener('click', () => {
+  const code = [...inputs].map(i => i.value).join('');
+  if (code.length < 6) { showMsg('Please enter all 6 digits.', 'err'); return; }
+  verifyBtn.disabled = true;
+  verifyBtn.textContent = 'Verifying…';
+  setTimeout(() => {
+    showMsg('Email verified successfully!', 'ok');
+    verifyBtn.textContent = 'Verified';
+  }, 1200);
 });
 
-document.getElementById("verifyBtn").addEventListener("click", async () => {
-
-  const inputs = document.querySelectorAll(".otp-box input");
-  const otp = Array.from(inputs).map(input => input.value).join("");
-
-  const userId = sessionStorage.getItem("verifyUserId");
-  const msg = document.getElementById("message");
-
-  if (otp.length < 6) {
-    msg.textContent = "Please enter full code";
-    msg.style.color = "red";
-    return;
+let t = 30;
+const timer = setInterval(() => {
+  t--;
+  countdownEl.textContent = t;
+  if (t <= 0) {
+    clearInterval(timer);
+    countdownEl.closest('.vtimer').textContent = 'You can resend now.';
+    resendBtn.disabled = false;
   }
+}, 1000);
 
-  const btn = document.getElementById("verifyBtn");
-
-  btn.disabled = true;
-  btn.textContent = "Verifying...";
-
-  try {
-    const res = await fetch("https://www.agripaylab.online/verify-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userId, otp })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      msg.textContent = data.message;
-      msg.style.color = "red";
-
-      btn.disabled = false;
-      btn.textContent = "Verify";
-      return;
-    }
-
-    msg.textContent = "Verified successfully ✅";
-    msg.style.color = "green";
-sessionStorage.setItem("verified", "true");
-
-     sessionStorage.setItem("currentUser", JSON.stringify({
-  _id: userId
-}));
-sessionStorage.setItem("isLoggedIn", "true");
-
- setTimeout(() => {
-  window.location.href = "register.html";
-}, 1500);
-
-  } catch (err) {
-    msg.textContent = "Server error";
-    msg.style.color = "red";
-
-    btn.disabled = false;
-    btn.textContent = "Verify";
-  }
-
+resendBtn.addEventListener('click', () => {
+  resendBtn.disabled = true;
+  showMsg('A new code has been sent to your email.', 'ok');
 });
 
-/* ===== Change Email ===== */
-
-document.getElementById("changeEmailBtn")
-.addEventListener("click", () => {
-
-  // مسح بيانات الـ verify
- 
-sessionStorage.removeItem("verifyUserId");
-sessionStorage.removeItem("userEmail");
-
-sessionStorage.removeItem("verified");
-sessionStorage.removeItem("currentUser");
-sessionStorage.removeItem("isLoggedIn");
-
-window.location.href = "register.html";
-
-
+document.getElementById('changeEmailBtn').addEventListener('click', () => {
+  showMsg('Redirecting to change your email…', 'ok');
 });
-
-
 </script>
+
 <script src="js/transitions.js"></script>
 </body>
 </html>

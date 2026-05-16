@@ -180,7 +180,7 @@ async function sendWithdrawalAlertEmail(
   try {
 
     const cancelUrl =
-      `https://www.agripaylab.online/atm/cancel-otp/${otpId}`;
+      href="https://www.agripaylab.online/api/atm/cancel-otp/${otpId}"
 
     await resend.emails.send({
 

@@ -396,19 +396,28 @@ sessionStorage.setItem("isLoggedIn", "true");
 /* ===== Change Email ===== */
 
 document.getElementById("changeEmailBtn")
-.addEventListener("click", () => {
+.addEventListener("click", async () => {
 
-  // مسح بيانات الـ verify
- 
-sessionStorage.removeItem("verifyUserId");
-sessionStorage.removeItem("userEmail");
+  const userId = sessionStorage.getItem("verifyUserId");
 
-sessionStorage.removeItem("verified");
-sessionStorage.removeItem("currentUser");
-sessionStorage.removeItem("isLoggedIn");
+  try {
 
-window.location.href = "register.html";
+    await fetch(`https://www.agripaylab.online/delete-unverified-user/${userId}`, {
+      method: "DELETE"
+    });
 
+  } catch(err) {
+    console.log("Delete failed");
+  }
+
+  // مسح الـ session
+  sessionStorage.removeItem("verifyUserId");
+  sessionStorage.removeItem("userEmail");
+  sessionStorage.removeItem("verified");
+  sessionStorage.removeItem("currentUser");
+  sessionStorage.removeItem("isLoggedIn");
+
+  window.location.href = "register.html";
 
 });
 

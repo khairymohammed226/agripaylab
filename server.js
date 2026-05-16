@@ -330,7 +330,47 @@ app.post("/resend-otp", async (req, res) => {
   }
 
 });
+/* ===== DELETE UNVERIFIED USER ===== */
 
+app.delete("/delete-unverified-user/:id", async (req, res) => {
+
+  try {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    // ❌ امنع حذف الحسابات المفعلة
+    if (user.isVerified) {
+
+      return res.status(400).json({
+        message: "Verified users cannot be deleted"
+      });
+
+    }
+
+    // 🗑 حذف المستخدم
+    await User.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "User deleted successfully"
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+});
      
     // -------- Login --------
     app.post("/login", async (req, res) => {

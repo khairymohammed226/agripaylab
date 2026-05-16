@@ -240,7 +240,7 @@ router.post("/withdraw", async (req, res) => {
   return res.status(400).json({
     message: "OTP expired or invalid ❌"
   });
-}}
+}
 
     const isOtpValid = await bcrypt.compare(otp, otpDoc.otpHash);
     if (!isOtpValid) {
@@ -301,6 +301,7 @@ router.post("/withdraw", async (req, res) => {
     res.status(500).json({ message: "Server error ❌" });
   }
 });
+
 router.post("/verify-deposit-otp", async (req, res) => {
   try {
     const { otp } = req.body;
